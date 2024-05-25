@@ -1,0 +1,3 @@
+export const EFFECT_LOADING = {
+  CHECK_AUTH: 'CHECK_AUTH'
+}
