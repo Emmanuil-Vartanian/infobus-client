@@ -2,4 +2,11 @@
 body {
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body,
+#root,
+.App {
+  height: 100vh;
 }

@@ -1,12 +1,16 @@
-// import { combineReducers } from 'redux'
+import { combineReducers } from 'redux'
 import { persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import appReducer from 'containers/App/store/reducers'
-
 import authReducer from 'pages/Login/store/reducers'
+import dictionariesReducer from 'containers/Dictionaries/store/reducers'
+import tripsReducer from 'pages/TripSearch/store/reducers'
 
-// const entitiesReducer = combineReducers({})
+const entitiesReducer = combineReducers({
+  dictionaries: dictionariesReducer,
+  trips: tripsReducer
+})
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +23,7 @@ const createRootReducer = routerReducer =>
     auth: authReducer,
     router: routerReducer,
     app: appReducer,
-    entities: {}
+    entities: entitiesReducer
   })
 
 export default createRootReducer

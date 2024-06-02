@@ -24,7 +24,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 // app.use(express.json());
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: "50mb" }));
 app.use(express.static("public"));
 
 app.use("/api/auth", authRouter);
@@ -40,18 +40,17 @@ app.use("/api/transports", transportsRouter);
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/directions", directionsRouter);
 
-app.get('/', function (req, res) {
-  
-  res.set("Content-Type", 'text/html; charset=utf-8');
-  res.send('<h1>APP is working</h1>')
-})
+app.get("/", function (req, res) {
+  res.set("Content-Type", "text/html; charset=utf-8");
+  res.send("<h1>APP is working</h1>");
+});
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Not found" });
 });
 app.use((err, req, res, next) => {
   const { status, message } = err;
-  console.log('status', status ,'message', message);
+  console.log("status", status, "message", message);
 
   if (!status) status = 500;
 

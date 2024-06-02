@@ -1,5 +1,63 @@
 export default {
-  signIn: {
-    logIn: 'Увійти'
+  pages: {
+    signIn: {
+      loginToAccount: 'Увійти в аккаунт',
+      touristCentre: 'Центр подорожей',
+      bookingSystem: 'Інформаційно-бронювальна система',
+      email: 'Email',
+      password: 'Пароль',
+      logIn: 'Увійти',
+      wrongLoginOrPassword: 'Неправильний логін або пароль'
+    },
+    tripSearch: {
+      departure: 'Місто відправлення',
+      arrival: 'Місто прибуття',
+      search: 'Пошук',
+      foundTrips: 'Знайдено рейсів: :number.',
+      departureDays: 'Дні виїзду',
+      time: 'Час',
+      arrivalDays: 'Дні прибуття',
+      oneWayTicket: 'Квиток в один бік',
+      roundTripTicket: 'Квиток туди і назад',
+      toBook: 'Бронювати',
+      companyName: 'Назва компанії',
+      fullInfo: 'Повна інформація',
+      discounts: 'Знижки',
+      baggage: 'Багаж',
+      route: 'Маршрут',
+      departurePoint: 'Місце відправлення',
+      arrivalLocation: 'Місце прибуття',
+      selectDate: 'Виберіть дату',
+      returnDate: 'Дата повернення',
+      greeting: 'Привітання',
+      lastName: 'Прізвище',
+      firstName: "Ім'я",
+      street: 'Вулиця',
+      postalCode: 'Поштовий індекс',
+      city: 'Місто',
+      phoneNumber: 'Номер телефону',
+      mobilePhoneNumber: 'Номер мобільного телефону',
+      email: 'Email',
+      mister: 'Містер',
+      missusMiss: 'Місіс / Міс',
+      birthDate: 'дд.мм.рррр',
+      passportNumber: 'Номер паспорта',
+      passenger: 'Пасажир',
+      customer: 'Замовник',
+      addPassenger: 'Додати пасажира',
+      price: 'Ціна',
+      book: 'Забронювати',
+      deletePassenger: 'Видалити пасажира',
+      reservationAdded: 'Бронювання успішно додано'
+    }
+  },
+  days: {
+    1: 'Пн',
+    2: 'Вт',
+    3: 'Ср',
+    4: 'Чт',
+    5: 'Пт',
+    6: 'Сб',
+    0: 'Нд'
   }
 }
