@@ -7,7 +7,6 @@ import { logOutUser } from 'pages/Login/store/actions'
 
 export const ApiClient = axios.create({
   baseURL: `${window.location.origin}/`,
-  withCredentials: true,
   paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' })
 })
 
@@ -20,7 +19,7 @@ ApiClient.interceptors.request.use(config => {
       ...config,
       headers: {
         ...config.headers,
-        'X-Auth-Token': token || ''
+        Authorization: 'Bearer ' + token || ''
       }
     }
   } else {

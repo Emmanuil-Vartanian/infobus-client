@@ -1,5 +1,5 @@
 import { createReducer } from 'typesafe-actions'
-import { logOutUser, setCurrentUser } from '../actions'
+import { logOutUser, setCurrentUserToStore } from '../actions'
 
 const initialState = {
   currentUser: {
@@ -13,10 +13,10 @@ const authReducer = createReducer(initialState)
       ...initialState
     }
   })
-  .handleAction(setCurrentUser, (state, { payload }) => {
+  .handleAction(setCurrentUserToStore, (state, { payload }) => {
     return {
       ...state,
-      currentUser: { ...payload }
+      currentUser: payload
     }
   })
 

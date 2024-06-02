@@ -10,19 +10,25 @@ import store, { history } from '../../store'
 import Router from 'router'
 import AuthChecker from './components/AuthChecker'
 import LocalizationProvider from 'components/Providers/LocalizationProvider'
+import ThemeProvider from 'components/Providers/ThemeProvider'
+import SnackbarProvider from 'components/Providers/SnackbarProvider'
 
 const App = () => {
   return (
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <HistoryRouter history={history}>
-          <div className="App">
-            <AuthChecker>
+          <AuthChecker>
+            <ThemeProvider>
               <LocalizationProvider>
-                <Router />
+                <SnackbarProvider>
+                  <div className="App">
+                    <Router />
+                  </div>
+                </SnackbarProvider>
               </LocalizationProvider>
-            </AuthChecker>
-          </div>
+            </ThemeProvider>
+          </AuthChecker>
         </HistoryRouter>
       </PersistGate>
     </Provider>

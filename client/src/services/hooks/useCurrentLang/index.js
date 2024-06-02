@@ -9,7 +9,10 @@ const useCurrentLang = () => {
 
   const currentLang = langOptions?.filter(item => item.value === profileLanguage)[0]
 
-  return { currentLangCode: currentLang.value.toString() }
+  return {
+    currentLangCode: currentLang.value.toString(),
+    currentLangLowerCase: currentLang.value.toLowerCase()
+  }
 }
 
 export default useCurrentLang
