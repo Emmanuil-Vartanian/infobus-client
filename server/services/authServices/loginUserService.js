@@ -32,8 +32,9 @@ const loginUserService = async (req) => {
   // set user data to frontend
   const dataToFrontEnd = {
     name: userWithToken?.name,
+    role: user.role,
     token: userWithToken?.token,
-  }
+  };
 
   return dataToFrontEnd;
 };

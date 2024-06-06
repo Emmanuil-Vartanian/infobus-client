@@ -4,6 +4,9 @@ export const Header = styled('header')`
   background-color: #63060a;
   color: #fff;
   padding: 10px 40px;
+  @media (max-width: 500px) {
+    padding: 10px 20px;
+  }
 `
 
 export const Logo = styled('div')`
@@ -33,6 +36,9 @@ export const LoginToAccount = styled('div')`
     border: 1px solid #fff;
     border-radius: 4px;
   }
+  @media (max-width: 400px) {
+    margin-right: 0px;
+  }
 `
 
 export const TouristCentreBlock = styled('div')`
@@ -46,6 +52,17 @@ export const TouristCentreBlock = styled('div')`
     :first-of-type {
       font-size: 40px;
       margin-bottom: 10px;
+      @media (max-width: 400px) {
+        font-size: 32px;
+      }
     }
+
+    @media (max-width: 400px) {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    padding: 20px 0px 30px;
   }
 `

@@ -1,12 +1,12 @@
-const ObjectId = require('mongodb').ObjectId;
-const { isAvailableArray } = require('../../helpers/data/isAvailableArray');
+const ObjectId = require("mongodb").ObjectId;
+const { isAvailableArray } = require("../../helpers/data/isAvailableArray");
 const { Booking } = require("../../models");
 
 const getBookingByIdService = async (req) => {
   const { bookingId } = req.params;
 
   const res = await Booking.aggregate([
-    { $match: { _id: new ObjectId(bookingId)}},
+    { $match: { _id: new ObjectId(bookingId) } },
     {
       $lookup: {
         from: "trips",
@@ -39,6 +39,19 @@ const getBookingByIdService = async (req) => {
         as: "user_info",
       },
     },
+    {
+      $addFields: {
+        consolidatorId: { $toString: "$consolidator_id" },
+      },
+    },
+    {
+      $lookup: {
+        from: "locations",
+        localField: "consolidatorId",
+        foreignField: "creator_id",
+        as: "locations_info",
+      },
+    },
   ]);
 
   return setDataToFrontEnd(res);
@@ -49,34 +62,69 @@ module.exports = getBookingByIdService;
 function setDataToFrontEnd(res) {
   // return res
 
-  if (!res) return {}
-  const { buch, type, payment_place, departure, arrival, price, createdAt, passengers_list, passengers_contact_tel, carrier_name, creator, agency_info, user_info, trip_info, departure_reverse, arrival_reverse, consolidator_id, reverse_trip_info } = res[0];
-  const { name, commission } = agency_info[0] ?? {}
-  const { user_data } = user_info[0] ?? {}
-  const { invoice_text, ticket_text, points } = trip_info[0] ?? {}
-  const departureAddressForWeek = points?.find(i => i?.city?.de === departure?.city?.de)?.address_for_week;
-  const arrivalAddressForWeek = points?.find(i => i?.city?.de === arrival?.city?.de)?.address_for_week;
+  if (!res) return {};
+  const {
+    buch,
+    type,
+    payment_place,
+    departure,
+    arrival,
+    price,
+    createdAt,
+    passengers_list,
+    passengers_contact_tel,
+    carrier_name,
+    creator,
+    agency_info,
+    user_info,
+    trip_info,
+    departure_reverse,
+    arrival_reverse,
+    consolidator_id,
+    reverse_trip_info,
+    locations_info,
+  } = res[0];
+
+  const { name, commission } = agency_info[0] ?? {};
+  const { user_data } = user_info[0] ?? {};
+  const { invoice_text, ticket_text, points } = trip_info[0] ?? {};
+  const departureAddressForWeek = points?.find(
+    (i) => i?.city?.de === departure?.city?.de
+  )?.address_for_week;
+  const arrivalAddressForWeek = points?.find(
+    (i) => i?.city?.de === arrival?.city?.de
+  )?.address_for_week;
 
   const reverseTripPoints = isAvailableArray(reverse_trip_info)[0]?.points;
-  const reverseDepartureAddressForWeek = reverseTripPoints?.find(i => i?.city?.de === departure_reverse?.city?.de)?.address_for_week
-  const reverseArrivalAddressForWeek = reverseTripPoints?.find(i => i?.city?.de === arrival_reverse?.city?.de)?.address_for_week
- 
+  const reverseDepartureAddressForWeek = reverseTripPoints?.find(
+    (i) => i?.city?.de === departure_reverse?.city?.de
+  )?.address_for_week;
+  const reverseArrivalAddressForWeek = reverseTripPoints?.find(
+    (i) => i?.city?.de === arrival_reverse?.city?.de
+  )?.address_for_week;
+
   const dataToFrontEnd = {
     res: res[0],
     // booking info
     buch,
     type,
     payment_place,
-    departure: {...departure, address_for_week: departureAddressForWeek},
-    arrival: {...arrival, address_for_week: arrivalAddressForWeek},
+    departure: { ...departure, address_for_week: departureAddressForWeek },
+    arrival: { ...arrival, address_for_week: arrivalAddressForWeek },
     price,
     createdAt,
     creator,
     invoice_text,
     ticket_text,
 
-    departure_reverse: {...departure_reverse, address_for_week: reverseDepartureAddressForWeek},
-    arrival_reverse: {...arrival_reverse, address_for_week: reverseArrivalAddressForWeek},
+    departure_reverse: {
+      ...departure_reverse,
+      address_for_week: reverseDepartureAddressForWeek,
+    },
+    arrival_reverse: {
+      ...arrival_reverse,
+      address_for_week: reverseArrivalAddressForWeek,
+    },
 
     // passengers info
     passengers_list,
@@ -86,11 +134,13 @@ function setDataToFrontEnd(res) {
     // agency info
     agency_info: agency_info[0],
     agency_name: name,
-    commission: commission?.find(i => i?.carrier_name === carrier_name)?.value,
+    commission: commission?.find((i) => i?.carrier_name === carrier_name)
+      ?.value,
     // carrier info
     carrier_name,
     consolidator_id,
-  }
-  
+    locations_info,
+  };
+
   return dataToFrontEnd;
 }

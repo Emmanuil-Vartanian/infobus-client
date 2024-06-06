@@ -1,7 +1,7 @@
 import i18n from 'i18n/config'
 import { LANGUAGES } from 'constants/languages'
 import moment from 'moment'
-import { DATE_FORMAT } from 'constants/dateFormat'
+import { DATE_FORMAT_WITH_DAY } from 'constants/dateFormat'
 
 export const getLangOptions = () => {
   const languages = Object.keys(LANGUAGES)
@@ -37,7 +37,7 @@ export const getReservationDatesOptions = (dates, afterDate) => {
   const options = futureDates?.map((item, index) => {
     return {
       id: index,
-      text: moment(item).format(DATE_FORMAT),
+      text: moment(item).format(DATE_FORMAT_WITH_DAY),
       value: item
     }
   })
@@ -46,11 +46,11 @@ export const getReservationDatesOptions = (dates, afterDate) => {
 }
 
 export const getGreetingOptions = () => {
-  const options = ['mister', 'missusMiss'].map((item, index) => {
+  const options = ['mr', 'mrs'].map((item, index) => {
     return {
       id: index,
       text: i18n.t(`pages.tripSearch.${item}`),
-      value: index === 0 ? 'mr' : 'mrs'
+      value: item
     }
   })
 
@@ -62,6 +62,18 @@ export const getDiscountsOptions = discounts => {
     return {
       id: index,
       text: `${item.name[i18n.language]} - ${item.value}%`,
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getPaymentOptions = () => {
+  const options = ['office', 'bus']?.map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`pages.tripSearch.${item}`),
       value: item
     }
   })

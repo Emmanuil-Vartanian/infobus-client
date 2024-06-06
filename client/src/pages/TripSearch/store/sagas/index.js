@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import { DirectionsActionTypes } from '../types'
 import { createReservationAPI, tripSearchAPI, tripSearchForReverseAPI } from '../api'
 import { clearEffectLoading, setEffectLoading } from 'containers/App/store/actions'
@@ -8,6 +8,7 @@ import { v4 } from 'node-uuid'
 import moment from 'moment'
 import { SNACKBAR_TYPES } from 'constants/snackbarTypes'
 import i18n from 'i18n/config'
+import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
 
 export function* tripSearchSaga(action) {
   const data = action.payload
@@ -15,12 +16,14 @@ export function* tripSearchSaga(action) {
   try {
     yield put(setEffectLoading(EFFECT_LOADING.TRIP_SEARCH))
 
+    const token = yield select(getCurrentUserTokenSelector)
+
     const dataForSend = {
       arrival: { city: data.arrival.value },
       departure: { city: data.departure.value }
     }
 
-    const result = yield call(tripSearchAPI, dataForSend)
+    const result = yield call(tripSearchAPI, dataForSend, token)
 
     if (result.status === 200) {
       yield put(setTripsToStore(result.data))
@@ -60,6 +63,8 @@ export function* createReservationSaga(action) {
   try {
     yield put(setEffectLoading(EFFECT_LOADING.CREATE_RESERVATION))
 
+    const token = yield select(getCurrentUserTokenSelector)
+
     const passengersList = []
 
     const numPassengers = Object.keys(data).filter(key =>
@@ -70,7 +75,7 @@ export function* createReservationSaga(action) {
       passengersList.push({
         first_name: data[`passengerFirstName${i}`],
         last_name: data[`passengerLastName${i}`],
-        birth_date: data[`passengerBirthDate${i}`],
+        birth_date: moment(data[`passengerBirthDate${i}`]).toJSON(),
         passport_id: data[`passengerPassportNumber${i}`],
         discount: data[`passengerDiscounts${i}`],
         salutation: data[`passengerGreeting${i}`],
@@ -88,12 +93,28 @@ export function* createReservationSaga(action) {
         }
       : {}
 
+    const userData = !token
+      ? {
+          user_data: {
+            salutation: data.greeting,
+            user_last_name: data.lastName,
+            user_first_name: data.firstName,
+            street: data.street,
+            postal_code: data.postalCode,
+            city: data.city,
+            contact_tel: data.phoneNumber,
+            contact_tel_mobile: data.mobilePhoneNumber,
+            contact_email: data.email
+          }
+        }
+      : {}
+
     const dataForSend = {
       type: ticket.price === ticket.prices.ow_price ? 'ow' : 'rt',
       price: String(ticket.price),
       passengers_list: passengersList,
       passengers_contact_tel: data.mobilePhoneNumber,
-      payment_place: '',
+      payment_place: data.payment_place,
       departure: {
         ...ticket.departure,
         date: data.date
@@ -122,20 +143,10 @@ export function* createReservationSaga(action) {
       trip_id: ticket.trip_id,
       reverse_trip_id: ticket.reverse_trip_id,
       ...reverseDataForSend,
-      user_data: {
-        salutation: data.greeting,
-        user_last_name: data.lastName,
-        user_first_name: data.firstName,
-        street: data.street,
-        postal_code: data.postalCode,
-        city: data.city,
-        contact_tel: data.phoneNumber,
-        contact_tel_mobile: data.mobilePhoneNumber,
-        contact_email: data.email
-      }
+      ...userData
     }
 
-    const result = yield call(createReservationAPI, dataForSend)
+    const result = yield call(createReservationAPI, dataForSend, token)
 
     if (result.status === 200 || result.status === 201) {
       if (typeof enqueueSnackbar === 'function') {

@@ -1,7 +1,16 @@
 export default {
+  common: {
+    today: 'Сьогодні',
+    hi: 'Привіт'
+  },
+  sideBar: {
+    booking: 'Бронювання',
+    searchFlights: 'Пошук рейсів',
+    logOut: 'Вихід'
+  },
   pages: {
     signIn: {
-      loginToAccount: 'Увійти в аккаунт',
+      loginToAccount: 'Увійти',
       touristCentre: 'Центр подорожей',
       bookingSystem: 'Інформаційно-бронювальна система',
       email: 'Email',
@@ -37,9 +46,10 @@ export default {
       city: 'Місто',
       phoneNumber: 'Номер телефону',
       mobilePhoneNumber: 'Номер мобільного телефону',
+      passengerContactPhoneNumber: 'Контактний номер телефону пасажирів',
       email: 'Email',
-      mister: 'Містер',
-      missusMiss: 'Місіс / Міс',
+      mr: 'Містер',
+      mrs: 'Місіс / Міс',
       birthDate: 'дд.мм.рррр',
       passportNumber: 'Номер паспорта',
       passenger: 'Пасажир',
@@ -48,7 +58,28 @@ export default {
       price: 'Ціна',
       book: 'Забронювати',
       deletePassenger: 'Видалити пасажира',
-      reservationAdded: 'Бронювання успішно додано'
+      reservationAdded: 'Бронювання успішно додано',
+      payment: 'Оплата',
+      office: 'У бюро',
+      bus: 'В автобусі'
+    },
+    booking: {
+      createdAt: 'Дата замовлення',
+      departure: 'Місто відправлення',
+      arrival: 'Місто прибуття',
+      departureDate: 'Дата виїзду',
+      time: 'Час',
+      returnDepartureDate: 'Дата виїзду назад',
+      id: 'Id',
+      buch: 'Buch',
+      status: 'Статус',
+      ticket: 'Квиток',
+      carrier: 'Перевізник',
+      statuses: {
+        new: 'Новий'
+      },
+      active: 'Активні',
+      archive: 'Архів'
     }
   },
   days: {

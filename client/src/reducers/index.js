@@ -6,10 +6,12 @@ import appReducer from 'containers/App/store/reducers'
 import authReducer from 'pages/Login/store/reducers'
 import dictionariesReducer from 'containers/Dictionaries/store/reducers'
 import tripsReducer from 'pages/TripSearch/store/reducers'
+import bookingsReducer from 'pages/Bookings/store/reducers'
 
 const entitiesReducer = combineReducers({
   dictionaries: dictionariesReducer,
-  trips: tripsReducer
+  trips: tripsReducer,
+  bookings: bookingsReducer
 })
 
 const persistConfig = {

@@ -3,88 +3,30 @@ const { Direction } = require("../../models");
 const getDirectionsBySearchQueryService = async (req) => {
   const { departure, arrival } = req.body;
 
-  let res = [];
+  const res = await Direction.aggregate([
+    { $match: { active: true } },
+    {
+      $match: {
+        "departure.city.de": departure?.city?.de,
+        "arrival.city.de": arrival?.city?.de,
+      },
+    },
+    {
+      $addFields: {
+        tripObjectId: { $toObjectId: "$trip_id" },
+      },
+    },
+    {
+      $lookup: {
+        from: "trips",
+        localField: "tripObjectId",
+        foreignField: "_id",
+        as: "trip_info",
+      },
+    },
+  ]);
 
-  switch (req?.user?.role) {
-    case "superadmin":
-      res = await Direction.aggregate([
-        { $match: { active: true } },
-        {
-          $match: {
-            "departure.city.de": departure?.city?.de,
-            "arrival.city.de": arrival?.city?.de,
-          },
-        },
-        {
-          $addFields: {
-            tripObjectId: { $toObjectId: "$trip_id" },
-          },
-        },
-        {
-          $lookup: {
-            from: "trips",
-            localField: "tripObjectId",
-            foreignField: "_id",
-            as: "trip_info",
-          },
-        },
-      ]);
-      return setDataToFrontEnd(res);
-
-    case "agency_manager":
-      res = await Direction.aggregate([
-        { $match: { active: true } },
-        { $match: { consolidator_id: req?.user?.consolidator_id } },
-        {
-          $match: {
-            "departure.city.de": departure?.city?.de,
-            "arrival.city.de": arrival?.city?.de,
-          },
-        },
-        {
-          $addFields: {
-            tripObjectId: { $toObjectId: "$trip_id" },
-          },
-        },
-        {
-          $lookup: {
-            from: "trips",
-            localField: "tripObjectId",
-            foreignField: "_id",
-            as: "trip_info",
-          },
-        },
-      ]);
-      return setDataToFrontEnd(res);
-
-    case undefined:
-      res = await Direction.aggregate([
-        { $match: { active: true } },
-        {
-          $match: {
-            "departure.city.de": departure?.city?.de,
-            "arrival.city.de": arrival?.city?.de,
-          },
-        },
-        {
-          $addFields: {
-            tripObjectId: { $toObjectId: "$trip_id" },
-          },
-        },
-        {
-          $lookup: {
-            from: "trips",
-            localField: "tripObjectId",
-            foreignField: "_id",
-            as: "trip_info",
-          },
-        },
-      ]);
-      return setDataToFrontEnd(res);
-
-    default:
-      return [];
-  }
+  return setDataToFrontEnd(res);
 };
 
 module.exports = getDirectionsBySearchQueryService;
