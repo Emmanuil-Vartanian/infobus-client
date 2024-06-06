@@ -1,7 +1,16 @@
 export default {
+  common: {
+    today: 'Heute',
+    hi: 'Hallo'
+  },
+  sideBar: {
+    booking: 'Reservierungen',
+    searchFlights: 'Flugsuche',
+    logOut: 'Ausloggen'
+  },
   pages: {
     signIn: {
-      loginToAccount: 'Einloggen auf das Konto',
+      loginToAccount: 'Einloggen',
       touristCentre: 'Reise Zentrum',
       bookingSystem: 'Informations- und Reservierungssystem',
       email: 'Email',
@@ -37,9 +46,10 @@ export default {
       city: 'Stadt',
       phoneNumber: 'Telefonnummer',
       mobilePhoneNumber: 'Handynummer',
+      passengerContactPhoneNumber: 'Kontakttelefonnummer der Passagiere',
       email: 'Email',
-      mister: 'Herr',
-      missusMiss: 'Frau / Fräulein',
+      mr: 'Herr',
+      mrs: 'Frau / Fräulein',
       birthDate: 'tt.mm.jjjj',
       passportNumber: 'Passnummer',
       passenger: 'Passenger',
@@ -48,7 +58,28 @@ export default {
       price: 'Preis',
       book: 'Reservieren',
       deletePassenger: 'Beifahrer entfernen',
-      reservationAdded: 'Reservierung erfolgreich hinzugefügt'
+      reservationAdded: 'Reservierung erfolgreich hinzugefügt',
+      payment: 'Zahlung',
+      office: 'Im Büro',
+      bus: 'Im Bus'
+    },
+    booking: {
+      createdAt: 'Auftragsdatum',
+      departure: 'Abfahrtstadt',
+      arrival: 'Anreisestadt',
+      departureDate: 'Abfahrtdatum',
+      time: 'Zeit',
+      returnDepartureDate: 'Rückfahrtdatum',
+      id: 'Id',
+      buch: 'Buch',
+      status: 'Status',
+      ticket: 'Ticket',
+      carrier: 'Firma',
+      statuses: {
+        new: 'Neu'
+      },
+      active: 'Aktiv',
+      archive: 'Archiv'
     }
   },
   days: {

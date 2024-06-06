@@ -319,6 +319,55 @@ const themeComponents = {
           }
         }
       }
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          minHeight: '48px !important',
+          paddingLeft: '16px !important',
+          paddingRight: '16px !important',
+          '.MuiButtonBase-root': {
+            marginRight: '12px',
+            marginLeft: '-6px'
+          }
+        }
+      }
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: '30px',
+          marginBottom: '20px'
+        },
+        flexContainer: {
+          '> button': {
+            padding: `12px 24px`,
+            lineHeight: '12px',
+            color: 'grey',
+            fontSize: '12px',
+            minHeight: '30px',
+            backgroundColor: '#fff',
+            marginRight: '15px',
+            borderRadius: '4px'
+          },
+          '.MuiTab-root': {
+            '&.Mui-selected': {
+              color: '#fff',
+              backgroundColor: '#63060a'
+            }
+          }
+        },
+        indicator: {
+          display: 'none'
+        }
+      }
+    },
+    MuiTabPanel: {
+      styleOverrides: {
+        root: {
+          padding: '0px'
+        }
+      }
     }
   }
 }

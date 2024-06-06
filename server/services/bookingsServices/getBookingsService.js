@@ -5,28 +5,24 @@ const getBookingsService = async (req) => {
 
   switch (req?.user?.role) {
     case "superadmin":
-      res = await Booking.aggregate([
-        { $sort: { createdAt: -1 } },
-      ]);
+      res = await Booking.aggregate([{ $sort: { createdAt: -1 } }]);
       return setDataToFrontEnd(res);
 
     case "chief":
-      res = await Booking.aggregate([
-        { $sort: { createdAt: -1 } }
-      ]);
+      res = await Booking.aggregate([{ $sort: { createdAt: -1 } }]);
       return setDataToFrontEnd(res);
 
     case "consolidator":
       res = await Booking.aggregate([
         { $match: { consolidator_id: req.user._id } },
-        { $sort: { createdAt: 1 } }
+        { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
 
     case "dispatcher":
       res = await Booking.aggregate([
         { $match: { consolidator_id: req.user.consolidator_id } },
-        { $sort: { createdAt: 1 } }
+        { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
 
@@ -42,7 +38,6 @@ const getBookingsService = async (req) => {
         { $match: { creator_id: req.user._id } },
         { $sort: { createdAt: 1 } },
       ]);
-      // return res;
       return setDataToFrontEnd(res);
 
     default:
@@ -96,14 +91,3 @@ function setDataToFrontEnd(res) {
   });
   return dataToFrontEnd;
 }
-
-// res = await Booking.aggregate([
-//   {
-//     $lookup: {
-//       from: "trips",
-//       localField: "trip_id",
-//       foreignField: "_id",
-//       as: "trip_info",
-//     },
-//   },
-// ]);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form } from 'react-final-form'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 
 import { ColumnsGrid } from 'components/FormFields/style'
@@ -10,6 +10,7 @@ import Button from 'components/Button'
 import {
   getDiscountsOptions,
   getGreetingOptions,
+  getPaymentOptions,
   getReservationDatesOptions
 } from 'services/formOptions'
 import InputField from 'components/FormFields/InputField'
@@ -17,6 +18,7 @@ import LineLoader from 'components/LineLoader'
 import { createReservation } from 'pages/TripSearch/store/actions'
 import { EFFECT_LOADING } from 'constants/effectLoading'
 import useLoadingEffect from 'services/hooks/useLoadingEffect'
+import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
 
 const Reservation = ({ ticket, closeModal }) => {
   const { t } = useTranslation()
@@ -24,10 +26,13 @@ const Reservation = ({ ticket, closeModal }) => {
   const loading = useLoadingEffect(EFFECT_LOADING.CREATE_RESERVATION)
   const [passengers, setPassengers] = useState([1])
   const { enqueueSnackbar } = useSnackbar()
+  const token = useSelector(getCurrentUserTokenSelector)
 
   const datesOptions = getReservationDatesOptions(ticket?.departure?.date_list) || []
   const greetingOptions = getGreetingOptions()
   const discountsOptions = getDiscountsOptions(ticket?.discounts) || []
+  const paymentOptions = getPaymentOptions()
+
   const returnDates = afterDate =>
     getReservationDatesOptions(ticket?.reverseData?.trip_info?.departure?.date_list, afterDate) ||
     []
@@ -152,61 +157,87 @@ const Reservation = ({ ticket, closeModal }) => {
           <br />
           <hr />
           <br />
-          <div>{t('pages.tripSearch.customer')}</div>
-          <br />
-          <ColumnsGrid columns={3}>
-            <SelectField
-              name={'greeting'}
-              label={t('pages.tripSearch.greeting')}
-              options={greetingOptions}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'lastName'}
-              label={t('pages.tripSearch.lastName')}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'firstName'}
-              label={t('pages.tripSearch.firstName')}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'street'}
-              label={t('pages.tripSearch.street')}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'postalCode'}
-              label={t('pages.tripSearch.postalCode')}
-              required
-              removeAsterisk
-            />
-            <InputField name={'city'} label={t('pages.tripSearch.city')} required removeAsterisk />
-            <InputField
-              name={'phoneNumber'}
-              label={t('pages.tripSearch.phoneNumber')}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'mobilePhoneNumber'}
-              label={t('pages.tripSearch.mobilePhoneNumber')}
-              required
-              removeAsterisk
-            />
-            <InputField
-              name={'email'}
-              label={t('pages.tripSearch.email')}
-              type={'email'}
-              required
-              removeAsterisk
-            />
-          </ColumnsGrid>
+          {token ? (
+            <ColumnsGrid columns={2}>
+              <SelectField
+                name={'payment_place'}
+                label={t('pages.tripSearch.payment')}
+                options={paymentOptions}
+                required
+                removeAsterisk
+              />
+              <InputField
+                name={'mobilePhoneNumber'}
+                label={t('pages.tripSearch.passengerContactPhoneNumber')}
+                required
+                removeAsterisk
+              />
+            </ColumnsGrid>
+          ) : (
+            <>
+              <div>{t('pages.tripSearch.customer')}</div>
+              <br />
+
+              <ColumnsGrid columns={3}>
+                <SelectField
+                  name={'greeting'}
+                  label={t('pages.tripSearch.greeting')}
+                  options={greetingOptions}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'lastName'}
+                  label={t('pages.tripSearch.lastName')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'firstName'}
+                  label={t('pages.tripSearch.firstName')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'street'}
+                  label={t('pages.tripSearch.street')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'postalCode'}
+                  label={t('pages.tripSearch.postalCode')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'city'}
+                  label={t('pages.tripSearch.city')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'phoneNumber'}
+                  label={t('pages.tripSearch.phoneNumber')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'mobilePhoneNumber'}
+                  label={t('pages.tripSearch.mobilePhoneNumber')}
+                  required
+                  removeAsterisk
+                />
+                <InputField
+                  name={'email'}
+                  label={t('pages.tripSearch.email')}
+                  type={'email'}
+                  required
+                  removeAsterisk
+                />
+              </ColumnsGrid>
+            </>
+          )}
           <br />
           {loading ? (
             <LineLoader />

@@ -1,16 +1,83 @@
-const { registerUserService, loginUserService, logoutUserService, getCurrentUserService, } = require("./authServices");
-const { createUserService, getUsersService, updateUsersService, getConsolidatorsService, updateUserByIdService } = require("./usersServices");
-const { createCarrierService, getCarrierService, updateCarrierByIdService,  } = require("./carriersServices");
-const { createAgencyService, getAgenciesService, updateAgenciesService, updateAgencyByIdService } = require("./agenciesServices");
-const { createLocationService, getLocationsService, getCountriesService, getCitiesByCountryService, getCitiesService, getAddressesByCityService, addLocationDistanceService, getLocationsDistanceService, updateLocationByIdService, getLocationsDistanceByUserService } = require("./locationsServices");
-const { createDiscountService, getDiscountsService, updateDiscountByIdService } = require("./discountsServices");
-const { getRoutesService, createRouteService, updateRouteByIdService } = require("./routesService");
-const { createTripService, getTripsService, getTripByIdService, updateTripService, getClosestTripsService } = require("./tripsServices");
-const { createBaggageService, getBaggageService, updateBaggageByIdService } = require("./baggageServices");
-const { createTransportService, getTransportsService, updateTransportByIdService } = require("./transportsService");
-const { createBookingService, getBookingsService, updateBookingsService, getBookingByIdService, getPassengersService, getAllPassengersService } = require("./bookingsServices");
-const { createDirectionService, getDirectionByIdService, getDirectionsBySearchQueryService, getDirectionsService, getDirectionsByTripIdAndSearchQueryService, updateDirectionsService } = require("./directionsServices");
-
+const {
+  registerUserService,
+  loginUserService,
+  logoutUserService,
+  getCurrentUserService,
+} = require("./authServices");
+const {
+  createUserService,
+  getUsersService,
+  updateUsersService,
+  getConsolidatorsService,
+  updateUserByIdService,
+} = require("./usersServices");
+const {
+  createCarrierService,
+  getCarrierService,
+  updateCarrierByIdService,
+} = require("./carriersServices");
+const {
+  createAgencyService,
+  getAgenciesService,
+  updateAgenciesService,
+  updateAgencyByIdService,
+} = require("./agenciesServices");
+const {
+  createLocationService,
+  getLocationsService,
+  getCountriesService,
+  getCitiesByCountryService,
+  getCitiesService,
+  getAddressesByCityService,
+  addLocationDistanceService,
+  getLocationsDistanceService,
+  updateLocationByIdService,
+  getLocationsDistanceByUserService,
+} = require("./locationsServices");
+const {
+  createDiscountService,
+  getDiscountsService,
+  updateDiscountByIdService,
+} = require("./discountsServices");
+const {
+  getRoutesService,
+  createRouteService,
+  updateRouteByIdService,
+} = require("./routesService");
+const {
+  createTripService,
+  getTripsService,
+  getTripByIdService,
+  updateTripService,
+  getClosestTripsService,
+} = require("./tripsServices");
+const {
+  createBaggageService,
+  getBaggageService,
+  updateBaggageByIdService,
+} = require("./baggageServices");
+const {
+  createTransportService,
+  getTransportsService,
+  updateTransportByIdService,
+} = require("./transportsService");
+const {
+  createBookingService,
+  getBookingsService,
+  updateBookingsService,
+  getBookingByIdService,
+  getPassengersService,
+  getAllPassengersService,
+  getBookingsArchivedService,
+} = require("./bookingsServices");
+const {
+  createDirectionService,
+  getDirectionByIdService,
+  getDirectionsBySearchQueryService,
+  getDirectionsService,
+  getDirectionsByTripIdAndSearchQueryService,
+  updateDirectionsService,
+} = require("./directionsServices");
 
 module.exports = {
   getDirectionsService,
@@ -65,7 +132,7 @@ module.exports = {
   // tripsServices
   createTripService,
   getTripsService,
-  
+
   getTripByIdService,
   getClosestTripsService,
   updateTripService,
@@ -80,4 +147,5 @@ module.exports = {
   updateBookingsService,
   getPassengersService,
   getAllPassengersService,
+  getBookingsArchivedService,
 };

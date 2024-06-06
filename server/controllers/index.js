@@ -1,16 +1,84 @@
-const { registerUserController, loginUserController, logoutUserController, getCurrentUserController, } = require("./authControllers");
-const { createUserController, getUsersController, updateUsersController, getConsolidatorsController, updateUserByIdController, } = require("./usersControllers");
-const { createCarrierController, getCarrierController, updateCarrierByIdController, } = require("./carrierControllers");
-const { createAgencyController, getAgenciesController, updateAgenciesController, updateAgencyByIdController, } = require("./agenciesControllers");
-const { createLocationController, getLocationController, getCountriesController, getCitiesByCountryController, getCitiesController, getAddressesByCityController, addLocationDistanceController, getLocationsDistanceController, updateLocationByIdController, getLocationsDistanceByUserController, } = require("./locationsControllers");
-const { createDiscountController, getDiscountsController, updateDiscountByIdController, } = require("./discountsControlles");
-const { createRouteController, getRoutesController, updateRouteByIdController, } = require("./routesControlles");
-const { createTripController, getTripsController, getTripsBySearchQueryController, getTripByIdController, updateTripController, getClosestTripsController, } = require("./tripsControllers");
-const { createBaggageController, getBaggageController, updateBaggageByIdController, } = require("./baggageControllers");
-const { createTransportController, getTransportsController, updateTransportByIdController } = require("./transportsControlles");
-const { createBookingController, getBookingsController, updateBookingsController, getBookingByIdController, getPassengersController, getAllPassengersController } = require("./bookingsControlles");
-const { createDirectionController, getDirectionByIdController, getDirectionsBySearchQueryController, getDirectionsController, getDirectionsByTripIdAndSearchQueryController, updateDirectionsController } = require("./directionsControllers");
-
+const {
+  registerUserController,
+  loginUserController,
+  logoutUserController,
+  getCurrentUserController,
+} = require("./authControllers");
+const {
+  createUserController,
+  getUsersController,
+  updateUsersController,
+  getConsolidatorsController,
+  updateUserByIdController,
+} = require("./usersControllers");
+const {
+  createCarrierController,
+  getCarrierController,
+  updateCarrierByIdController,
+} = require("./carrierControllers");
+const {
+  createAgencyController,
+  getAgenciesController,
+  updateAgenciesController,
+  updateAgencyByIdController,
+} = require("./agenciesControllers");
+const {
+  createLocationController,
+  getLocationController,
+  getCountriesController,
+  getCitiesByCountryController,
+  getCitiesController,
+  getAddressesByCityController,
+  addLocationDistanceController,
+  getLocationsDistanceController,
+  updateLocationByIdController,
+  getLocationsDistanceByUserController,
+} = require("./locationsControllers");
+const {
+  createDiscountController,
+  getDiscountsController,
+  updateDiscountByIdController,
+} = require("./discountsControlles");
+const {
+  createRouteController,
+  getRoutesController,
+  updateRouteByIdController,
+} = require("./routesControlles");
+const {
+  createTripController,
+  getTripsController,
+  getTripsBySearchQueryController,
+  getTripByIdController,
+  updateTripController,
+  getClosestTripsController,
+} = require("./tripsControllers");
+const {
+  createBaggageController,
+  getBaggageController,
+  updateBaggageByIdController,
+} = require("./baggageControllers");
+const {
+  createTransportController,
+  getTransportsController,
+  updateTransportByIdController,
+} = require("./transportsControlles");
+const {
+  createBookingController,
+  getBookingsController,
+  updateBookingsController,
+  getBookingByIdController,
+  getPassengersController,
+  getAllPassengersController,
+  getBookingsArchivedController,
+} = require("./bookingsControlles");
+const {
+  createDirectionController,
+  getDirectionByIdController,
+  getDirectionsBySearchQueryController,
+  getDirectionsController,
+  getDirectionsByTripIdAndSearchQueryController,
+  updateDirectionsController,
+} = require("./directionsControllers");
 
 module.exports = {
   getDirectionsController,
@@ -80,4 +148,5 @@ module.exports = {
   updateBookingsController,
   getPassengersController,
   getAllPassengersController,
+  getBookingsArchivedController,
 };

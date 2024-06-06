@@ -4,6 +4,7 @@ import { Navigate, Outlet, useLocation } from 'react-router'
 
 import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
 import { ROUTES } from 'constants/routes'
+import Layout from 'components/Layout'
 
 const PrivateRoute = () => {
   const { pathname } = useLocation()
@@ -19,7 +20,11 @@ const PrivateRoute = () => {
     return <Navigate to={ROUTES.BOOKINGS_PAGE} />
   }
 
-  return <Outlet />
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  )
 }
 
 export default PrivateRoute

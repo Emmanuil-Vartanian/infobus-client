@@ -1,13 +1,30 @@
 import { styled } from '@mui/system'
 
-export const AuthBackground = styled('main')`
+export const AuthBackground = styled('div')(
+  ({ token }) =>
+    !token &&
+    `
   height: calc(100% - 205px);
   background-color: #eff1f4;
   padding: 60px 40px 0;
+
+  @media (max-width: 500px) {
+    padding: 60px 20px 0;
+    height: calc(100% - 255px);
+  }
+
+  @media (max-width: 460px) {
+    height: calc(100% - 280px);
+  }
+
+  @media (max-width: 400px) {
+    height: calc(100% - 235px);
+  }
 `
+)
 
 export const FormBlock = styled('form')`
-  width: 480px;
+  max-width: 480px;
   margin: 0 auto;
   padding: 32px;
   background: #fff;

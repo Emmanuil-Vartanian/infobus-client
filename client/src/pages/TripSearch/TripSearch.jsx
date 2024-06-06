@@ -22,6 +22,7 @@ import { tripsColumns } from 'components/Table/columns/trips'
 import FullInfo from './components/FullInfo'
 import Popup from 'components/Popup'
 import Reservation from './components/Reservation'
+import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
 
 const TripSearch = () => {
   const { t } = useTranslation()
@@ -30,6 +31,7 @@ const TripSearch = () => {
   const searchLoading = useLoadingEffect(EFFECT_LOADING.TRIP_SEARCH)
   const citiesLoading = useLoadingEffect(EFFECT_LOADING.GET_CITIES)
   const trips = useSelector(getTripsSelector)
+  const token = useSelector(getCurrentUserTokenSelector)
   const [reservation, setReservation] = useState(null)
 
   const citiesOptions = getTripSearchCitiesOptions(cities)
@@ -53,8 +55,8 @@ const TripSearch = () => {
 
   return (
     <>
-      <AuthHeader />
-      <AuthBackground>
+      {token ? <h1>{t('sideBar.searchFlights')}</h1> : <AuthHeader />}
+      <AuthBackground token={token}>
         <Form
           onSubmit={handleSubmit}
           render={({ handleSubmit }) => (
@@ -62,7 +64,9 @@ const TripSearch = () => {
               {citiesLoading ? (
                 <LineLoader />
               ) : (
-                <ColumnsGrid columns={3}>
+                <ColumnsGrid
+                  columns={window.innerWidth > 500 ? 3 : window.innerWidth > 400 ? 2 : 1}
+                >
                   <SearchBySelectField
                     name={'departure'}
                     label={t('pages.tripSearch.departure')}

@@ -1,6 +1,6 @@
 import { styled } from '@mui/system'
 
-export const LanguagesBlock = styled('header')`
+export const LanguagesBlock = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
