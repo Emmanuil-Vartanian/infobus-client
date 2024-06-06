@@ -1,5 +1,5 @@
 // const apiBase = 'http://127.0.0.1:3333/api'
-const apiBase = 'https://infobus-client-j3l7.vercel.app/api'
+const apiBase = 'https://infobus-client-dzhr.vercel.app/api'
 
 /* SERVICES */
 const AUTH_SERVICE = `${apiBase}/auth`
