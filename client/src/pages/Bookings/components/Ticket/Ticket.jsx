@@ -10,7 +10,7 @@ import {
   CheckBlock,
   CheckTableBlock,
   DownloadTicket,
-  FooterBlock,
+  // FooterBlock,
   InvoiceText,
   ParticipantBlock,
   PaymentBlock,
@@ -63,6 +63,11 @@ const Ticket = () => {
       })
   }
 
+  const locationDistance = city => {
+    const { distance } = ticket.locations_info.find(item => item.city.de === city)
+    return distance
+  }
+
   return loading || !ticket ? (
     <CircularProgress />
   ) : (
@@ -91,7 +96,7 @@ const Ticket = () => {
                 <span>Datum:</span> <span>{moment().format(DATE_FORMAT)}</span>
               </div>
               <div>
-                <span>Auftrag Nr:</span> <span></span>
+                <span>Auftrag Nr:</span> <span>{ticket.buch}</span>
               </div>
               <div>
                 <span>Auftragsdatum:</span>
@@ -100,14 +105,11 @@ const Ticket = () => {
               <div>
                 <span>Bearbeiter:</span> <span>Natalia Althof</span>
               </div>
-              <div>
-                <span></span> <span>030-30343979</span>
-              </div>
             </UserRightBlock>
           </TicketUserBlock>
           <CheckBlock>
             <div>
-              <h3>Rechnung / Gutschrift Nr.:</h3>
+              <h3>Telefon: 030-30343979</h3>
               <p>zu einem Vermittlungsauftrag</p>
             </div>
             <UserRightBlock>
@@ -136,8 +138,8 @@ const Ticket = () => {
               <p>
                 {moment(ticket.arrival.date).format(DATE_FORMAT)}, {ticket.arrival.time}
               </p>
-              <p>105 Km</p>
-              <p>512 Km</p>
+              <p>{locationDistance(ticket.departure.city.de)} Km</p>
+              <p>{locationDistance(ticket.arrival.city.de)} Km</p>
             </CheckTableBlock>
             {Object.keys(ticket.departure_reverse).length ? (
               <CheckTableBlock>
@@ -153,8 +155,8 @@ const Ticket = () => {
                   {moment(ticket.arrival_reverse?.date).format(DATE_FORMAT)},{' '}
                   {ticket.arrival_reverse?.time}
                 </p>
-                <p>105 Km</p>
-                <p>512 Km</p>
+                <p>{locationDistance(ticket.departure.city.de)} Km</p>
+                <p>{locationDistance(ticket.arrival.city.de)} Km</p>
               </CheckTableBlock>
             ) : null}
             <BusInfoBlock>
@@ -193,7 +195,7 @@ const Ticket = () => {
             </PaymentBlock>
           </div>
           <InvoiceText>{ticket.invoice_text}</InvoiceText>
-          <FooterBlock>
+          {/* <FooterBlock>
             <div>
               <p>REISE-ZENTRUM</p>
               <p>Hirzerweg 11</p>
@@ -220,7 +222,7 @@ const Ticket = () => {
               <p>IBAN: DE74 1001 0010 0014 5271 04</p>
               <p>BIC / SWIFT: PBNKDEFF</p>
             </div>
-          </FooterBlock>
+          </FooterBlock> */}
         </TicketData>
       </TicketBackground>
     </>

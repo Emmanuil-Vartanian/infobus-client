@@ -10,7 +10,7 @@ import Button from 'components/Button'
 import {
   getDiscountsOptions,
   getGreetingOptions,
-  getPaymentOptions,
+  // getPaymentOptions,
   getReservationDatesOptions
 } from 'services/formOptions'
 import InputField from 'components/FormFields/InputField'
@@ -31,7 +31,7 @@ const Reservation = ({ ticket, closeModal }) => {
   const datesOptions = getReservationDatesOptions(ticket?.departure?.date_list) || []
   const greetingOptions = getGreetingOptions()
   const discountsOptions = getDiscountsOptions(ticket?.discounts) || []
-  const paymentOptions = getPaymentOptions()
+  // const paymentOptions = getPaymentOptions()
 
   const returnDates = afterDate =>
     getReservationDatesOptions(ticket?.reverseData?.trip_info?.departure?.date_list, afterDate) ||
@@ -158,14 +158,14 @@ const Reservation = ({ ticket, closeModal }) => {
           <hr />
           <br />
           {token ? (
-            <ColumnsGrid columns={2}>
-              <SelectField
+            <ColumnsGrid columns={1}>
+              {/* <SelectField
                 name={'payment_place'}
                 label={t('pages.tripSearch.payment')}
                 options={paymentOptions}
                 required
                 removeAsterisk
-              />
+              /> */}
               <InputField
                 name={'mobilePhoneNumber'}
                 label={t('pages.tripSearch.passengerContactPhoneNumber')}

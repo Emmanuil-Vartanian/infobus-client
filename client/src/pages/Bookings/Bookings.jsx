@@ -22,7 +22,7 @@ const Bookings = () => {
   const [tab, setTab] = useState('active')
 
   useEffect(() => {
-    dispatch(getBookings(tab === 'archived'))
+    dispatch(getBookings(false))
   }, [tab])
 
   const handleTabChange = (event, newValue) => {
@@ -41,7 +41,7 @@ const Bookings = () => {
           {loading ? <LineLoader /> : <Table data={bookings} columns={bookingsColumns()} />}
         </TabPanel>
         <TabPanel value="archived">
-          {loading ? <LineLoader /> : <Table data={bookings} columns={bookingsColumns()} />}
+          {loading ? <LineLoader /> : <Table data={[]} columns={bookingsColumns()} />}
         </TabPanel>
       </TabContext>
     </div>

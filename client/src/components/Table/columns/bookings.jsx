@@ -73,7 +73,7 @@ const buchColumn = () => ({
   meta: {
     widthCell: 50
   },
-  cell: () => '-'
+  cell: ({ getValue }) => getValue() || '-'
 })
 
 const statusColumn = () => ({

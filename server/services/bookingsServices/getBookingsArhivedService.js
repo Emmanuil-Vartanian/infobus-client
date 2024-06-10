@@ -39,23 +39,23 @@ const getBookingsArchivedService = async (req) => {
     case "user":
       res = await Booking.aggregate([
         { $match: { creator_id: req.user._id } },
-        {
-          $match: {
-            $expr: {
-              $or: [
-                {
-                  $lt: ["$arrival.date", currentDate.toISOString()],
-                },
-                {
-                  $and: [
-                    { $eq: ["$arrival.date", currentDate.toISOString()] },
-                    { $lt: ["$arrival.time", currentTime] }, 
-                  ],
-                },
-              ],
-            },
-          },
-        },
+        // {
+        //   $match: {
+        //     $expr: {
+        //       $or: [
+        //         {
+        //           $lt: ["$arrival.date", currentDate.toISOString()],
+        //         },
+        //         {
+        //           $and: [
+        //             { $eq: ["$arrival.date", currentDate.toISOString()] },
+        //             { $lt: ["$arrival.time", currentTime] }, 
+        //           ],
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
         { $sort: { createdAt: 1 } },
       ]);
 
