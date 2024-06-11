@@ -14,11 +14,11 @@ import { AuthBackground } from 'pages/Login/style'
 import useCities from 'containers/Dictionaries/Locations/hooks/useCities'
 import { getTripSearchCitiesOptions } from 'services/formOptions'
 import { tripSearch, tripSearchForReverse } from './store/actions'
-import { getTripsSelector } from './store/reducers/selectors'
+import { getTripsSearchSelector } from './store/reducers/selectors'
 import LineLoader from 'components/LineLoader'
 import { TripsTableBlock } from './style'
 import Table from 'components/Table'
-import { tripsColumns } from 'components/Table/columns/trips'
+import { tripsSearchColumns } from 'components/Table/columns/tripsSearch'
 import FullInfo from './components/FullInfo'
 import Popup from 'components/Popup'
 import Reservation from './components/Reservation'
@@ -30,7 +30,7 @@ const TripSearch = () => {
   const [cities] = useCities()
   const searchLoading = useLoadingEffect(EFFECT_LOADING.TRIP_SEARCH)
   const citiesLoading = useLoadingEffect(EFFECT_LOADING.GET_CITIES)
-  const trips = useSelector(getTripsSelector)
+  const trips = useSelector(getTripsSearchSelector)
   const token = useSelector(getCurrentUserTokenSelector)
   const [reservation, setReservation] = useState(null)
 
@@ -99,10 +99,11 @@ const TripSearch = () => {
             {trips.length ? (
               <Table
                 data={trips}
-                columns={tripsColumns(handleGetTicket, handleGetReverseTicket)}
+                columns={tripsSearchColumns(handleGetTicket, handleGetReverseTicket)}
                 sortColumn={false}
                 canExpand={() => true}
                 renderSubComponent={data => <FullInfo fullinfoData={data} />}
+                emptyMessage={t('common.noRecords')}
               />
             ) : null}
           </TripsTableBlock>

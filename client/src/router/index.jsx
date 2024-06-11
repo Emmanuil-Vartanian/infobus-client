@@ -11,6 +11,7 @@ import Login from 'pages/Login'
 import TripSearch from 'pages/TripSearch'
 import Bookings from 'pages/Bookings'
 import Ticket from 'pages/Bookings/components/Ticket'
+import Trips from 'pages/Trips'
 
 const Router = () => {
   const token = useSelector(getCurrentUserTokenSelector)
@@ -32,7 +33,8 @@ const Router = () => {
       element: <PrivateRoute />,
       children: [
         { path: ROUTES.BOOKINGS_PAGE, element: <Bookings /> },
-        { path: ROUTES.TRIP_SEARCH_PAGE, element: <TripSearch /> }
+        { path: ROUTES.TRIP_SEARCH_PAGE, element: <TripSearch /> },
+        { path: ROUTES.TRIPS_PAGE, element: <Trips /> }
       ]
     }
   ])

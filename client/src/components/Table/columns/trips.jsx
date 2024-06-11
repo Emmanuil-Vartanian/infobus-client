@@ -1,120 +1,104 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import IconCell from '../cells/IconCell'
+import { DATE_FORMAT } from 'constants/dateFormat'
 import i18n from 'i18n/config'
-import ButtonCell from '../cells/ButtonCell'
+import moment from 'moment'
 
-const fullInfoColumn = () => ({
-  accessorKey: ' ',
+const idColumn = () => ({
+  accessorKey: 'trip_number_id',
+  header: i18n.t('pages.booking.id'),
   meta: {
-    widthCell: 50,
-    showColumn: () => true,
-    icons: () => [
-      {
-        icon: <InfoOutlinedIcon sx={{ color: '#63060a', width: '20px', height: '20px' }} />,
-        onClick: (data, row) => row.getToggleExpandedHandler()()
-      }
-    ]
-  },
-  cell: IconCell
-})
-
-const cityDepartureColumn = () => ({
-  accessorKey: 'departure',
-  header: i18n.t('pages.tripSearch.departure'),
-  meta: {
-    widthCell: 170
-  },
-  cell: ({ getValue }) => getValue().city[i18n.language]
-})
-
-const departureDaysColumn = () => ({
-  accessorKey: 'departureDays',
-  header: i18n.t('pages.tripSearch.departureDays'),
-  meta: {
-    widthCell: 110
-  },
-  cell: ({ row }) => {
-    const days = row.original.departure.days_of_week?.map(item => i18n.t(`days.${item}`))
-    return days?.join(', ')
+    widthCell: 20
   }
 })
 
-const timeColumn = () => ({
-  accessorKey: 'departureTime',
-  header: i18n.t('pages.tripSearch.time'),
-  meta: {
-    widthCell: 110
-  },
-  cell: ({ row }) => {
-    return row.original.departure.time + '-' + row.original.arrival.time
-  }
-})
-
-const arrivalDaysColumn = () => ({
-  accessorKey: 'arrivalDays',
-  header: i18n.t('pages.tripSearch.arrivalDays'),
-  meta: {
-    widthCell: 130
-  },
-  cell: ({ row }) => {
-    const days = row.original.arrival.days_of_week?.map(item => i18n.t(`days.${item}`))
-    return days?.join(', ')
-  }
-})
-
-const cityArrivalColumn = () => ({
-  accessorKey: 'arrival',
-  header: i18n.t('pages.tripSearch.arrival'),
+const departureDateColumn = () => ({
+  accessorKey: 'departure.date_list',
+  header: i18n.t('pages.booking.departureDate'),
   meta: {
     widthCell: 150
   },
-  cell: ({ getValue }) => getValue().city[i18n.language]
-})
+  sortingFn: (rowA, rowB, columnId) => {
+    const datesOptions = row => {
+      return row?.filter(date => {
+        return moment(date).isSame(moment(), 'day') || moment(date).isAfter(moment())
+      })
+    }
+    const valueA = datesOptions(rowA.getValue(columnId))
+    const valueB = datesOptions(rowB.getValue(columnId))
 
-const oneWayTicketColumn = handleGetTicket => ({
-  accessorKey: 'oneWayTicket',
-  header: i18n.t('pages.tripSearch.oneWayTicket'),
-  meta: {
-    widthCell: 220,
-    buttonTitle: ({ prices }) => ({
-      value: prices.ow_price,
-      title: `<b>${prices.ow_price}€</b> ${i18n.t('pages.tripSearch.toBook')}`
-    }),
-    buttonClick: handleGetTicket
+    return valueA > valueB ? 1 : -1
   },
-  cell: ButtonCell
-})
-
-const roundTripTicketColumn = handleGetTicket => ({
-  accessorKey: 'roundTripTicket',
-  header: i18n.t('pages.tripSearch.roundTripTicket'),
-  meta: {
-    widthCell: 220,
-    buttonTitle: ({ prices }) => ({
-      value: prices.rt_price,
-      title: `<b>${prices.rt_price}€</b> ${i18n.t('pages.tripSearch.toBook')}`
-    }),
-    buttonClick: handleGetTicket
-  },
-  cell: ButtonCell
+  cell: ({ getValue }) => {
+    const datesOptions = getValue()?.filter(date => {
+      return moment(date).isSame(moment(), 'day') || moment(date).isAfter(moment())
+    })
+    return moment(datesOptions[0]).format(DATE_FORMAT)
+  }
 })
 
 const companyNameColumn = () => ({
   accessorKey: 'carrier_name',
   header: i18n.t('pages.tripSearch.companyName'),
   meta: {
-    widthCell: 180
+    widthCell: 200
   }
 })
 
-export const tripsColumns = (handleGetTicket, handleGetReverseTicket) => [
-  fullInfoColumn(),
-  cityDepartureColumn(),
-  departureDaysColumn(),
-  timeColumn(),
-  arrivalDaysColumn(),
-  cityArrivalColumn(),
-  oneWayTicketColumn(handleGetTicket),
-  roundTripTicketColumn(handleGetReverseTicket),
-  companyNameColumn()
+const routeColumn = () => ({
+  accessorKey: 'points',
+  header: i18n.t('pages.tripSearch.route'),
+  meta: {
+    widthCell: 650
+  },
+  sortingFn: (rowA, rowB, columnId) => {
+    const routes = values => {
+      return values.map(({ city, time }) => {
+        return `${city[i18n.language]} - ${time}`
+      })
+    }
+    const valueA = routes(rowA.getValue(columnId))
+    const valueB = routes(rowB.getValue(columnId))
+
+    return valueA > valueB ? 1 : -1
+  },
+  cell: ({ getValue }) => {
+    const routes = getValue().map(({ city, time }) => {
+      return `${city[i18n.language]} - ${time}`
+    })
+    return routes.join(', ')
+  }
+})
+
+const licensePlateColumn = () => ({
+  accessorKey: 'transport.license_plate',
+  header: i18n.t('pages.trip.licensePlate'),
+  meta: {
+    widthCell: 170
+  }
+})
+
+const colorColumn = () => ({
+  accessorKey: 'transport.color',
+  header: i18n.t('pages.trip.color'),
+  meta: {
+    widthCell: 30
+  },
+  cell: ({ getValue }) => getValue()[i18n.language] || '-'
+})
+
+const phoneColumn = () => ({
+  accessorKey: 'transport.phone',
+  header: i18n.t('pages.trip.phone'),
+  meta: {
+    widthCell: 150
+  }
+})
+
+export const tripsColumns = () => [
+  idColumn(),
+  departureDateColumn(),
+  companyNameColumn(),
+  routeColumn(),
+  licensePlateColumn(),
+  colorColumn(),
+  phoneColumn()
 ]

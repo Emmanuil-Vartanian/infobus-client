@@ -46,6 +46,7 @@ const themeComponents = {
             paddingLeft: '12px'
           },
           '&.table-select': {
+            height: '36px',
             '.MuiSelect-select': {
               fontSize: '11px'
             }
@@ -92,10 +93,10 @@ const themeComponents = {
           },
           '&.table-select-lable': {
             fontSize: 12,
-            lineHeight: '16px',
+            lineHeight: '20px',
             transform: 'translate(10px, 8px) scale(1)',
             '&.MuiInputLabel-shrink': {
-              transform: 'translate(12px, -6px) scale(0.75)'
+              transform: 'translate(14px, -7px) scale(0.75)'
             }
           }
         }),

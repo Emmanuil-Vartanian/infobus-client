@@ -2,10 +2,10 @@ import { createReducer } from 'typesafe-actions'
 import { setTripsToStore } from '../actions'
 
 const initialState = {
-  data: null
+  data: []
 }
 
-const tripsSearchReducer = createReducer(initialState).handleAction(
+const tripsReducer = createReducer(initialState).handleAction(
   setTripsToStore,
   (state, { payload }) => {
     return {
@@ -15,4 +15,4 @@ const tripsSearchReducer = createReducer(initialState).handleAction(
   }
 )
 
-export default tripsSearchReducer
+export default tripsReducer

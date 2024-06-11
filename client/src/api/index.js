@@ -5,6 +5,7 @@ const AUTH_SERVICE = `${apiBase}/auth`
 const LOCATIONS_SERVICE = `${apiBase}/locations`
 const DIRECTIONS_SERVICE = `${apiBase}/directions`
 const BOOKINGS_SERVICE = `${apiBase}/bookings`
+const TRIPS_SERVICE = `${apiBase}/trips`
 
 /* AUTH SERVICE */
 const LOGIN = `${AUTH_SERVICE}/login`
@@ -25,6 +26,9 @@ const GET_TICKET = `${BOOKINGS_SERVICE}/:id`
 const CREATE_RESERVATION = `${BOOKINGS_SERVICE}/new`
 const CREATE_RESERVATION_NOT_AUTH = `${BOOKINGS_SERVICE}/new/welcome`
 
+/* TRIPS SERVICE */
+const GET_TRIPS = `${TRIPS_SERVICE}`
+
 export const URL = {
   LOGIN,
   VALIDATE_TOKEN,
@@ -36,5 +40,6 @@ export const URL = {
   TRIP_SEARCH_FOR_REVERSE,
   GET_BOOKINGS,
   GET_BOOKINGS_ARCHIVED,
-  GET_TICKET
+  GET_TICKET,
+  GET_TRIPS
 }

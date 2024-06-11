@@ -32,8 +32,8 @@ const getTripsService = async (req) => {
 
     case "agency_manager":
       res = await Trip.aggregate([
-        { $match: { consolidator_id: req.user.consolidator_id } },
-        { $sort: { createdAt: 1 } }
+        { $match: { consolidator_id: String(req.user.consolidator_id) } },
+        { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
 

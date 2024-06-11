@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
 
-const getTrips = state => state.entities.trips.data
+const getTripsSearch = state => state.entities.tripsSearch.data
 
-export const getTripsSelector = createSelector([getTrips], value => value)
+export const getTripsSearchSelector = createSelector([getTripsSearch], value => value)
