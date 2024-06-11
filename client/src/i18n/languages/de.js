@@ -1,11 +1,13 @@
 export default {
   common: {
     today: 'Heute',
-    hi: 'Hallo'
+    hi: 'Hallo',
+    noRecords: 'Keine Aufzeichnungen'
   },
   sideBar: {
     booking: 'Reservierungen',
     searchFlights: 'Flugsuche',
+    trips: 'Buslinien',
     logOut: 'Ausloggen'
   },
   pages: {
@@ -80,7 +82,22 @@ export default {
       },
       active: 'Aktiv',
       archive: 'Archiv'
+    },
+    trip: {
+      licensePlate: 'Kennzeichen',
+      color: 'Farbe',
+      phone: 'Telefon'
     }
+  },
+  filterForTable: {
+    button: 'Filter anwenden',
+    clear: 'Klar',
+    departure: 'Abfahrtort',
+    arrival: 'Ankunftsort',
+    createdAt: 'Auftragsdatum',
+    departureDate: 'Abfahrtdatum',
+    returnDepartureDate: 'Rückfahrtdatum',
+    status: 'Status'
   },
   days: {
     1: 'Mo',

@@ -1,11 +1,13 @@
 export default {
   common: {
     today: 'Сегодня',
-    hi: 'Привет'
+    hi: 'Привет',
+    noRecords: 'Нет записей'
   },
   sideBar: {
     booking: 'Бронирование',
     searchFlights: 'Поиск рейсов',
+    trips: 'Рейсы',
     logOut: 'Выход'
   },
   pages: {
@@ -80,7 +82,22 @@ export default {
       },
       active: 'Активные',
       archive: 'Архив'
+    },
+    trip: {
+      licensePlate: 'Номерной знак',
+      color: 'Цвет',
+      phone: 'Телефон'
     }
+  },
+  filterForTable: {
+    button: 'Применить фильтр',
+    clear: 'Очистить',
+    departure: 'Город отправления',
+    arrival: 'Город прибытия',
+    createdAt: 'Дата заказа',
+    departureDate: 'Дата выезда',
+    returnDepartureDate: 'Дата выезда обратно',
+    status: 'Статус'
   },
   days: {
     1: 'Пн',

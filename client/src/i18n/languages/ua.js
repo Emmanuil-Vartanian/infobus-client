@@ -1,11 +1,13 @@
 export default {
   common: {
     today: 'Сьогодні',
-    hi: 'Привіт'
+    hi: 'Привіт',
+    noRecords: 'Записи відсутні'
   },
   sideBar: {
     booking: 'Бронювання',
     searchFlights: 'Пошук рейсів',
+    trips: 'Рейси',
     logOut: 'Вихід'
   },
   pages: {
@@ -80,7 +82,22 @@ export default {
       },
       active: 'Активні',
       archive: 'Архів'
+    },
+    trip: {
+      licensePlate: 'Номерний знак',
+      color: 'Колір',
+      phone: 'Телефон'
     }
+  },
+  filterForTable: {
+    button: 'Застосувати фільтр',
+    clear: 'Очистити',
+    departure: 'Місто відправлення',
+    arrival: 'Місто прибуття',
+    createdAt: 'Дата замовлення',
+    departureDate: 'Дата виїзду',
+    returnDepartureDate: 'Дата виїзду назад',
+    status: 'Статус'
   },
   days: {
     1: 'Пн',
