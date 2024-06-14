@@ -80,23 +80,23 @@ export const CheckTableBlock = styled('div')`
   min-height: 20px;
   padding: 4px 0px;
   border-top: 1px solid #a6acb1;
-  p:nth-of-type(1) {
+  > p:nth-of-type(1) {
     flex: 0 0 105px;
   }
-  p:nth-of-type(2) {
+  > p:nth-of-type(2) {
     flex: 0 0 108px;
   }
-  p:nth-of-type(3) {
+  > p:nth-of-type(3) {
     flex-grow: 1;
   }
-  p:nth-of-type(4) {
+  > p:nth-of-type(4) {
     flex: 0 0 110px;
   }
-  p:nth-of-type(5) {
+  > p:nth-of-type(5) {
     flex: 0 0 92px;
     text-align: end;
   }
-  p:nth-of-type(6) {
+  > p:nth-of-type(6) {
     flex: 0 0 92px;
     text-align: end;
   }
@@ -108,10 +108,11 @@ export const BusInfoBlock = styled('div')`
   gap: 32px;
   min-height: 20px;
   padding: 4px 0px;
-  border-top: 1px solid #a6acb1;
-  margin-bottom: 20px;
   span {
     font-weight: 500;
+  }
+  > p:nth-of-type(1) {
+    flex: 0 0 105px;
   }
 `
 
@@ -122,6 +123,7 @@ export const ParticipantBlock = styled('div')`
   min-height: 20px;
   padding: 4px 0px;
   border-bottom: 1px solid #a6acb1;
+  margin-top: 20px;
   p:nth-of-type(1) {
     flex-grow: 1;
   }

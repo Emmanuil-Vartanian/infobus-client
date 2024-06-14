@@ -78,7 +78,10 @@ export default {
       ticket: 'Билет',
       carrier: 'Перевозчик',
       statuses: {
-        new: 'Новый'
+        new: 'Новый',
+        paid: 'Оплачено',
+        confirmed: 'Подтверждено',
+        canceled: 'Отменено'
       },
       active: 'Активные',
       archive: 'Архив'

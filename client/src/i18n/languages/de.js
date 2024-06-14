@@ -78,7 +78,10 @@ export default {
       ticket: 'Ticket',
       carrier: 'Firma',
       statuses: {
-        new: 'Neu'
+        new: 'Neu',
+        paid: 'Bestätig',
+        confirmed: 'Bezahlt',
+        canceled: 'Abgesagt'
       },
       active: 'Aktiv',
       archive: 'Archiv'
