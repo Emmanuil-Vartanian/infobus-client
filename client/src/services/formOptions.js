@@ -80,3 +80,19 @@ export const getPaymentOptions = () => {
 
   return options
 }
+
+export const getOptionsWithoutTranslate = data => {
+  const options = data?.map((code, index) => {
+    return { id: index, text: code, value: code }
+  })
+
+  return options
+}
+
+export const getBookingsStatusesOptions = data => {
+  const options = data?.map((code, index) => {
+    return { id: index, text: i18n.t(`pages.booking.statuses.${code}`), value: code }
+  })
+
+  return options
+}

@@ -13,6 +13,9 @@ import { bookingsColumns } from 'components/Table/columns/bookings'
 import { EFFECT_LOADING } from 'constants/effectLoading'
 import LineLoader from 'components/LineLoader'
 import useLoadingEffect from 'services/hooks/useLoadingEffect'
+import { filteredObjects } from 'components/Table/components/Filter/filterData'
+import Filter from 'components/Table/components/Filter'
+import { bookingsPageFilterOptions } from 'services/filtersOptionsForTables'
 
 const Bookings = () => {
   const { t } = useTranslation()
@@ -20,6 +23,9 @@ const Bookings = () => {
   const bookings = useSelector(getBookingsSelector)
   const loading = useLoadingEffect(EFFECT_LOADING.GET_BOOKINGS)
   const [tab, setTab] = useState('active')
+  const [dataFilter, setDataFilter] = useState(null)
+
+  const filterObjects = filteredObjects(bookings, dataFilter)
 
   useEffect(() => {
     dispatch(getBookings(false))
@@ -38,10 +44,42 @@ const Bookings = () => {
           <Tab label={t('pages.booking.archive')} value="archived" />
         </TabList>
         <TabPanel value="active">
-          {loading ? <LineLoader /> : <Table data={bookings} columns={bookingsColumns()} />}
+          {loading ? (
+            <LineLoader />
+          ) : (
+            <>
+              {bookings?.length ? (
+                <Filter
+                  dataFilter={dataFilter}
+                  defaultData={bookings}
+                  filterSelect={bookingsPageFilterOptions}
+                  setDataFilter={setDataFilter}
+                />
+              ) : null}
+              <Table
+                data={filterObjects}
+                columns={bookingsColumns()}
+                emptyMessage={t('common.noRecords')}
+              />
+            </>
+          )}
         </TabPanel>
         <TabPanel value="archived">
-          {loading ? <LineLoader /> : <Table data={[]} columns={bookingsColumns()} />}
+          {loading ? (
+            <LineLoader />
+          ) : (
+            <>
+              {bookings?.length ? (
+                <Filter
+                  dataFilter={dataFilter}
+                  defaultData={bookings}
+                  filterSelect={bookingsPageFilterOptions}
+                  setDataFilter={setDataFilter}
+                />
+              ) : null}
+              <Table data={[]} columns={bookingsColumns()} emptyMessage={t('common.noRecords')} />
+            </>
+          )}
         </TabPanel>
       </TabContext>
     </div>
