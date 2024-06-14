@@ -1,4 +1,4 @@
-const apiBase = 'http://127.0.0.1:3333/api'
+const apiBase = import.meta.env.VITE_SERVER_API
 
 /* SERVICES */
 const AUTH_SERVICE = `${apiBase}/auth`

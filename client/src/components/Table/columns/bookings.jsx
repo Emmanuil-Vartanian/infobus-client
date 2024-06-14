@@ -83,7 +83,12 @@ const statusColumn = () => ({
     widthCell: 50
   },
   cell: ({ getValue }) => {
-    return <span style={{ color: 'red' }}>{i18n.t(`pages.booking.statuses.${getValue()}`)}</span>
+    const color = { new: 'red', paid: 'green', confirmed: 'blue', canceled: 'black' }
+    return (
+      <span style={{ color: color[getValue()] }}>
+        {i18n.t(`pages.booking.statuses.${getValue()}`)}
+      </span>
+    )
   }
 })
 
@@ -92,7 +97,7 @@ const ticketColumn = () => ({
   header: i18n.t('pages.booking.ticket'),
   meta: {
     widthCell: 50,
-    showColumn: () => true,
+    showColumn: ({ original }) => original.status === 'paid',
     icons: data => [
       {
         icon: (

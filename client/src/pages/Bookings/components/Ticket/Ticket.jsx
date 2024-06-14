@@ -82,13 +82,13 @@ const Ticket = () => {
           <TicketUserBlock>
             <div>
               <ReiseText>REISE-ZENTRUM · Hirzerweg 11 · 12107 · Berlin</ReiseText>
-              <div>{de.pages.tripSearch[ticket.user_data.salutation]}</div>
+              <div>{de.pages.tripSearch[ticket.user_data?.salutation]}</div>
               <div>
-                {ticket.user_data.user_first_name} {ticket.user_data.user_last_name}
+                {ticket.user_data?.user_first_name} {ticket.user_data?.user_last_name}
               </div>
-              <div>{ticket.user_data.street}</div>
+              <div>{ticket.user_data?.street}</div>
               <div>
-                {ticket.user_data.postal_code} {ticket.user_data.city}
+                {ticket.user_data?.postal_code} {ticket.user_data?.city}
               </div>
             </div>
             <UserRightBlock>
@@ -114,7 +114,7 @@ const Ticket = () => {
             </div>
             <UserRightBlock>
               <div>
-                <span>Kd.Telefon:</span> <span>{ticket.user_data.contact_tel_mobile}</span>
+                <span>Kd.Telefon:</span> <span>{ticket.user_data?.contact_tel_mobile}</span>
               </div>
             </UserRightBlock>
           </CheckBlock>
@@ -141,6 +141,15 @@ const Ticket = () => {
               <p>{locationDistance(ticket.departure.city.de)} Km</p>
               <p>{locationDistance(ticket.arrival.city.de)} Km</p>
             </CheckTableBlock>
+            <BusInfoBlock>
+              <p></p>
+              <p>
+                <span>Abfahrt Hin:</span> {ticket.departure.address.de}
+              </p>
+              <p>
+                <span>Abfahrt Zurück:</span> {ticket.arrival.address.de}
+              </p>
+            </BusInfoBlock>
             {Object.keys(ticket.departure_reverse).length ? (
               <CheckTableBlock>
                 <p>
@@ -160,11 +169,12 @@ const Ticket = () => {
               </CheckTableBlock>
             ) : null}
             <BusInfoBlock>
+              <p></p>
               <p>
-                <span>Abfahrt Hin:</span> {ticket.departure.address.de}
+                <span>Abfahrt Hin:</span> {ticket.departure_reverse.address.de}
               </p>
               <p>
-                <span>Abfahrt Zurück:</span> {ticket.arrival.address.de}
+                <span>Abfahrt Zurück:</span> {ticket.arrival_reverse.address.de}
               </p>
             </BusInfoBlock>
             <ParticipantBlock style={{ fontWeight: '500' }}>

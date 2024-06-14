@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const logger = require("morgan");
+const path = require("path");
 dotenv.config({ path: "./.env" });
 
 const authRouter = require("./routes/api/auth");
@@ -25,7 +26,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 // app.use(express.json());
 app.use(express.json({ limit: "50mb" }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
@@ -45,9 +46,14 @@ app.get("/", function (req, res) {
   res.send("<h1>APP is working</h1>");
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Not found" });
 });
+
 app.use((err, req, res, next) => {
   const { status, message } = err;
   console.log("status", status, "message", message);
