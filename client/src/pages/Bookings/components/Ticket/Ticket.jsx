@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import moment from 'moment'
 
 import {
@@ -10,7 +8,6 @@ import {
   CheckBlock,
   CheckTableBlock,
   DownloadTicket,
-  // FooterBlock,
   InvoiceText,
   ParticipantBlock,
   PaymentBlock,
@@ -30,49 +27,37 @@ import { EFFECT_LOADING } from 'constants/effectLoading'
 import CircularProgress from 'components/CircularProgress'
 import de from 'i18n/languages/de'
 import { DATE_FORMAT } from 'constants/dateFormat'
+import { generatePdf } from 'services/generatePdf'
+import { getCurrentUserRoleSelector } from 'pages/Login/store/reducers/selectors'
+import { ROLES } from 'constants/roles'
+import InvoiceData from './InvoiceData'
+
+export const locationDistance = (locations_info, city) => {
+  const { distance } = locations_info.find(item => item.city.de === city)
+  return distance
+}
 
 const Ticket = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
+  const { pathname } = useLocation()
   const ticket = useSelector(ticketSelector)
   const loading = useLoadingEffect(EFFECT_LOADING.GET_TICKET)
+  const role = useSelector(getCurrentUserRoleSelector)
+
+  const invoice = pathname.includes('invoice')
+
+  const isUserRole = role === ROLES.USER
 
   useEffect(() => {
     dispatch(getTicket(id))
   }, [id])
 
-  const generatePdf = () => {
-    const input = document.getElementById('ticket')
-    html2canvas(input)
-      // eslint-disable-next-line promise/always-return
-      .then(canvas => {
-        const imgData = canvas.toDataURL('image/png')
-        const pdf = new jsPDF('p', 'mm', 'a4', true)
-        const pdfWidth = pdf.internal.pageSize.getWidth()
-        const pdfHeight = pdf.internal.pageSize.getHeight()
-        const imgWidth = canvas.width
-        const imgHeight = canvas.height
-        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
-        const imgX = (pdfWidth - imgWidth * ratio) / 2
-        const imgY = 0
-        pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio)
-        pdf.save('invoice.pdf')
-      })
-      .catch(error => {
-        console.error('Error generating PDF:', error)
-      })
-  }
-
-  const locationDistance = city => {
-    const { distance } = ticket.locations_info.find(item => item.city.de === city)
-    return distance
-  }
-
   return loading || !ticket ? (
     <CircularProgress />
   ) : (
     <>
-      <DownloadTicket onClick={generatePdf}>Download PDF</DownloadTicket>
+      <DownloadTicket onClick={generatePdf('trip')}>Download PDF</DownloadTicket>
       <TicketBackground>
         <TicketData id="ticket">
           <TicketLogo>
@@ -82,14 +67,21 @@ const Ticket = () => {
           <TicketUserBlock>
             <div>
               <ReiseText>REISE-ZENTRUM · Hirzerweg 11 · 12107 · Berlin</ReiseText>
-              <div>{de.pages.tripSearch[ticket.user_data?.salutation]}</div>
               <div>
-                {ticket.user_data?.user_first_name} {ticket.user_data?.user_last_name}
+                {isUserRole ? de.pages.tripSearch[ticket.user_data?.salutation] : 'Reisebüro'}
               </div>
-              <div>{ticket.user_data?.street}</div>
               <div>
-                {ticket.user_data?.postal_code} {ticket.user_data?.city}
+                {isUserRole
+                  ? `${ticket.user_data?.user_first_name} ${ticket.user_data?.user_last_name}`
+                  : `${ticket.agency_info.short_name} Inh. ${ticket.agency_info.enterprise_owner}`}
               </div>
+              <div>{isUserRole ? ticket.user_data?.street : ticket.agency_info.street}</div>
+              <div>
+                {isUserRole
+                  ? `${ticket.user_data?.postal_code} ${ticket.user_data?.city}`
+                  : `${ticket.agency_info.postal_code} ${ticket.agency_info?.city}`}
+              </div>
+              {role === ROLES.AGENCY_MANAGER && <div>Steuernr.: {ticket.agency_info.tax}</div>}
             </div>
             <UserRightBlock>
               <div>
@@ -114,7 +106,7 @@ const Ticket = () => {
             </div>
             <UserRightBlock>
               <div>
-                <span>Kd.Telefon:</span> <span>{ticket.user_data?.contact_tel_mobile}</span>
+                <span>Kd.Telefon:</span> <span>{ticket.passengers_contact_tel}</span>
               </div>
             </UserRightBlock>
           </CheckBlock>
@@ -138,8 +130,8 @@ const Ticket = () => {
               <p>
                 {moment(ticket.arrival.date).format(DATE_FORMAT)}, {ticket.arrival.time}
               </p>
-              <p>{locationDistance(ticket.departure.city.de)} Km</p>
-              <p>{locationDistance(ticket.arrival.city.de)} Km</p>
+              <p>{locationDistance(ticket.locations_info, ticket.departure.city.de)} Km</p>
+              <p>{locationDistance(ticket.locations_info, ticket.arrival.city.de)} Km</p>
             </CheckTableBlock>
             <BusInfoBlock>
               <p></p>
@@ -151,33 +143,36 @@ const Ticket = () => {
               </p>
             </BusInfoBlock>
             {Object.keys(ticket.departure_reverse).length ? (
-              <CheckTableBlock>
-                <p>
-                  {moment(ticket.departure_reverse?.date).format(DATE_FORMAT)},{' '}
-                  {ticket.departure_reverse?.time}
-                </p>
-                <p>{ticket.carrier_name}</p>
-                <p>
-                  {ticket.departure_reverse?.city?.de} -&gt; {ticket.arrival_reverse?.city?.de}
-                </p>
-                <p>
-                  {moment(ticket.arrival_reverse?.date).format(DATE_FORMAT)},{' '}
-                  {ticket.arrival_reverse?.time}
-                </p>
-                <p>{locationDistance(ticket.departure.city.de)} Km</p>
-                <p>{locationDistance(ticket.arrival.city.de)} Km</p>
-              </CheckTableBlock>
+              <>
+                <CheckTableBlock>
+                  <p>
+                    {moment(ticket.departure_reverse?.date).format(DATE_FORMAT)},{' '}
+                    {ticket.departure_reverse?.time}
+                  </p>
+                  <p>{ticket.carrier_name}</p>
+                  <p>
+                    {ticket.departure_reverse?.city?.de} -&gt; {ticket.arrival_reverse?.city?.de}
+                  </p>
+                  <p>
+                    {moment(ticket.arrival_reverse?.date).format(DATE_FORMAT)},{' '}
+                    {ticket.arrival_reverse?.time}
+                  </p>
+                  <p>{locationDistance(ticket.locations_info, ticket.departure.city.de)} Km</p>
+                  <p>{locationDistance(ticket.locations_info, ticket.arrival.city.de)} Km</p>
+                </CheckTableBlock>
+
+                <BusInfoBlock>
+                  <p></p>
+                  <p>
+                    <span>Abfahrt Hin:</span> {ticket.departure_reverse.address.de}
+                  </p>
+                  <p>
+                    <span>Abfahrt Zurück:</span> {ticket.arrival_reverse.address.de}
+                  </p>
+                </BusInfoBlock>
+              </>
             ) : null}
-            <BusInfoBlock>
-              <p></p>
-              <p>
-                <span>Abfahrt Hin:</span> {ticket.departure_reverse.address.de}
-              </p>
-              <p>
-                <span>Abfahrt Zurück:</span> {ticket.arrival_reverse.address.de}
-              </p>
-            </BusInfoBlock>
-            <ParticipantBlock style={{ fontWeight: '500' }}>
+            <ParticipantBlock style={{ fontWeight: '500', marginTop: '20px' }}>
               <p>Teilnehmer:</p>
               <p>Geb.Datum</p>
               <p>Passnummer</p>
@@ -199,40 +194,16 @@ const Ticket = () => {
                 <p>{item.price}.00 €</p>
               </ParticipantBlock>
             ))}
-            <PaymentBlock>
-              <p>Zahlung beim Einsteigen im Bus:</p>
-              <p>0.00 €</p>
-            </PaymentBlock>
+            {invoice ? (
+              <InvoiceData ticket={ticket} />
+            ) : (
+              <PaymentBlock>
+                <p>Zahlung beim Einsteigen im Bus:</p>
+                <p>0.00 €</p>
+              </PaymentBlock>
+            )}
           </div>
           <InvoiceText>{ticket.invoice_text}</InvoiceText>
-          {/* <FooterBlock>
-            <div>
-              <p>REISE-ZENTRUM</p>
-              <p>Hirzerweg 11</p>
-              <p>12107 Berlin</p>
-              <p>St.Nr: 21/205/60646</p>
-            </div>
-            <div>
-              <p>
-                <span>Telefon:</span>030-30343979
-              </p>
-              <p>
-                <span>Fax:</span>030-30343978
-              </p>
-              <p>
-                <span>Email:</span>info@reise-zentrum.net
-              </p>
-              <p>
-                <span>USt.-Id.:</span>DE247744764
-              </p>
-            </div>
-            <div>
-              <p>Postbank Berlin</p>
-              <p>Kto-Nr.: 14527104 / BLZ: 10010010</p>
-              <p>IBAN: DE74 1001 0010 0014 5271 04</p>
-              <p>BIC / SWIFT: PBNKDEFF</p>
-            </div>
-          </FooterBlock> */}
         </TicketData>
       </TicketBackground>
     </>

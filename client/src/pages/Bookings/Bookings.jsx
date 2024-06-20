@@ -16,16 +16,26 @@ import useLoadingEffect from 'services/hooks/useLoadingEffect'
 import { filteredObjects } from 'components/Table/components/Filter/filterData'
 import Filter from 'components/Table/components/Filter'
 import { bookingsPageFilterOptions } from 'services/filtersOptionsForTables'
+import moment from 'moment'
+import { getCurrentUserRoleSelector } from 'pages/Login/store/reducers/selectors'
+import { ROLES } from 'constants/roles'
 
 const Bookings = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const bookings = useSelector(getBookingsSelector)
   const loading = useLoadingEffect(EFFECT_LOADING.GET_BOOKINGS)
+  const role = useSelector(getCurrentUserRoleSelector)
   const [tab, setTab] = useState('active')
   const [dataFilter, setDataFilter] = useState(null)
+  console.log('role', role)
+  const isAgencyRole = role === ROLES.AGENCY_MANAGER
+  console.log('isAgencyRole', isAgencyRole)
+  const newBookings = bookings
+    .map(item => moment(item.departure.date).isSameOrAfter(moment(), 'day') && item)
+    .filter(item => item)
 
-  const filterObjects = filteredObjects(bookings, dataFilter)
+  const filterObjects = filteredObjects(newBookings, dataFilter)
 
   useEffect(() => {
     dispatch(getBookings(false))
@@ -48,17 +58,17 @@ const Bookings = () => {
             <LineLoader />
           ) : (
             <>
-              {bookings?.length ? (
+              {newBookings?.length ? (
                 <Filter
                   dataFilter={dataFilter}
-                  defaultData={bookings}
+                  defaultData={newBookings}
                   filterSelect={bookingsPageFilterOptions}
                   setDataFilter={setDataFilter}
                 />
               ) : null}
               <Table
                 data={filterObjects}
-                columns={bookingsColumns()}
+                columns={bookingsColumns(isAgencyRole)}
                 emptyMessage={t('common.noRecords')}
               />
             </>
@@ -77,7 +87,11 @@ const Bookings = () => {
                   setDataFilter={setDataFilter}
                 />
               ) : null}
-              <Table data={[]} columns={bookingsColumns()} emptyMessage={t('common.noRecords')} />
+              <Table
+                data={[]}
+                columns={bookingsColumns(isAgencyRole)}
+                emptyMessage={t('common.noRecords')}
+              />
             </>
           )}
         </TabPanel>

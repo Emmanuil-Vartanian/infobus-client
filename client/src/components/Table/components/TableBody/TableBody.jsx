@@ -6,7 +6,7 @@ import { TableCellBodyContent, TableCellBodyStyled, TableRowStyled } from 'compo
 import { Fragment } from 'react'
 
 const TableBody = props => {
-  const { hoverRow, getRowModel, handleRowClick, renderSubComponent } = props
+  const { hoverRow, getRowModel, handleRowClick, renderSubComponent, needRowTable } = props
   const [rowColor, setRowColor] = useState([])
 
   return (
@@ -41,10 +41,14 @@ const TableBody = props => {
               })}
             </TableRowStyled>
             {getIsExpanded() && (
-              <tr>
-                <td className="table-expand" colSpan={getVisibleCells().length}>
-                  {renderSubComponent(original)}
-                </td>
+              <tr className="row-expand">
+                {needRowTable ? (
+                  renderSubComponent(original)
+                ) : (
+                  <td className="table-expand" colSpan={getVisibleCells().length}>
+                    {renderSubComponent(original)}
+                  </td>
+                )}
               </tr>
             )}
           </Fragment>

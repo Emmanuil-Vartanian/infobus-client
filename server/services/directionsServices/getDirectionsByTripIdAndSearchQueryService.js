@@ -13,14 +13,9 @@ const getDirectionsByTripIdAndSearchQueryService = async (req) => {
       },
     },
     {
-      $addFields: {
-        tripObjectId: { $toObjectId: "$trip_id" },
-      },
-    },
-    {
       $lookup: {
         from: "trips",
-        localField: "tripObjectId",
+        localField: "trip_id",
         foreignField: "_id",
         as: "trip_info",
       },

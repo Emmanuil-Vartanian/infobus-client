@@ -8,12 +8,14 @@ import dictionariesReducer from 'containers/Dictionaries/store/reducers'
 import tripsSearchReducer from 'pages/TripSearch/store/reducers'
 import bookingsReducer from 'pages/Bookings/store/reducers'
 import tripsReducer from 'pages/Trips/store/reducers'
+import passengersReducer from 'pages/Passengers/store/reducers'
 
 const entitiesReducer = combineReducers({
   dictionaries: dictionariesReducer,
   tripsSearch: tripsSearchReducer,
   bookings: bookingsReducer,
-  trips: tripsReducer
+  trips: tripsReducer,
+  passengers: passengersReducer
 })
 
 const persistConfig = {

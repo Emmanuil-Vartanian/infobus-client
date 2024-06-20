@@ -2,6 +2,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard'
 import SearchIcon from '@mui/icons-material/Search'
 import LogoutIcon from '@mui/icons-material/Logout'
 import RouteIcon from '@mui/icons-material/Route'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
@@ -33,13 +34,21 @@ const useSideBarData = () => {
     tripSearchSideBar
   ]
 
+  const carrierSideBar = [
+    bookingsSideBar,
+    { name: ROUTES.PASSENGERS, title: t('sideBar.passengers'), icon: <PeopleAltIcon /> },
+    tripSearchSideBar
+  ]
+
   const sideBarData = () => {
     const user = userRole === ROLES.USER ? userSideBar : []
     const agency = userRole === ROLES.AGENCY_MANAGER ? agencySideBar : []
+    const carrier = userRole === ROLES.CARRIER_MANAGER ? carrierSideBar : []
 
     return [
       ...user,
       ...agency,
+      ...carrier,
       { name: ROUTES.LOGIN_PAGE, title: t('sideBar.logOut'), icon: <LogoutIcon /> }
     ]
   }

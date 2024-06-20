@@ -8,6 +8,7 @@ export default {
     booking: 'Бронирование',
     searchFlights: 'Поиск рейсов',
     trips: 'Рейсы',
+    passengers: 'Список пассажиров',
     logOut: 'Выход'
   },
   pages: {
@@ -75,6 +76,7 @@ export default {
       id: 'Id',
       buch: 'Buch',
       status: 'Статус',
+      check: 'Счет',
       ticket: 'Билет',
       carrier: 'Перевозчик',
       statuses: {
@@ -84,11 +86,29 @@ export default {
         canceled: 'Отменено'
       },
       active: 'Активные',
-      archive: 'Архив'
+      archive: 'Архив',
+      payment: 'Оплата'
     },
     trip: {
       licensePlate: 'Номерной знак',
       color: 'Цвет',
+      phone: 'Телефон'
+    },
+    passenger: {
+      username: 'Фамилия Имя',
+      birthDay: 'Дата Рождения',
+      typ: 'Typ',
+      em: 'Em',
+      price: 'Цена',
+      bureau: 'В Бюро',
+      bus: 'В Автобусе',
+      place: 'Место',
+      passID: 'Pass ID',
+      departure: 'Город отправления',
+      arrival: 'Город прибытия',
+      returnDepartureDate: 'Дата выезда обратно',
+      buch: 'Buch',
+      sum: 'Сумма',
       phone: 'Телефон'
     }
   },
@@ -100,7 +120,9 @@ export default {
     createdAt: 'Дата заказа',
     departureDate: 'Дата выезда',
     returnDepartureDate: 'Дата выезда обратно',
-    status: 'Статус'
+    status: 'Статус',
+    passengerTrip: 'Рейс',
+    passengerDepartureDate: 'Дата выезда'
   },
   days: {
     1: 'Пн',

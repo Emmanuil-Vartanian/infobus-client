@@ -32,7 +32,7 @@ const departureOptions = tableData => {
     maxWidth: maxWidthByLang[i18n.language],
     option: () => {
       const values = tableData
-        .map(item => item[FILTER_PROPERTIES_NAMES.DEPARTURE].city[i18n.language])
+        .map(item => item[FILTER_PROPERTIES_NAMES.DEPARTURE]?.city[i18n.language])
         .flat(Infinity)
         .filter(item => item)
 
@@ -51,7 +51,7 @@ const arrivalOptions = tableData => {
     maxWidth: maxWidthByLang[i18n.language],
     option: () => {
       const values = tableData
-        .map(item => item[FILTER_PROPERTIES_NAMES.ARRIVAL].city[i18n.language])
+        .map(item => item[FILTER_PROPERTIES_NAMES.ARRIVAL]?.city[i18n.language])
         .flat(Infinity)
         .filter(item => item)
 
@@ -89,7 +89,7 @@ const departureDateOptions = tableData => {
     maxWidth: maxWidthByLang[i18n.language],
     option: () => {
       const values = tableData
-        .map(item => moment(item[FILTER_PROPERTIES_NAMES.DEPARTURE].date).format(DATE_FORMAT))
+        .map(item => moment(item[FILTER_PROPERTIES_NAMES.DEPARTURE]?.date).format(DATE_FORMAT))
         .flat(Infinity)
         .filter(item => item)
 
@@ -142,6 +142,46 @@ const statusOptions = tableData => {
   }
 }
 
+const passengersTripOptions = tableData => {
+  const maxWidthByLang = { de: 200, ru: 200, ua: 200 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.PASSENGER_TRIP,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => {
+          return `${item?.main_trip_direction?.departure?.city[i18n.language]} - ${item?.main_trip_direction?.arrival?.city[i18n.language]}`
+        })
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const passengerDepartureDateOptions = tableData => {
+  const maxWidthByLang = { de: 130, ru: 120, ua: 120 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.PASSENGER_DEPARTURE_DATE,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.date)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
 export const tripsPageFilterOptions = tableData => [
   departureOptions(tableData),
   arrivalOptions(tableData)
@@ -154,4 +194,9 @@ export const bookingsPageFilterOptions = tableData => [
   returnDepartureDateOptions(tableData),
   arrivalOptions(tableData),
   statusOptions(tableData)
+]
+
+export const passengersPageFilterOptions = tableData => [
+  passengersTripOptions(tableData),
+  passengerDepartureDateOptions(tableData)
 ]

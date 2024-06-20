@@ -5,34 +5,30 @@ const getTripsService = async (req) => {
 
   switch (req?.user?.role) {
     case "superadmin":
-      res = await Trip.aggregate([
-        { $sort: { createdAt: 1 } }
-      ]);
+      res = await Trip.aggregate([{ $sort: { createdAt: 1 } }]);
       return setDataToFrontEnd(res);
 
     case "chief":
-      res = await Trip.aggregate([
-        { $sort: { createdAt: 1 } }
-      ]);
+      res = await Trip.aggregate([{ $sort: { createdAt: 1 } }]);
       return setDataToFrontEnd(res);
 
     case "consolidator":
       res = await Trip.aggregate([
         { $match: { consolidator_id: req.user._id } },
-        { $sort: { createdAt: 1 } }
+        { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
 
     case "dispatcher":
       res = await Trip.aggregate([
         { $match: { consolidator_id: req.user.consolidator_id } },
-        { $sort: { createdAt: 1 } }
+        { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
 
     case "agency_manager":
       res = await Trip.aggregate([
-        { $match: { consolidator_id: String(req.user.consolidator_id) } },
+        { $match: { consolidator_id: req.user.consolidator_id } },
         { $sort: { createdAt: 1 } },
       ]);
       return setDataToFrontEnd(res);
@@ -40,7 +36,6 @@ const getTripsService = async (req) => {
     default:
       return [];
   }
-
 };
 
 module.exports = getTripsService;
@@ -62,17 +57,16 @@ function setDataToFrontEnd(res) {
     active: i?.active,
     direct: i?.direct,
     stops: i?.stops,
-    
+
     _id: i?._id,
     trip_number_id: i?.trip_number_id,
     reverse_trip_id: i?.reverse_trip_id,
     reverse_trip_number_id: i?.reverse_trip_number_id,
-    
+
     carrier_id: i?.carrier_id,
     carrier_name: i?.carrier_name,
     consolidator_id: i?.consolidator_id,
     consolidator_name: i?.consolidator_name,
-
   }));
 
   return dataToFrontEnd;

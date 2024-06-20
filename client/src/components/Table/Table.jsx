@@ -18,6 +18,7 @@ const Table = ({
   emptyMessage,
   canExpand,
   renderSubComponent,
+  needRowTable = false,
   sortColumn = true
 }) => {
   const { getHeaderGroups, getRowModel } = useReactTable({
@@ -46,6 +47,7 @@ const Table = ({
             getRowModel={getRowModel}
             handleRowClick={handleOnClickRow}
             renderSubComponent={renderSubComponent}
+            needRowTable={needRowTable}
           />
         </MaUTableStyle>
       </div>
