@@ -5,6 +5,7 @@ import LocationsSaga from 'containers/Dictionaries/Locations/store/sagas'
 import TripSaga from 'pages/TripSearch/store/sagas'
 import BookingsSaga from 'pages/Bookings/store/sagas'
 import TripsSaga from 'pages/Trips/store/sagas'
+import PassengersSaga from 'pages/Passengers/store/sagas'
 
 export default function* rootSaga() {
   yield all([
@@ -12,6 +13,7 @@ export default function* rootSaga() {
     fork(LocationsSaga),
     fork(TripSaga),
     fork(BookingsSaga),
-    fork(TripsSaga)
+    fork(TripsSaga),
+    fork(PassengersSaga)
   ])
 }

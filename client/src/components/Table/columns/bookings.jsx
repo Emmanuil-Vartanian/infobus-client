@@ -2,9 +2,11 @@ import { DATE_FORMAT } from 'constants/dateFormat'
 import i18n from 'i18n/config'
 import moment from 'moment'
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
+import LocalActivityIcon from '@mui/icons-material/LocalActivity'
 import IconCell from '../cells/IconCell'
 import { Link } from 'react-router-dom'
 import { ROUTES } from 'constants/routes'
+import { STATUSES } from 'constants/bookings'
 
 const idColumn = () => ({
   accessorKey: 'booking_number_id',
@@ -29,7 +31,7 @@ const departureColumn = () => ({
   meta: {
     widthCell: 200
   },
-  cell: ({ getValue }) => getValue().city[i18n.language]
+  cell: ({ getValue }) => getValue()?.city[i18n.language]
 })
 
 const departureDateColumn = () => ({
@@ -50,12 +52,12 @@ const timeColumn = () => ({
 })
 
 const returnDepartureDateColumn = () => ({
-  accessorKey: 'departure_reverse.date',
+  accessorKey: 'departure_reverse',
   header: i18n.t('pages.booking.returnDepartureDate'),
   meta: {
     widthCell: 210
   },
-  cell: ({ getValue }) => (getValue() ? moment(getValue()).format(DATE_FORMAT) : '-')
+  cell: ({ getValue }) => (getValue() ? moment(getValue().date).format(DATE_FORMAT) : '-')
 })
 
 const arrivalColumn = () => ({
@@ -64,7 +66,7 @@ const arrivalColumn = () => ({
   meta: {
     widthCell: 180
   },
-  cell: ({ getValue }) => getValue().city[i18n.language]
+  cell: ({ getValue }) => getValue()?.city[i18n.language]
 })
 
 const buchColumn = () => ({
@@ -92,12 +94,44 @@ const statusColumn = () => ({
   }
 })
 
+const paymentColumn = () => ({
+  accessorKey: 'payment_place',
+  header: i18n.t('pages.booking.payment'),
+  meta: {
+    widthCell: 50
+  },
+  cell: ({ getValue }) => (getValue() ? i18n.t(`pages.tripSearch.${getValue()}`) : '-')
+})
+
+const checkColumn = () => ({
+  accessorKey: 'check',
+  header: i18n.t('pages.booking.check'),
+  meta: {
+    widthCell: 50,
+    showColumn: ({ original }) => original.status !== STATUSES.NEW,
+    icons: data => [
+      {
+        icon: (
+          <Link
+            to={ROUTES.BOOKING_INVOICE.replace(':id', data._id)}
+            target={'_blank'}
+            style={{ height: '20px', lineHeight: '20px' }}
+          >
+            <LocalActivityIcon sx={{ color: '#63060a', width: '20px', height: '20px' }} />
+          </Link>
+        )
+      }
+    ]
+  },
+  cell: IconCell
+})
+
 const ticketColumn = () => ({
   accessorKey: 'ticket',
   header: i18n.t('pages.booking.ticket'),
   meta: {
     widthCell: 50,
-    showColumn: ({ original }) => original.status === 'paid',
+    showColumn: ({ original }) => original.status === STATUSES.PAID,
     icons: data => [
       {
         icon: (
@@ -123,16 +157,22 @@ const carrierColumn = () => ({
   }
 })
 
-export const bookingsColumns = () => [
-  idColumn(),
-  createdAtColumn(),
-  departureColumn(),
-  departureDateColumn(),
-  timeColumn(),
-  returnDepartureDateColumn(),
-  arrivalColumn(),
-  buchColumn(),
-  statusColumn(),
-  ticketColumn(),
-  carrierColumn()
-]
+export const bookingsColumns = isAgencyRole => {
+  const check = isAgencyRole ? [checkColumn()] : []
+
+  return [
+    idColumn(),
+    createdAtColumn(),
+    departureColumn(),
+    departureDateColumn(),
+    timeColumn(),
+    returnDepartureDateColumn(),
+    arrivalColumn(),
+    buchColumn(),
+    statusColumn(),
+    paymentColumn(),
+    ...check,
+    ticketColumn(),
+    carrierColumn()
+  ]
+}

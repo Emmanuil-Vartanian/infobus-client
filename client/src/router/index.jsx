@@ -12,6 +12,7 @@ import TripSearch from 'pages/TripSearch'
 import Bookings from 'pages/Bookings'
 import Ticket from 'pages/Bookings/components/Ticket'
 import Trips from 'pages/Trips'
+import Passengers from 'pages/Passengers'
 
 const Router = () => {
   const token = useSelector(getCurrentUserTokenSelector)
@@ -28,13 +29,15 @@ const Router = () => {
       element: !token ? <Login /> : <Navigate to={ROUTES.BOOKINGS_PAGE} />
     },
     { path: ROUTES.BOOKING_TICKET, element: <Ticket /> },
+    { path: ROUTES.BOOKING_INVOICE, element: <Ticket /> },
     {
       path: '/',
       element: <PrivateRoute />,
       children: [
         { path: ROUTES.BOOKINGS_PAGE, element: <Bookings /> },
         { path: ROUTES.TRIP_SEARCH_PAGE, element: <TripSearch /> },
-        { path: ROUTES.TRIPS_PAGE, element: <Trips /> }
+        { path: ROUTES.TRIPS_PAGE, element: <Trips /> },
+        { path: ROUTES.PASSENGERS, element: <Passengers /> }
       ]
     }
   ])

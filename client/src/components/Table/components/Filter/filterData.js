@@ -12,6 +12,8 @@ export const filteredObjects = (objData, dataFilter, allValuesArentNull) => {
         const createdAt = FILTER_PROPERTIES_NAMES.CREATED_AT
         const departureDate = FILTER_PROPERTIES_NAMES.DEPARTURE_DATE
         const returnDepartureDate = FILTER_PROPERTIES_NAMES.RETURNT_DEPARTURE_DATE
+        const passengerDepartureDate = FILTER_PROPERTIES_NAMES.PASSENGER_DEPARTURE_DATE
+        const passengerTrip = FILTER_PROPERTIES_NAMES.PASSENGER_TRIP
 
         if (key === departure || key === arrival) {
           return item[key].city[i18n.language] === value
@@ -21,10 +23,17 @@ export const filteredObjects = (objData, dataFilter, allValuesArentNull) => {
           return value === moment(item[departure].date).format(DATE_FORMAT)
         } else if (key === returnDepartureDate) {
           return value === moment(item['departure_reverse']?.date).format(DATE_FORMAT)
+        } else if (key === passengerDepartureDate) {
+          return item.date === value
+        } else if (key === passengerTrip) {
+          const trips = `${
+            item?.main_trip_direction.departure?.city[i18n.language]
+          } - ${item?.main_trip_direction?.arrival?.city[i18n.language]}`
+          return trips === value
         }
       })
     })
-    return newMyObjects.length || allValuesArentNull ? newMyObjects : objData
+    return newMyObjects?.length || allValuesArentNull ? newMyObjects : objData
   }
   return dataFilter ? filteredObjects() : objData || []
 }

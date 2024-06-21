@@ -65,10 +65,10 @@ export const TableCellHeaderStyled = styled(
   TableCell,
   styledCustomProps
 )(
-  ({ textAlign }) => `
+  ({ textAlign, onClick }) => `
   background: #f4f4f4;
   color: grey;
-  cursor: pointer;
+  cursor: ${typeof onClick === 'function' ? 'pointer' : 'auto'};
   :first-of-type {
     border-top-left-radius: 8px;
   }

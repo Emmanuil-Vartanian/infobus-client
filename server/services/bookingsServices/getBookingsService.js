@@ -26,6 +26,13 @@ const getBookingsService = async (req) => {
       ]);
       return setDataToFrontEnd(res);
 
+    case "carrier_manager":
+      res = await Booking.aggregate([
+        { $match: { creator_id: req.user._id } },
+        { $sort: { createdAt: 1 } },
+      ]);
+      return setDataToFrontEnd(res);
+
     case "agency_manager":
       res = await Booking.aggregate([
         { $match: { creator_id: req.user._id } },

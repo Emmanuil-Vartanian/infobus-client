@@ -8,6 +8,7 @@ export default {
     booking: 'Reservierungen',
     searchFlights: 'Flugsuche',
     trips: 'Buslinien',
+    passengers: 'Passagiere',
     logOut: 'Ausloggen'
   },
   pages: {
@@ -75,6 +76,7 @@ export default {
       id: 'Id',
       buch: 'Buch',
       status: 'Status',
+      check: 'Rechnung',
       ticket: 'Ticket',
       carrier: 'Firma',
       statuses: {
@@ -84,11 +86,29 @@ export default {
         canceled: 'Abgesagt'
       },
       active: 'Aktiv',
-      archive: 'Archiv'
+      archive: 'Archiv',
+      payment: 'Zahlung'
     },
     trip: {
       licensePlate: 'Kennzeichen',
       color: 'Farbe',
+      phone: 'Telefon'
+    },
+    passenger: {
+      username: 'Nachname Vorname',
+      birthDay: 'Geburtsdatum',
+      typ: 'Typ',
+      em: 'Em',
+      price: 'Preis',
+      bureau: 'Im Büro',
+      bus: 'Im Bus',
+      place: 'Sitz',
+      passID: 'Pass ID',
+      departure: 'Abfahrtort',
+      arrival: 'Ankunftsort',
+      returnDepartureDate: 'Rückfahrtdatum',
+      buch: 'Buch',
+      sum: 'Summe',
       phone: 'Telefon'
     }
   },
@@ -100,7 +120,9 @@ export default {
     createdAt: 'Auftragsdatum',
     departureDate: 'Abfahrtdatum',
     returnDepartureDate: 'Rückfahrtdatum',
-    status: 'Status'
+    status: 'Status',
+    passengerTrip: 'Buslinien',
+    passengerDepartureDate: 'Abfahrtdatum'
   },
   days: {
     1: 'Mo',

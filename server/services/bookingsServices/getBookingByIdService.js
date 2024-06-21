@@ -40,14 +40,9 @@ const getBookingByIdService = async (req) => {
       },
     },
     {
-      $addFields: {
-        consolidatorId: { $toString: "$consolidator_id" },
-      },
-    },
-    {
       $lookup: {
         from: "locations",
-        localField: "consolidatorId",
+        localField: "consolidator_id",
         foreignField: "creator_id",
         as: "locations_info",
       },
