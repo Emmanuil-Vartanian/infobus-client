@@ -33,8 +33,8 @@ import { ROLES } from 'constants/roles'
 import InvoiceData from './InvoiceData'
 
 export const locationDistance = (locations_info, city) => {
-  const { distance } = locations_info.find(item => item.city.de === city)
-  return distance
+  const distance = locations_info.find(item => item?.city?.de === city)
+  return distance?.distance
 }
 
 const Ticket = () => {
@@ -130,16 +130,16 @@ const Ticket = () => {
               <p>
                 {moment(ticket.arrival.date).format(DATE_FORMAT)}, {ticket.arrival.time}
               </p>
-              <p>{locationDistance(ticket.locations_info, ticket.departure.city.de)} Km</p>
-              <p>{locationDistance(ticket.locations_info, ticket.arrival.city.de)} Km</p>
+              <p>{locationDistance(ticket?.locations_info, ticket.departure?.city?.de)} Km</p>
+              <p>{locationDistance(ticket?.locations_info, ticket.arrival?.city?.de)} Km</p>
             </CheckTableBlock>
             <BusInfoBlock>
               <p></p>
               <p>
-                <span>Abfahrt Hin:</span> {ticket.departure.address.de}
+                <span>Abfahrt Hin:</span> {ticket.departure?.address?.de}
               </p>
               <p>
-                <span>Abfahrt Zurück:</span> {ticket.arrival.address.de}
+                <span>Abfahrt Zurück:</span> {ticket.arrival?.address?.de}
               </p>
             </BusInfoBlock>
             {Object.keys(ticket.departure_reverse).length ? (
@@ -157,17 +157,17 @@ const Ticket = () => {
                     {moment(ticket.arrival_reverse?.date).format(DATE_FORMAT)},{' '}
                     {ticket.arrival_reverse?.time}
                   </p>
-                  <p>{locationDistance(ticket.locations_info, ticket.departure.city.de)} Km</p>
-                  <p>{locationDistance(ticket.locations_info, ticket.arrival.city.de)} Km</p>
+                  <p>{locationDistance(ticket?.locations_info, ticket.departure?.city?.de)} Km</p>
+                  <p>{locationDistance(ticket?.locations_info, ticket.arrival?.city?.de)} Km</p>
                 </CheckTableBlock>
 
                 <BusInfoBlock>
                   <p></p>
                   <p>
-                    <span>Abfahrt Hin:</span> {ticket.departure_reverse.address.de}
+                    <span>Abfahrt Hin:</span> {ticket.departure_reverse?.address?.de}
                   </p>
                   <p>
-                    <span>Abfahrt Zurück:</span> {ticket.arrival_reverse.address.de}
+                    <span>Abfahrt Zurück:</span> {ticket.arrival_reverse?.address?.de}
                   </p>
                 </BusInfoBlock>
               </>

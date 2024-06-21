@@ -5,7 +5,7 @@ const getDirectionsByTripIdAndSearchQueryService = async (req) => {
   const { departure, arrival } = req.body;
 
   const res = await Direction.aggregate([
-    { $match: { reverse_trip_id: req?.body?.trip_id } },
+    { $match: { reverse_trip_id: new ObjectId(req?.body?.trip_id) } },
     {
       $match: {
         "departure.city.de": departure?.city?.de,
