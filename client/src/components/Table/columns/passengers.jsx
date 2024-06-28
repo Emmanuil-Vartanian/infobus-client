@@ -123,6 +123,67 @@ const returnDepartureDateColumn = () => ({
   cell: ({ getValue }) => (getValue() ? moment(getValue().date).format(DATE_FORMAT) : '-')
 })
 
+const lastNameColumn = () => ({
+  accessorKey: 'last_name',
+  header: i18n.t('pages.passenger.lastName'),
+  meta: {
+    widthCell: 130
+  }
+})
+
+const firstNameColumn = () => ({
+  accessorKey: 'first_name',
+  header: i18n.t('pages.passenger.firstName'),
+  meta: {
+    widthCell: 130
+  }
+})
+
+const hinColumn = () => ({
+  accessorKey: 'ow_seat_number',
+  header: 'hin',
+  meta: {
+    widthCell: 70
+  },
+  cell: ({ getValue }) => getValue() || '-'
+})
+
+const rukColumn = () => ({
+  accessorKey: 'rt_seat_number',
+  header: 'ruk',
+  meta: {
+    widthCell: 70
+  },
+  cell: ({ getValue }) => getValue() || '-'
+})
+
+const buchColumn = () => ({
+  accessorKey: 'buch',
+  header: 'buch',
+  meta: {
+    widthCell: 70
+  },
+  cell: ({ getValue }) => getValue() || '-'
+})
+
+const tripColumn = () => ({
+  accessorKey: 'main_trip_direction',
+  header: i18n.t('pages.passenger.trip'),
+  meta: {
+    widthCell: 230
+  },
+  cell: ({ getValue }) =>
+    `${getValue().departure.city[i18n.language]} - ${getValue().arrival.city[i18n.language]}`
+})
+
+const companyNameColumn = () => ({
+  accessorKey: 'carrier_name',
+  header: i18n.t('pages.tripSearch.companyName'),
+  meta: {
+    widthCell: 200
+  }
+})
+
 export const passengersColumns = () => [
   countColumn(),
   firstAndLastNameColumn(),
@@ -137,4 +198,16 @@ export const passengersColumns = () => [
   departureColumn(),
   arrivalColumn(),
   returnDepartureDateColumn()
+]
+
+export const allPassengersColumns = () => [
+  lastNameColumn(),
+  firstNameColumn(),
+  birthDayColumn(),
+  priceColumn(),
+  hinColumn(),
+  rukColumn(),
+  buchColumn(),
+  tripColumn(),
+  companyNameColumn()
 ]

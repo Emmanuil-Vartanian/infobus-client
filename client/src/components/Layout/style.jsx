@@ -31,6 +31,7 @@ export const MainBlock = styled('div')(({ open }) => ({
   width: open ? 'calc(100% - 200px)' : 'calc(100% - 57px)',
   marginTop: '48px',
   padding: '32px 40px',
+  overflow: 'auto',
   '@media (max-width: 750px)': {
     width: '100%',
     padding: '32px 16px'

@@ -1,8 +1,8 @@
 import CreditCardIcon from '@mui/icons-material/CreditCard'
 import SearchIcon from '@mui/icons-material/Search'
-import LogoutIcon from '@mui/icons-material/Logout'
 import RouteIcon from '@mui/icons-material/Route'
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
@@ -26,17 +26,25 @@ const useSideBarData = () => {
     icon: <SearchIcon />
   }
 
+  const passengersSideBar = {
+    name: ROUTES.PASSENGERS_PAGE,
+    title: t('sideBar.passengers'),
+    icon: <PeopleAltIcon />
+  }
+
+  const tripsSideBar = { name: ROUTES.TRIPS_PAGE, title: t('sideBar.trips'), icon: <RouteIcon /> }
+
   const userSideBar = [bookingsSideBar, tripSearchSideBar]
 
-  const agencySideBar = [
-    bookingsSideBar,
-    { name: ROUTES.TRIPS_PAGE, title: t('sideBar.trips'), icon: <RouteIcon /> },
-    tripSearchSideBar
-  ]
+  const agencySideBar = [bookingsSideBar, tripsSideBar, tripSearchSideBar]
 
-  const carrierSideBar = [
+  const carrierSideBar = [bookingsSideBar, passengersSideBar, tripSearchSideBar]
+
+  const dispatcherSideBar = [
     bookingsSideBar,
-    { name: ROUTES.PASSENGERS, title: t('sideBar.passengers'), icon: <PeopleAltIcon /> },
+    passengersSideBar,
+    tripsSideBar,
+    { name: ROUTES.LOCATIONS_PAGE, title: t('sideBar.locations'), icon: <LocationOnIcon /> },
     tripSearchSideBar
   ]
 
@@ -44,13 +52,9 @@ const useSideBarData = () => {
     const user = userRole === ROLES.USER ? userSideBar : []
     const agency = userRole === ROLES.AGENCY_MANAGER ? agencySideBar : []
     const carrier = userRole === ROLES.CARRIER_MANAGER ? carrierSideBar : []
+    const dispatcher = userRole === ROLES.DISPATCHER ? dispatcherSideBar : []
 
-    return [
-      ...user,
-      ...agency,
-      ...carrier,
-      { name: ROUTES.LOGIN_PAGE, title: t('sideBar.logOut'), icon: <LogoutIcon /> }
-    ]
+    return [...user, ...agency, ...carrier, ...dispatcher]
   }
 
   return { sideBarData: sideBarData() }

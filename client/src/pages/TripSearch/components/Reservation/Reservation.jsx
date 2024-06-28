@@ -34,9 +34,17 @@ const Reservation = ({ ticket, closeModal }) => {
   const discountsOptions = getDiscountsOptions(ticket?.discounts) || []
   // const paymentOptions = getPaymentOptions()
 
-  const returnDates = afterDate =>
-    getReservationDatesOptions(ticket?.reverseData?.trip_info?.departure?.date_list, afterDate) ||
-    []
+  const returnDates = afterDate => {
+    const reservationDates =
+      getReservationDatesOptions(ticket?.reverseData?.trip_info?.departure?.date_list, afterDate) ||
+      []
+    reservationDates.unshift({
+      id: reservationDates.length,
+      text: t('pages.tripSearch.freeDate'),
+      value: 'free'
+    })
+    return reservationDates
+  }
 
   const handleSubmit = data => {
     dispatch(createReservation({ data, ticket, enqueueSnackbar, closeModal }))

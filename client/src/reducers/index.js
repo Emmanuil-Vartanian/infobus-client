@@ -4,18 +4,18 @@ import storage from 'redux-persist/lib/storage'
 
 import appReducer from 'containers/App/store/reducers'
 import authReducer from 'pages/Login/store/reducers'
-import dictionariesReducer from 'containers/Dictionaries/store/reducers'
 import tripsSearchReducer from 'pages/TripSearch/store/reducers'
 import bookingsReducer from 'pages/Bookings/store/reducers'
 import tripsReducer from 'pages/Trips/store/reducers'
 import passengersReducer from 'pages/Passengers/store/reducers'
+import locationsReducer from 'pages/Locations/store/reducers'
 
 const entitiesReducer = combineReducers({
-  dictionaries: dictionariesReducer,
   tripsSearch: tripsSearchReducer,
   bookings: bookingsReducer,
   trips: tripsReducer,
-  passengers: passengersReducer
+  passengers: passengersReducer,
+  locations: locationsReducer
 })
 
 const persistConfig = {

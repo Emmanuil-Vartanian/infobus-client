@@ -2,7 +2,7 @@ import React from 'react'
 import { locationDistance } from './Ticket'
 import { Row10, Row11, Row12, Row5, Row6, Row7, Row8, Row9 } from './style'
 
-const InvoiceData = ({ ticket }) => {
+const InvoiceData = ({ ticket, isAgencyRole }) => {
   const taxPercent = 19 / 100 + 1
   const commission = +ticket.commission / 100
   const departureDistance = locationDistance(ticket.locations_info, ticket.departure.city.de)
@@ -50,45 +50,49 @@ const InvoiceData = ({ ticket }) => {
         </p>
         <p></p>
       </Row5>
-      <Row6>
-        <p>Provision {ticket.commission} %:</p>
-        <p>-{taxWithCommission} €</p>
-      </Row6>
-      <Row7>
-        <p></p>
-        <p>
-          <span>USt-pflicht. Betrag:</span> -{resultCommissionWithTax} €
-        </p>
-        <p>
-          <span>zzgl. 19% USt.:</span> -{zzglCommission} €
-        </p>
-        <p>
-          <span>Bruttobetrag:</span> -{taxWithCommission} €
-        </p>
-        <p></p>
-      </Row7>
+      {isAgencyRole && (
+        <>
+          <Row6>
+            <p>Provision {ticket.commission} %:</p>
+            <p>-{taxWithCommission} €</p>
+          </Row6>
+          <Row7>
+            <p></p>
+            <p>
+              <span>USt-pflicht. Betrag:</span> -{resultCommissionWithTax} €
+            </p>
+            <p>
+              <span>zzgl. 19% USt.:</span> -{zzglCommission} €
+            </p>
+            <p>
+              <span>Bruttobetrag:</span> -{taxWithCommission} €
+            </p>
+            <p></p>
+          </Row7>
+        </>
+      )}
       <Row8>
         <p>Rechnungsbetrag:</p>
-        <p>{invoiceAmount} €</p>
+        <p>{isAgencyRole ? invoiceAmount : sumPassengersPrice} €</p>
       </Row8>
       <Row9>
         <p>Gesamt USt-pflicht. Betrag:</p>
-        <p>{taxKm} € </p>
+        <p>{isAgencyRole ? taxKm : resultWithTax} € </p>
         <p>zzgl. 19% USt.:</p>
-        <p>{zzglKm} €</p>
+        <p>{isAgencyRole ? zzglKm : zzgl} €</p>
         <p>Gutschrift:</p>
         <p>0,00 €</p>
       </Row9>
       <Row10>
         <p>USt. Bruttobetrag:</p>
-        <p>{totalAmount} €</p>
+        <p>{isAgencyRole ? totalAmount : resultSumAndCoefficient} €</p>
         <p>Bereits gezahlt:</p>
         <p>0,00 €</p>
       </Row10>
       <Row11>
         <p>Zahlungsplan:</p>
         <p>Offener Betrag:</p>
-        <p>{invoiceAmount} €</p>
+        <p>{isAgencyRole ? invoiceAmount : sumPassengersPrice} €</p>
       </Row11>
       <Row12>
         <p>Zahlungsziel:</p>

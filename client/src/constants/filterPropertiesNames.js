@@ -6,5 +6,7 @@ export const FILTER_PROPERTIES_NAMES = {
   RETURNT_DEPARTURE_DATE: 'returnDepartureDate',
   STATUS: 'status',
   PASSENGER_TRIP: 'passengerTrip',
-  PASSENGER_DEPARTURE_DATE: 'passengerDepartureDate'
+  PASSENGER_DEPARTURE_DATE: 'passengerDepartureDate',
+  LOCATION_COUNTRY: 'locationCountry',
+  LOCATION_CITY: 'locationCity'
 }

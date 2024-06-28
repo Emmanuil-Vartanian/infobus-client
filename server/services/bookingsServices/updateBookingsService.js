@@ -5,17 +5,26 @@ const updateBookingsService = async (req) => {
 
   const updatedDataList = await Promise.all(
     dataList?.map(async (dataItem) => {
-      const { booking_id, buch, status, passengers_list, departure_reverse, arrival_reverse } = dataItem ?? {}
+      const {
+        booking_id,
+        buch,
+        status,
+        passengers_list,
+        departure_reverse,
+        arrival_reverse,
+      } = dataItem ?? {};
 
-      const updatedDataItem = Booking.findByIdAndUpdate(booking_id, {buch, status, passengers_list, departure_reverse, arrival_reverse}, { new: true } );
+      const updatedDataItem = Booking.findByIdAndUpdate(
+        booking_id,
+        { buch, status, passengers_list, departure_reverse, arrival_reverse },
+        { new: true }
+      );
       return updatedDataItem;
     })
-  )
+  );
 
-  return updatedDataList
+  return updatedDataList;
 };
-
-
 
 module.exports = updateBookingsService;
 

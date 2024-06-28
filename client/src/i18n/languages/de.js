@@ -2,13 +2,17 @@ export default {
   common: {
     today: 'Heute',
     hi: 'Hallo',
-    noRecords: 'Keine Aufzeichnungen'
+    noRecords: 'Keine Aufzeichnungen',
+    add: 'Hinzufügen',
+    edit: 'Bearbeiten',
+    apply: 'Anwenden'
   },
   sideBar: {
     booking: 'Reservierungen',
     searchFlights: 'Flugsuche',
     trips: 'Buslinien',
     passengers: 'Passagiere',
+    locations: 'Standorte',
     logOut: 'Ausloggen'
   },
   pages: {
@@ -64,7 +68,8 @@ export default {
       reservationAdded: 'Reservierung erfolgreich hinzugefügt',
       payment: 'Zahlung',
       office: 'Im Büro',
-      bus: 'Im Bus'
+      bus: 'Im Bus',
+      freeDate: 'Offenes datum'
     },
     booking: {
       createdAt: 'Auftragsdatum',
@@ -81,13 +86,16 @@ export default {
       carrier: 'Firma',
       statuses: {
         new: 'Neu',
-        paid: 'Bestätig',
-        confirmed: 'Bezahlt',
+        paid: 'Bezahlt',
+        confirmed: 'Bestätig',
         canceled: 'Abgesagt'
       },
       active: 'Aktiv',
       archive: 'Archiv',
-      payment: 'Zahlung'
+      all: 'Alle',
+      payment: 'Zahlung',
+      customer: 'Besteller',
+      free: 'Offene'
     },
     trip: {
       licensePlate: 'Kennzeichen',
@@ -109,7 +117,19 @@ export default {
       returnDepartureDate: 'Rückfahrtdatum',
       buch: 'Buch',
       sum: 'Summe',
-      phone: 'Telefon'
+      phone: 'Telefon',
+      firstName: 'Vorname',
+      lastName: 'Nachname',
+      trip: 'Buslinien'
+    },
+    locations: {
+      id: 'Id',
+      country: 'Land',
+      city: 'Stadt',
+      address: 'Adresse',
+      name: 'Der name des ortes',
+      addLocation: 'Einen Standort hinzufügen',
+      editLocation: 'Bearbeiten eines Standorts'
     }
   },
   filterForTable: {
@@ -122,7 +142,9 @@ export default {
     returnDepartureDate: 'Rückfahrtdatum',
     status: 'Status',
     passengerTrip: 'Buslinien',
-    passengerDepartureDate: 'Abfahrtdatum'
+    passengerDepartureDate: 'Abfahrtdatum',
+    locationCountry: 'Land',
+    locationCity: 'Stadt'
   },
   days: {
     1: 'Mo',
