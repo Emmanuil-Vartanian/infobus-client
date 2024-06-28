@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getCities } from '../store/actions'
-import { locationsSelector } from '../store/reducers/selectors'
+import { getCitiesSelector } from '../store/reducers/selectors'
 
 const useCities = () => {
   const dispatch = useDispatch()
   const [citiesData, setCitiesData] = useState([])
-  const locations = useSelector(locationsSelector)
+  const cities = useSelector(getCitiesSelector)
 
   useEffect(() => {
-    if (locations.length === 0) {
+    if (cities.length === 0) {
       dispatch(getCities())
     }
   }, [])
 
   useEffect(() => {
-    if (locations.length > 0) {
-      setCitiesData(locations)
+    if (cities.length > 0) {
+      setCitiesData(cities)
     }
-  }, [locations])
+  }, [cities])
 
   return [citiesData]
 }

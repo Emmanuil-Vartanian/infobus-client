@@ -23,6 +23,14 @@ const getBookingsService = async (req) => {
       res = await Booking.aggregate([
         { $match: { consolidator_id: req.user.consolidator_id } },
         { $sort: { createdAt: 1 } },
+        {
+          $lookup: {
+            from: "trips",
+            localField: "reverse_trip_id",
+            foreignField: "_id",
+            as: "trip_info",
+          },
+        },
       ]);
       return setDataToFrontEnd(res);
 
@@ -79,6 +87,7 @@ function setDataToFrontEnd(res) {
       direction_number_id: i?.direction_number_id,
       reverse_direction_id: i?.reverse_direction_id,
       // ===== trip id =====
+      trip_info: i?.trip_info ? i?.trip_info[0] : null,
       trip_id: i?.trip_id,
       trip_number_id: i?.trip_number_id,
       reverse_trip_id: i?.reverse_trip_id,

@@ -5,11 +5,11 @@ import { EFFECT_LOADING } from 'constants/effectLoading'
 import { setPassengersToStore } from '../actions'
 import { getPassengersAPI } from '../api'
 
-export function* getBookingsSaga() {
+export function* getBookingsSaga(action) {
   try {
     yield put(setEffectLoading(EFFECT_LOADING.GET_PASSENGERS))
 
-    const result = yield call(getPassengersAPI)
+    const result = yield call(getPassengersAPI, action.payload)
 
     if (result.status === 200) {
       yield put(setPassengersToStore(result.data))

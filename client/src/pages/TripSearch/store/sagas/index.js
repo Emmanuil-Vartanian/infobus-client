@@ -9,6 +9,7 @@ import moment from 'moment'
 import { SNACKBAR_TYPES } from 'constants/snackbarTypes'
 import i18n from 'i18n/config'
 import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
+import { SEND_DATE_FORMAT } from 'constants/dateFormat'
 
 export function* tripSearchSaga(action) {
   const data = action.payload
@@ -75,7 +76,7 @@ export function* createReservationSaga(action) {
       passengersList.push({
         first_name: data[`passengerFirstName${i}`],
         last_name: data[`passengerLastName${i}`],
-        birth_date: moment(data[`passengerBirthDate${i}`]).toJSON(),
+        birth_date: moment(data[`passengerBirthDate${i}`]).format(SEND_DATE_FORMAT),
         passport_id: data[`passengerPassportNumber${i}`],
         discount: data[`passengerDiscounts${i}`],
         salutation: data[`passengerGreeting${i}`],
@@ -121,7 +122,7 @@ export function* createReservationSaga(action) {
       },
       arrival: {
         ...ticket.arrival,
-        date: moment(data.date).add(1, 'days').toJSON()
+        date: moment(data.date).add(1, 'days').format(SEND_DATE_FORMAT)
       },
       departure_reverse: data?.returnDate
         ? { ...ticket.reverseData.arrival, point_order: 0, date: data.returnDate }
@@ -130,7 +131,7 @@ export function* createReservationSaga(action) {
         ? {
             ...ticket.reverseData.departure,
             point_order: 1,
-            date: moment(data.returnDate).add(1, 'days').toJSON()
+            date: moment(data.returnDate).add(1, 'days').format(SEND_DATE_FORMAT)
           }
         : null,
       main_trip_direction: ticket.main_trip_direction,

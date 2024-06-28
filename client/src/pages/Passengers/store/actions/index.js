@@ -1,7 +1,7 @@
 import { createAction } from 'typesafe-actions'
 import { PassengersActionTypes } from '../types'
 
-const getPassengers = createAction(PassengersActionTypes.GET_PASSENGERS)()
+const getPassengers = createAction(PassengersActionTypes.GET_PASSENGERS, all => all)()
 
 const setPassengersToStore = createAction(
   PassengersActionTypes.SET_PASSENGERS_TO_STORE,

@@ -6,6 +6,10 @@ export const getBookingsAPI = archived => {
   return ApiClient.get(url)
 }
 
+export const changeBookingsAPI = data => {
+  return ApiClient.post(URL.GET_BOOKINGS, data)
+}
+
 export const getTicketAPI = id => {
   return ApiClient.get(URL.GET_TICKET.replace(':id', id))
 }

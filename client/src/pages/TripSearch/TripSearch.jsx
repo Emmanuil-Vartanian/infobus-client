@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Form } from 'react-final-form'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { TripsTableBlock } from './style'
+
 import AuthHeader from 'components/AuthHeader'
 import { ColumnsGrid } from 'components/FormFields/style'
 import CircularProgress from 'components/CircularProgress'
@@ -11,18 +13,17 @@ import useLoadingEffect from 'services/hooks/useLoadingEffect'
 import { EFFECT_LOADING } from 'constants/effectLoading'
 import SearchBySelectField from 'components/FormFields/SearchBySelectField'
 import { AuthBackground } from 'pages/Login/style'
-import useCities from 'containers/Dictionaries/Locations/hooks/useCities'
 import { getTripSearchCitiesOptions } from 'services/formOptions'
 import { tripSearch, tripSearchForReverse } from './store/actions'
 import { getTripsSearchSelector } from './store/reducers/selectors'
 import LineLoader from 'components/LineLoader'
-import { TripsTableBlock } from './style'
 import Table from 'components/Table'
 import { tripsSearchColumns } from 'components/Table/columns/tripsSearch'
 import FullInfo from './components/FullInfo'
 import Popup from 'components/Popup'
 import Reservation from './components/Reservation'
 import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
+import useCities from 'pages/Locations/hooks/useCities'
 
 const TripSearch = () => {
   const { t } = useTranslation()

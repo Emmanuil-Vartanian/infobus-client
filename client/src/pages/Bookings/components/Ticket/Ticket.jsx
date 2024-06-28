@@ -47,7 +47,7 @@ const Ticket = () => {
 
   const invoice = pathname.includes('invoice')
 
-  const isUserRole = role === ROLES.USER
+  const isAgencyRole = role === ROLES.AGENCY_MANAGER
 
   useEffect(() => {
     dispatch(getTicket(id))
@@ -68,20 +68,20 @@ const Ticket = () => {
             <div>
               <ReiseText>REISE-ZENTRUM · Hirzerweg 11 · 12107 · Berlin</ReiseText>
               <div>
-                {isUserRole ? de.pages.tripSearch[ticket.user_data?.salutation] : 'Reisebüro'}
+                {!isAgencyRole ? de.pages.tripSearch[ticket.user_data?.salutation] : 'Reisebüro'}
               </div>
               <div>
-                {isUserRole
+                {!isAgencyRole
                   ? `${ticket.user_data?.user_first_name} ${ticket.user_data?.user_last_name}`
-                  : `${ticket.agency_info.short_name} Inh. ${ticket.agency_info.enterprise_owner}`}
+                  : `${ticket.agency_info?.short_name} Inh. ${ticket.agency_info?.enterprise_owner}`}
               </div>
-              <div>{isUserRole ? ticket.user_data?.street : ticket.agency_info.street}</div>
+              <div>{!isAgencyRole ? ticket.user_data?.street : ticket.agency_info?.street}</div>
               <div>
-                {isUserRole
+                {!isAgencyRole
                   ? `${ticket.user_data?.postal_code} ${ticket.user_data?.city}`
-                  : `${ticket.agency_info.postal_code} ${ticket.agency_info?.city}`}
+                  : `${ticket.agency_info?.postal_code} ${ticket.agency_info?.city}`}
               </div>
-              {role === ROLES.AGENCY_MANAGER && <div>Steuernr.: {ticket.agency_info.tax}</div>}
+              {role === ROLES.AGENCY_MANAGER && <div>Steuernr.: {ticket.agency_info?.tax}</div>}
             </div>
             <UserRightBlock>
               <div>
@@ -195,7 +195,7 @@ const Ticket = () => {
               </ParticipantBlock>
             ))}
             {invoice ? (
-              <InvoiceData ticket={ticket} />
+              <InvoiceData ticket={ticket} isAgencyRole={isAgencyRole} />
             ) : (
               <PaymentBlock>
                 <p>Zahlung beim Einsteigen im Bus:</p>
@@ -203,7 +203,7 @@ const Ticket = () => {
               </PaymentBlock>
             )}
           </div>
-          <InvoiceText>{ticket.invoice_text}</InvoiceText>
+          <InvoiceText>{invoice ? ticket.invoice_text : ticket.ticket_text}</InvoiceText>
         </TicketData>
       </TicketBackground>
     </>

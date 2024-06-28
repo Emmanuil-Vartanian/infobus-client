@@ -4,7 +4,8 @@ const BOOKINGS_PAGE = '/bookings'
 const BOOKING_TICKET = `${BOOKINGS_PAGE}/:id/ticket`
 const BOOKING_INVOICE = `${BOOKINGS_PAGE}/:id/invoice`
 const TRIPS_PAGE = '/trips'
-const PASSENGERS = '/passengers'
+const PASSENGERS_PAGE = '/passengers'
+const LOCATIONS_PAGE = '/locations'
 
 export const ROUTES = {
   TRIP_SEARCH_PAGE,
@@ -12,6 +13,7 @@ export const ROUTES = {
   BOOKINGS_PAGE,
   BOOKING_TICKET,
   TRIPS_PAGE,
-  PASSENGERS,
-  BOOKING_INVOICE
+  PASSENGERS_PAGE,
+  BOOKING_INVOICE,
+  LOCATIONS_PAGE
 }

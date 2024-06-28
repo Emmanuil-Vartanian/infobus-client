@@ -2,13 +2,17 @@ export default {
   common: {
     today: 'Сегодня',
     hi: 'Привет',
-    noRecords: 'Нет записей'
+    noRecords: 'Нет записей',
+    add: 'Добавить',
+    edit: 'Редактировать',
+    apply: 'Применить'
   },
   sideBar: {
     booking: 'Бронирование',
     searchFlights: 'Поиск рейсов',
     trips: 'Рейсы',
     passengers: 'Список пассажиров',
+    locations: 'Локации',
     logOut: 'Выход'
   },
   pages: {
@@ -64,7 +68,8 @@ export default {
       reservationAdded: 'Бронирование успешно добавлено',
       payment: 'Оплата',
       office: 'В бюро',
-      bus: 'В автобусе'
+      bus: 'В автобусе',
+      freeDate: 'Открытая дата'
     },
     booking: {
       createdAt: 'Дата заказа',
@@ -87,7 +92,10 @@ export default {
       },
       active: 'Активные',
       archive: 'Архив',
-      payment: 'Оплата'
+      all: 'Все',
+      payment: 'Оплата',
+      customer: 'Заказчик',
+      free: 'Открытая'
     },
     trip: {
       licensePlate: 'Номерной знак',
@@ -109,7 +117,19 @@ export default {
       returnDepartureDate: 'Дата выезда обратно',
       buch: 'Buch',
       sum: 'Сумма',
-      phone: 'Телефон'
+      phone: 'Телефон',
+      firstName: 'Имя',
+      lastName: 'Фамилия',
+      trip: 'Рейс'
+    },
+    locations: {
+      id: 'Id',
+      country: 'Страна',
+      city: 'Город',
+      address: 'Адрес',
+      name: 'Название локации',
+      addLocation: 'Добавление локации',
+      editLocation: 'Редактирование локации'
     }
   },
   filterForTable: {
@@ -122,7 +142,9 @@ export default {
     returnDepartureDate: 'Дата выезда обратно',
     status: 'Статус',
     passengerTrip: 'Рейс',
-    passengerDepartureDate: 'Дата выезда'
+    passengerDepartureDate: 'Дата выезда',
+    locationCountry: 'Страна',
+    locationCity: 'Город'
   },
   days: {
     1: 'Пн',

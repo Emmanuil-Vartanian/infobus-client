@@ -5,24 +5,7 @@ import { getBookingsStatusesOptions, getOptionsWithoutTranslate } from './formOp
 import moment from 'moment'
 import { DATE_FORMAT } from 'constants/dateFormat'
 
-// import { getCountriesOptions } from './formOptions'
-
 const removeDuplicateValues = array => uniq(array).filter(item => item)
-
-// const dataOptions = (tableData, myObjectPropertyName, childrenPropertyName, needSortBy = false) => {
-//   let values = tableData
-//     .map(item => item[myObjectPropertyName])
-//     .flat(Infinity)
-//     .filter(item => item)
-
-//   // if (isObject(values[0]) && values[0].hasOwnProperty(childrenPropertyName)) {
-//   //   values = values?.map(item => item[childrenPropertyName])
-//   // }
-
-//   const removedDuplicate = removeDuplicateValues(values)
-
-//   return needSortBy ? sortBy(removedDuplicate) : removedDuplicate
-// }
 
 const departureOptions = tableData => {
   const maxWidthByLang = { de: 110, ru: 164, ua: 164 }
@@ -182,6 +165,44 @@ const passengerDepartureDateOptions = tableData => {
   }
 }
 
+const locationCountryOptions = tableData => {
+  const maxWidthByLang = { de: 130, ru: 120, ua: 120 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.LOCATION_COUNTRY,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.country[i18n.language])
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const locationCityOptions = tableData => {
+  const maxWidthByLang = { de: 130, ru: 120, ua: 120 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.LOCATION_CITY,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.city[i18n.language])
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
 export const tripsPageFilterOptions = tableData => [
   departureOptions(tableData),
   arrivalOptions(tableData)
@@ -199,4 +220,9 @@ export const bookingsPageFilterOptions = tableData => [
 export const passengersPageFilterOptions = tableData => [
   passengersTripOptions(tableData),
   passengerDepartureDateOptions(tableData)
+]
+
+export const locationsPageFilterOptions = tableData => [
+  locationCountryOptions(tableData),
+  locationCityOptions(tableData)
 ]

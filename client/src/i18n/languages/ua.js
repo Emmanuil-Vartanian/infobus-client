@@ -2,13 +2,17 @@ export default {
   common: {
     today: 'Сьогодні',
     hi: 'Привіт',
-    noRecords: 'Записи відсутні'
+    noRecords: 'Записи відсутні',
+    add: 'Додати',
+    edit: 'Редагувати',
+    apply: 'Застосувати'
   },
   sideBar: {
     booking: 'Бронювання',
     searchFlights: 'Пошук рейсів',
     trips: 'Рейси',
     passengers: 'Список пасажирів',
+    locations: 'Локації',
     logOut: 'Вихід'
   },
   pages: {
@@ -64,7 +68,8 @@ export default {
       reservationAdded: 'Бронювання успішно додано',
       payment: 'Оплата',
       office: 'У бюро',
-      bus: 'В автобусі'
+      bus: 'В автобусі',
+      freeDate: 'Відкрита дата'
     },
     booking: {
       createdAt: 'Дата замовлення',
@@ -81,13 +86,16 @@ export default {
       carrier: 'Перевізник',
       statuses: {
         new: 'Новий',
-        paid: 'Підтверджено',
-        confirmed: 'Сплачено',
+        paid: 'Сплачено',
+        confirmed: 'Підтверджено',
         canceled: 'Скасовано'
       },
       active: 'Активні',
       archive: 'Архів',
-      payment: 'Оплата'
+      all: 'Всі',
+      payment: 'Оплата',
+      customer: 'Замовник',
+      free: 'Відкрита'
     },
     trip: {
       licensePlate: 'Номерний знак',
@@ -109,7 +117,19 @@ export default {
       returnDepartureDate: 'Дата виїзду назад',
       buch: 'Buch',
       sum: 'Сума',
-      phone: 'Телефон'
+      phone: 'Телефон',
+      firstName: "І'мя",
+      lastName: 'Прізвище',
+      trip: 'Рейс'
+    },
+    locations: {
+      id: 'Id',
+      country: 'Країна',
+      city: 'Місто',
+      address: 'Адреса',
+      name: 'Назва локації',
+      addLocation: 'Додавання локації',
+      editLocation: 'Редагування локації'
     }
   },
   filterForTable: {
@@ -122,7 +142,9 @@ export default {
     returnDepartureDate: 'Дата виїзду назад',
     status: 'Статус',
     passengerTrip: 'Рейс',
-    passengerDepartureDate: 'Дата виїзду'
+    passengerDepartureDate: 'Дата виїзду',
+    locationCountry: 'Країна',
+    locationCity: 'Місто'
   },
   days: {
     1: 'Пн',

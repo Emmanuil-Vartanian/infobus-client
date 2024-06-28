@@ -9,6 +9,8 @@ export const DownloadTicket = styled(Button)`
 export const TicketBackground = styled('div')`
   background-color: #eff1f4;
   padding: 20px;
+  overflow: auto;
+  max-height: calc(100% - 44px);
 `
 
 export const TicketData = styled('div')`

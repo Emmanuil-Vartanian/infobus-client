@@ -7,6 +7,8 @@ import IconCell from '../cells/IconCell'
 import { Link } from 'react-router-dom'
 import { ROUTES } from 'constants/routes'
 import { STATUSES } from 'constants/bookings'
+import { editColumn } from './locations'
+import { ROLES } from 'constants/roles'
 
 const idColumn = () => ({
   accessorKey: 'booking_number_id',
@@ -57,7 +59,15 @@ const returnDepartureDateColumn = () => ({
   meta: {
     widthCell: 210
   },
-  cell: ({ getValue }) => (getValue() ? moment(getValue().date).format(DATE_FORMAT) : '-')
+  cell: ({ getValue }) => {
+    const momentDate = moment(getValue()?.date)
+    const isValidDate = momentDate?.isValid()
+    return getValue()
+      ? isValidDate
+        ? momentDate.format(DATE_FORMAT)
+        : i18n.t('pages.booking.free')
+      : '-'
+  }
 })
 
 const arrivalColumn = () => ({
@@ -82,14 +92,16 @@ const statusColumn = () => ({
   accessorKey: 'status',
   header: i18n.t('pages.booking.status'),
   meta: {
-    widthCell: 50
+    widthCell: 130
   },
   cell: ({ getValue }) => {
     const color = { new: 'red', paid: 'green', confirmed: 'blue', canceled: 'black' }
-    return (
+    return getValue() ? (
       <span style={{ color: color[getValue()] }}>
         {i18n.t(`pages.booking.statuses.${getValue()}`)}
       </span>
+    ) : (
+      '-'
     )
   }
 })
@@ -157,8 +169,11 @@ const carrierColumn = () => ({
   }
 })
 
-export const bookingsColumns = isAgencyRole => {
-  const check = isAgencyRole ? [checkColumn()] : []
+export const bookingsColumns = (role, handleEditBooking) => {
+  const edit =
+    role === ROLES.DISPATCHER && typeof handleEditBooking === 'function'
+      ? [editColumn(handleEditBooking)]
+      : []
 
   return [
     idColumn(),
@@ -171,8 +186,9 @@ export const bookingsColumns = isAgencyRole => {
     buchColumn(),
     statusColumn(),
     paymentColumn(),
-    ...check,
+    checkColumn(),
     ticketColumn(),
-    carrierColumn()
+    carrierColumn(),
+    ...edit
   ]
 }
