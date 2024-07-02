@@ -16,6 +16,8 @@ export const filteredObjects = (objData, dataFilter, allValuesArentNull) => {
         const passengerTrip = FILTER_PROPERTIES_NAMES.PASSENGER_TRIP
         const locationCountry = FILTER_PROPERTIES_NAMES.LOCATION_COUNTRY
         const locationCity = FILTER_PROPERTIES_NAMES.LOCATION_CITY
+        const agenciesName = FILTER_PROPERTIES_NAMES.AGENCIES_NAME
+        const agenciesGroup = FILTER_PROPERTIES_NAMES.AGENCIES_GROUP
 
         if (key === departure || key === arrival) {
           return item[key].city[i18n.language] === value
@@ -35,6 +37,10 @@ export const filteredObjects = (objData, dataFilter, allValuesArentNull) => {
         } else if (key === locationCountry || key === locationCity) {
           const keyName = key == locationCountry ? 'country' : 'city'
           return item[keyName][i18n.language] === value
+        } else if (key === agenciesName) {
+          return item.name === value
+        } else if (key === agenciesGroup) {
+          return item.consolidator_name === value
         }
       })
     })

@@ -15,7 +15,7 @@ const getUsersService = async (req) => {
     case "chief":
       res = await User.aggregate([
         { $match: { active: true } },
-        { $match: { role: { $nin: ["superadmin", "consolidator", "chief", "dispatcher", "carrier_manager"] } } },
+        { $match: { role: { $nin: ["superadmin", "consolidator", "chief", "carrier_manager"] } } },
         { $sort: { role: -1 } },
       ]);
       return setDataToFrontEnd(res);

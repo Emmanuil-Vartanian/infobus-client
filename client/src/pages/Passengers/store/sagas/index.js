@@ -5,7 +5,7 @@ import { EFFECT_LOADING } from 'constants/effectLoading'
 import { setPassengersToStore } from '../actions'
 import { getPassengersAPI } from '../api'
 
-export function* getBookingsSaga(action) {
+export function* getPassengerSaga(action) {
   try {
     yield put(setEffectLoading(EFFECT_LOADING.GET_PASSENGERS))
 
@@ -23,5 +23,5 @@ export function* getBookingsSaga(action) {
 }
 
 export default function* root() {
-  yield all([takeLatest(PassengersActionTypes.GET_PASSENGERS, getBookingsSaga)])
+  yield all([takeLatest(PassengersActionTypes.GET_PASSENGERS, getPassengerSaga)])
 }

@@ -9,13 +9,19 @@ import bookingsReducer from 'pages/Bookings/store/reducers'
 import tripsReducer from 'pages/Trips/store/reducers'
 import passengersReducer from 'pages/Passengers/store/reducers'
 import locationsReducer from 'pages/Locations/store/reducers'
+import agenciesReducer from 'pages/Agencies/store/reducers'
+import usersCombineReducers from 'pages/Users/store/reducers'
+import carriersReducer from 'pages/Carriers/store/reducers'
 
 const entitiesReducer = combineReducers({
   tripsSearch: tripsSearchReducer,
   bookings: bookingsReducer,
   trips: tripsReducer,
   passengers: passengersReducer,
-  locations: locationsReducer
+  locations: locationsReducer,
+  agencies: agenciesReducer,
+  users: usersCombineReducers,
+  carriers: carriersReducer
 })
 
 const persistConfig = {

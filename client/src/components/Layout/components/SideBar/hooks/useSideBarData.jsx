@@ -5,6 +5,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import CorporateFareIcon from '@mui/icons-material/CorporateFare'
 
 import { ROUTES } from 'constants/routes'
 import { ROLES } from 'constants/roles'
@@ -34,6 +35,24 @@ const useSideBarData = () => {
 
   const tripsSideBar = { name: ROUTES.TRIPS_PAGE, title: t('sideBar.trips'), icon: <RouteIcon /> }
 
+  const locationsSideBar = {
+    name: ROUTES.LOCATIONS_PAGE,
+    title: t('sideBar.locations'),
+    icon: <LocationOnIcon />
+  }
+
+  const agenciesSideBar = {
+    name: ROUTES.AGENCIES_PAGE,
+    title: t('sideBar.agencies'),
+    icon: <CorporateFareIcon />
+  }
+
+  const usersSideBar = {
+    name: ROUTES.USERS_PAGE,
+    title: t('sideBar.users'),
+    icon: <PeopleAltIcon />
+  }
+
   const userSideBar = [bookingsSideBar, tripSearchSideBar]
 
   const agencySideBar = [bookingsSideBar, tripsSideBar, tripSearchSideBar]
@@ -44,7 +63,17 @@ const useSideBarData = () => {
     bookingsSideBar,
     passengersSideBar,
     tripsSideBar,
-    { name: ROUTES.LOCATIONS_PAGE, title: t('sideBar.locations'), icon: <LocationOnIcon /> },
+    locationsSideBar,
+    tripSearchSideBar
+  ]
+
+  const chiefSideBar = [
+    bookingsSideBar,
+    passengersSideBar,
+    tripsSideBar,
+    agenciesSideBar,
+    usersSideBar,
+    locationsSideBar,
     tripSearchSideBar
   ]
 
@@ -53,8 +82,9 @@ const useSideBarData = () => {
     const agency = userRole === ROLES.AGENCY_MANAGER ? agencySideBar : []
     const carrier = userRole === ROLES.CARRIER_MANAGER ? carrierSideBar : []
     const dispatcher = userRole === ROLES.DISPATCHER ? dispatcherSideBar : []
+    const chief = userRole === ROLES.CHIEF ? chiefSideBar : []
 
-    return [...user, ...agency, ...carrier, ...dispatcher]
+    return [...user, ...agency, ...carrier, ...dispatcher, ...chief]
   }
 
   return { sideBarData: sideBarData() }

@@ -5,7 +5,10 @@ export default {
     noRecords: 'Keine Aufzeichnungen',
     add: 'Hinzufügen',
     edit: 'Bearbeiten',
-    apply: 'Anwenden'
+    apply: 'Anwenden',
+    delete: 'Entfernen?',
+    yes: 'Ja',
+    no: 'Nein'
   },
   sideBar: {
     booking: 'Reservierungen',
@@ -13,6 +16,8 @@ export default {
     trips: 'Buslinien',
     passengers: 'Passagiere',
     locations: 'Standorte',
+    agencies: 'Agenturen',
+    users: 'Benutzer',
     logOut: 'Ausloggen'
   },
   pages: {
@@ -130,6 +135,62 @@ export default {
       name: 'Der name des ortes',
       addLocation: 'Einen Standort hinzufügen',
       editLocation: 'Bearbeiten eines Standorts'
+    },
+    agencies: {
+      id: 'Id',
+      name: 'Agenturen name',
+      shortName: 'Kurzname',
+      taxNumber: 'Steuernummer',
+      status: 'Status',
+      owner: 'Inhaber',
+      group: 'Gruppe',
+      pe: 'Reisebüro',
+      ltd: 'Firma',
+      postalCode: 'Plz',
+      street: 'Straße',
+      city: 'Stadt',
+      tel: 'Telefon',
+      fax: 'Fax',
+      email: 'Email',
+      user: 'Benutzer',
+      password: 'Kennwort',
+      access: 'Zugang',
+      active: 'Aktiv',
+      notActive: 'Nicht aktiv',
+      commissionTab: 'Kommission',
+      activeTab: 'Aktiv',
+      addAgency: 'Agentur hinzufügen',
+      editAgency: 'Bearbeitungsagentur',
+      form: {
+        1: {
+          title: '1. Geben Sie den Namen der Agentur ein',
+          description: 'Bei Eingang der Bestellung wird Ihnen der Kurzname der Agentur angezeigt',
+          fullName: 'Vollständiger Name der Agentur',
+          shortName: 'Kurzname der Agentur'
+        },
+        2: {
+          title: '2. Geben Sie die Adresse der Agentur ein',
+          description: 'Diese Daten spiegeln sich in den ausgestellten Rechnungen und Tickets wider'
+        },
+        3: {
+          title: '3. Geben Sie die Kontaktdaten der Agentur ein',
+          description: 'Diese Daten spiegeln sich in den ausgestellten Rechnungen und Tickets wider'
+        },
+        4: {
+          title:
+            '4. Geben Sie die Steuernummer und den Inhaber des Unternehmens oder der Agentur an'
+        },
+        5: {
+          title: '5. Geben Sie die Unternehmensform an',
+          enterpriseForm: 'Unternehmensform'
+        },
+        6: {
+          title:
+            '6. Geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein, um sich bei Ihrem Konto anzumelden',
+          description:
+            'Für die Anmeldung am Konto wird die E-Mail-Adresse verwendet. Das Passwort muss 5-20 Zeichen lang sein, mindestens ein Sonderzeichen und mindestens eine Zahl enthalten.'
+        }
+      }
     }
   },
   filterForTable: {
@@ -144,7 +205,9 @@ export default {
     passengerTrip: 'Buslinien',
     passengerDepartureDate: 'Abfahrtdatum',
     locationCountry: 'Land',
-    locationCity: 'Stadt'
+    locationCity: 'Stadt',
+    agenciesName: 'Agenturen name',
+    agenciesGroup: 'Gruppe'
   },
   days: {
     1: 'Mo',

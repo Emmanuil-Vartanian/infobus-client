@@ -8,5 +8,7 @@ export const FILTER_PROPERTIES_NAMES = {
   PASSENGER_TRIP: 'passengerTrip',
   PASSENGER_DEPARTURE_DATE: 'passengerDepartureDate',
   LOCATION_COUNTRY: 'locationCountry',
-  LOCATION_CITY: 'locationCity'
+  LOCATION_CITY: 'locationCity',
+  AGENCIES_NAME: 'agenciesName',
+  AGENCIES_GROUP: 'agenciesGroup'
 }

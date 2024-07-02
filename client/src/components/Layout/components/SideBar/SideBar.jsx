@@ -12,6 +12,7 @@ import { ListItemButtonStyled, ListStyled, SideBarContainer } from './style'
 import { logOutUser } from 'pages/Login/store/actions'
 import { sidebarStateToStore } from 'containers/App/store/actions'
 import useSideBarData from './hooks/useSideBarData'
+import { ROUTES } from 'constants/routes'
 
 const SideBar = ({ open }) => {
   const { t } = useTranslation()
@@ -26,6 +27,7 @@ const SideBar = ({ open }) => {
 
   const handleLogout = () => {
     dispatch(logOutUser())
+    navigate(ROUTES.LOGIN_PAGE)
     if (window.innerWidth <= 750) {
       dispatch(sidebarStateToStore())
     }

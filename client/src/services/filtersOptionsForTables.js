@@ -203,6 +203,44 @@ const locationCityOptions = tableData => {
   }
 }
 
+const agenciesNameOptions = tableData => {
+  const maxWidthByLang = { de: 200, ru: 200, ua: 200 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.AGENCIES_NAME,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.name)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const agenciesGroupOptions = tableData => {
+  const maxWidthByLang = { de: 200, ru: 200, ua: 200 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.AGENCIES_GROUP,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.consolidator_name)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
 export const tripsPageFilterOptions = tableData => [
   departureOptions(tableData),
   arrivalOptions(tableData)
@@ -225,4 +263,9 @@ export const passengersPageFilterOptions = tableData => [
 export const locationsPageFilterOptions = tableData => [
   locationCountryOptions(tableData),
   locationCityOptions(tableData)
+]
+
+export const agenciesPageFilterOptions = tableData => [
+  agenciesNameOptions(tableData),
+  agenciesGroupOptions(tableData)
 ]

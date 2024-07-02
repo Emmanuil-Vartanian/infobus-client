@@ -171,7 +171,7 @@ const carrierColumn = () => ({
 
 export const bookingsColumns = (role, handleEditBooking) => {
   const edit =
-    role === ROLES.DISPATCHER && typeof handleEditBooking === 'function'
+    (role === ROLES.DISPATCHER || role === ROLES.CHIEF) && typeof handleEditBooking === 'function'
       ? [editColumn(handleEditBooking)]
       : []
 

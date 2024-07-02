@@ -6,6 +6,9 @@ const LOCATIONS_SERVICE = `${apiBase}/locations`
 const DIRECTIONS_SERVICE = `${apiBase}/directions`
 const BOOKINGS_SERVICE = `${apiBase}/bookings`
 const TRIPS_SERVICE = `${apiBase}/trips`
+const AGENCIES_SERVICE = `${apiBase}/agencies`
+const USERS_SERVICE = `${apiBase}/users`
+const CARRIERS_SERVICE = `${apiBase}/carriers`
 
 /* AUTH SERVICE */
 const LOGIN = `${AUTH_SERVICE}/login`
@@ -32,6 +35,19 @@ const GET_ALL_PASSENGERS = `${BOOKINGS_SERVICE}/passengers/all`
 /* TRIPS SERVICE */
 const GET_TRIPS = `${TRIPS_SERVICE}`
 
+/* AGENCIES SERVICE */
+const GET_AGENCIES = `${AGENCIES_SERVICE}`
+const CREATE_AGENCY = `${AGENCIES_SERVICE}/new`
+const CHANGE_AGENCY = `${AGENCIES_SERVICE}/:id`
+const DELETE_AGENCY = `${AGENCIES_SERVICE}/delete`
+
+/* USERS SERVICE */
+const GET_USERS = `${USERS_SERVICE}`
+const GET_CONSOLIDATORS = `${USERS_SERVICE}/consolidators`
+
+/* CARRIERS SERVICE */
+const GET_CARRIERS = `${CARRIERS_SERVICE}`
+
 export const URL = {
   LOGIN,
   VALIDATE_TOKEN,
@@ -47,5 +63,12 @@ export const URL = {
   GET_TRIPS,
   GET_PASSENGERS,
   GET_LOCATIONS,
-  GET_ALL_PASSENGERS
+  GET_ALL_PASSENGERS,
+  GET_AGENCIES,
+  CREATE_AGENCY,
+  CHANGE_AGENCY,
+  DELETE_AGENCY,
+  GET_USERS,
+  GET_CONSOLIDATORS,
+  GET_CARRIERS
 }

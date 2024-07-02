@@ -96,3 +96,24 @@ export const getBookingsStatusesOptions = data => {
 
   return options
 }
+
+export const getEnterpriseFormOptions = () => {
+  const options = ['pe', 'ltd'].map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`pages.agencies.${item}`),
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getConsolidatorsOptions = data => {
+  const options = data?.map((item, index) => {
+    return { id: index, text: item.name, value: item._id }
+  })
+  options.unshift({ id: data.length, text: 'None', value: '' })
+
+  return options
+}
