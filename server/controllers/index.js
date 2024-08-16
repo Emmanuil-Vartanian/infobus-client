@@ -51,6 +51,7 @@ const {
   getTripByIdController,
   updateTripController,
   getClosestTripsController,
+  deleteTripByIdController,
 } = require("./tripsControllers");
 const {
   createBaggageController,
@@ -137,6 +138,7 @@ module.exports = {
   getTripByIdController,
   getClosestTripsController,
   updateTripController,
+  deleteTripByIdController,
   // transportsControlles
   createTransportController,
   getTransportsController,

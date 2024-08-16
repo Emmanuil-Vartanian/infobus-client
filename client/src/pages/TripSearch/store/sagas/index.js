@@ -1,15 +1,37 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 import { DirectionsActionTypes } from '../types'
-import { createReservationAPI, tripSearchAPI, tripSearchForReverseAPI } from '../api'
+import {
+  createReservationAPI,
+  getDirectionsAPI,
+  tripSearchAPI,
+  tripSearchForReverseAPI
+} from '../api'
 import { clearEffectLoading, setEffectLoading } from 'containers/App/store/actions'
 import { EFFECT_LOADING } from 'constants/effectLoading'
-import { setTripsToStore } from '../actions'
+import { setDirectionsToStore, setTripsToStore } from '../actions'
 import { v4 } from 'node-uuid'
 import moment from 'moment'
 import { SNACKBAR_TYPES } from 'constants/snackbarTypes'
 import i18n from 'i18n/config'
 import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
 import { SEND_DATE_FORMAT } from 'constants/dateFormat'
+
+export function* getDirectionsSaga() {
+  try {
+    yield put(setEffectLoading(EFFECT_LOADING.GET_DIRECTIONS))
+
+    const result = yield call(getDirectionsAPI)
+
+    if (result.status === 200) {
+      yield put(setDirectionsToStore(result.data))
+      yield put(clearEffectLoading(EFFECT_LOADING.GET_DIRECTIONS))
+    }
+  } catch (error) {
+    const { response } = error
+    console.error(DirectionsActionTypes.GET_DIRECTIONS, response)
+    yield put(clearEffectLoading(EFFECT_LOADING.GET_DIRECTIONS))
+  }
+}
 
 export function* tripSearchSaga(action) {
   const data = action.payload
@@ -42,8 +64,8 @@ export function* tripSearchForReverseSaga(action) {
 
   try {
     const dataForSend = {
-      arrival: { city: data.arrival.city },
-      departure: { city: data.departure.city },
+      departure: { city: data.arrival.city },
+      arrival: { city: data.departure.city },
       trip_id: data.reverse_trip_id
     }
 
@@ -82,7 +104,7 @@ export function* createReservationSaga(action) {
         salutation: data[`passengerGreeting${i}`],
         passenger_id: v4(),
         passenger_order: 0,
-        ow_seat_number: null,
+        ow_seat_number: data.disabledSeats ? data.disabledSeats[i - 1] : null,
         rt_seat_number: null
       })
     }
@@ -169,6 +191,7 @@ export function* createReservationSaga(action) {
 
 export default function* root() {
   yield all([
+    takeLatest(DirectionsActionTypes.GET_DIRECTIONS, getDirectionsSaga),
     takeLatest(DirectionsActionTypes.TRIP_SEARCH, tripSearchSaga),
     takeLatest(DirectionsActionTypes.TRIP_SEARCH_FOR_REVERSE, tripSearchForReverseSaga),
     takeLatest(DirectionsActionTypes.CREATE_RESERVATION, createReservationSaga)

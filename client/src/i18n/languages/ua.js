@@ -6,9 +6,12 @@ export default {
     add: 'Додати',
     edit: 'Редагувати',
     apply: 'Застосувати',
-    delete: 'Видалити?',
+    delete: 'Видалити',
     yes: 'Так',
-    no: 'Ні'
+    no: 'Ні',
+    active: 'Активний',
+    notActive: 'Не активний',
+    selectAll: 'Обрати всі'
   },
   sideBar: {
     booking: 'Бронювання',
@@ -18,6 +21,9 @@ export default {
     locations: 'Локації',
     agencies: 'Агенції',
     users: 'Користувачі',
+    routes: 'Маршрути',
+    discounts: 'Знижки',
+    baggage: 'Багаж',
     logOut: 'Вихід'
   },
   pages: {
@@ -74,7 +80,8 @@ export default {
       payment: 'Оплата',
       office: 'У бюро',
       bus: 'В автобусі',
-      freeDate: 'Відкрита дата'
+      freeDate: 'Відкрита дата',
+      place: 'Місце'
     },
     booking: {
       createdAt: 'Дата замовлення',
@@ -105,7 +112,68 @@ export default {
     trip: {
       licensePlate: 'Номерний знак',
       color: 'Колір',
-      phone: 'Телефон'
+      phone: 'Телефон',
+      all: 'Всі',
+      directions: 'Напрямки',
+      departure: 'Місто відправлення',
+      arrival: 'Місто прибуття',
+      departureDays: 'Дні виїзду',
+      time: 'Час',
+      arrivalDays: 'Дні прибуття',
+      trip: 'Рейс',
+      group: 'Група',
+      status: 'Статус',
+      addTrip: 'Додавання рейсу',
+      editTrip: 'Редагування рейсу',
+      addNewTrip:
+        'Створіть новий рейс обравши маршрут, додавши розклад, інформацію про ціни, знижки, правила перевезення багажу та іншу інформацію.',
+      chooseRoute: '1. Оберіть маршрут',
+      route: 'Маршрут',
+      schedule: '2. Додайте розклад та графік руху по маршруту :trip',
+      scheduleDescription: 'Вкажіть дату першого та останнього відправлення за маршрутом',
+      startDate: 'Дата початку відправки',
+      endDate: 'Дата завершення відправки',
+      departureDaysDescription: 'Вкажіть дні відправлення за маршрутом :route починаючи з :date',
+      departureTimeDescription:
+        'Вкажіть час відправлення з початкового місця та прибуття в наступні місця',
+      date: 'Дата',
+      addPrices: '4. Додати ціни на квитки',
+      addSeasonPrice: 'Додати сезонну ціну?',
+      seasonPrice: 'Вкажіть сезонну ціну',
+      seasonPriceDate: 'Вкажіть дату початку і закінчення сезону',
+      addDiscounts: '5. Додайте знижки',
+      discounts: 'Знижки',
+      addBaggage: '6. Додайте норми багажу',
+      baggage: 'Норми багажу',
+      chooseCarrier: '7. Виберіть перевізника та транспорт для цього рейсу',
+      carrierAndTransport: 'Перевізник та транспорт',
+      chooseSeats: '8. Квитки із вибором місць в автобусі?'
+    },
+    updateTrip: {
+      route: 'Маршрут',
+      schedule: 'Розклад',
+      seats: 'Місця в автобусі',
+      prices: 'Ціни',
+      discounts: 'Знижки',
+      baggage: 'Багаж',
+      invoiceAndTicketText: 'Текст рахунку та квитка',
+      activate: 'Активувати',
+      applyChanges: 'Застосувати зміни до зворотного рейсу?',
+      invoiceText: 'Текст рахунку-фактури',
+      ticketText: 'Текст квитка',
+      activateBusTrip: 'Активувати автобусний рейс',
+      activateStop: 'Активувати зупинки для висадки та посадки',
+      deactivateDirection: 'Напрямки, які буде деактивовано',
+      seasonPriceDate: 'Дати початку і закінчення сезону',
+      activateSeats: 'Активувати вибір місць',
+      dateRange: 'Діапазон дат',
+      date: 'Дата',
+      dateFrom: 'Дата від',
+      dateTo: 'Дата до',
+      free: 'Вільна',
+      booked: 'Заброньовано',
+      disabled: 'Заблоковано',
+      enableRouteSettings: 'Включити налаштування маршруту по дням тижня?'
     },
     passenger: {
       username: "Прізвище І'мя",
@@ -155,8 +223,6 @@ export default {
       user: 'Користувач',
       password: 'Пароль',
       access: 'Доступ',
-      active: 'Активний',
-      notActive: 'Не активний',
       commissionTab: 'Комісія',
       activeTab: 'Активні',
       addAgency: 'Додати агентство',
@@ -189,6 +255,52 @@ export default {
             'Email буде використовуватись для входу в аккаунт. Пароль повинен складатися з 5-20 символів, містити хоча б один спеціальний символ і хоча б одну цифру.'
         }
       }
+    },
+    users: {
+      id: 'Id',
+      role: 'Роль',
+      name: "Ім'я",
+      user: 'Користувач',
+      password: 'Пароль',
+      carrierOrAgent: 'Перевізник / Агенство',
+      group: 'Група',
+      access: 'Доступ',
+      newPassword: 'Новий пароль'
+    },
+    routes: {
+      id: 'Id',
+      route: 'Маршрут',
+      reverseRoute: 'Зворотний маршрут',
+      addRoute: 'Додавання маршруту',
+      departurePoint: '1. Оберіть місце відправлення',
+      arrivalPoint: '2. Оберіть місце прибуття',
+      stoppingPlaces: '3. Додайте додаткові місця зупинок',
+      departure: 'Місто відправлення',
+      arrival: 'Місто прибуття',
+      addStop: 'Додати зупинку',
+      stop: 'Зупинка'
+    },
+    discounts: {
+      id: 'Id',
+      discountName: 'Назва знижки',
+      discountType: 'Тип знижки',
+      discountSize: 'Розмір знижки',
+      currency: 'Валюта',
+      percent: 'Відсоток %',
+      fixed: 'Фіксована знижка',
+      addDiscount: 'Добавлення знижки',
+      editDiscount: 'Редагування знижки'
+    },
+    baggage: {
+      id: 'Id',
+      name: 'Назва норми багажу',
+      type: 'Вид норми багажу',
+      value: 'Значення норми',
+      units: 'Одиниці виміру',
+      weight: 'Вага',
+      price: 'Ціна',
+      addBaggage: 'Добавлення багажа',
+      editBaggage: 'Редагування багажа'
     }
   },
   filterForTable: {
@@ -196,6 +308,8 @@ export default {
     clear: 'Очистити',
     departure: 'Місто відправлення',
     arrival: 'Місто прибуття',
+    departureCountry: 'Країна відправлення',
+    arrivalCountry: 'Країна прибуття',
     createdAt: 'Дата замовлення',
     departureDate: 'Дата виїзду',
     returnDepartureDate: 'Дата виїзду назад',
@@ -205,7 +319,14 @@ export default {
     locationCountry: 'Країна',
     locationCity: 'Місто',
     agenciesName: 'Назва агентства',
-    agenciesGroup: 'Група'
+    agenciesGroup: 'Група',
+    usersRole: 'Роль',
+    usersGroup: 'Група',
+    usersAccess: 'Доступ',
+    discountsType: 'Тип знижки',
+    baggageType: 'Вид норми багажу',
+    carrierName: 'Назва компанії',
+    active: 'Статус'
   },
   days: {
     1: 'Пн',
@@ -215,5 +336,13 @@ export default {
     5: 'Пт',
     6: 'Сб',
     0: 'Нд'
+  },
+  roles: {
+    user: 'Користувач',
+    consolidator: 'Консолідатор',
+    chief: 'Шеф',
+    dispatcher: 'Диспетчер',
+    carrier_manager: 'Перевізник',
+    agency_manager: 'Агент'
   }
 }

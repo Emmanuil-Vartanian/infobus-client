@@ -6,9 +6,12 @@ export default {
     add: 'Hinzufügen',
     edit: 'Bearbeiten',
     apply: 'Anwenden',
-    delete: 'Entfernen?',
+    delete: 'Entfernen',
     yes: 'Ja',
-    no: 'Nein'
+    no: 'Nein',
+    active: 'Aktiv',
+    notActive: 'Nicht aktiv',
+    selectAll: 'Alle auswählen'
   },
   sideBar: {
     booking: 'Reservierungen',
@@ -18,6 +21,9 @@ export default {
     locations: 'Standorte',
     agencies: 'Agenturen',
     users: 'Benutzer',
+    routes: 'Routen',
+    discounts: 'Rabatte',
+    baggage: 'Gepäck',
     logOut: 'Ausloggen'
   },
   pages: {
@@ -74,7 +80,8 @@ export default {
       payment: 'Zahlung',
       office: 'Im Büro',
       bus: 'Im Bus',
-      freeDate: 'Offenes datum'
+      freeDate: 'Offenes datum',
+      place: 'Sitz'
     },
     booking: {
       createdAt: 'Auftragsdatum',
@@ -105,7 +112,69 @@ export default {
     trip: {
       licensePlate: 'Kennzeichen',
       color: 'Farbe',
-      phone: 'Telefon'
+      phone: 'Telefon',
+      all: 'Alle',
+      directions: 'Richtungen',
+      departure: 'Abfahrtstadt',
+      arrival: 'Anreisestadt',
+      departureDays: 'Abreisetage',
+      time: 'Zeit',
+      arrivalDays: 'Anreisetage',
+      trip: 'Buslinien',
+      group: 'Gruppe',
+      status: 'Status',
+      addTrip: 'Einen Flug hinzufügen',
+      editTrip: 'Einen Flug bearbeiten',
+      addNewTrip:
+        'Erstellen Sie einen neuen Flug, indem Sie eine Route auswählen, einen Flugplan, Preisinformationen, Rabatte, Gepäckregeln und andere Informationen hinzufügen.',
+      chooseRoute: '1. Wählen Sie eine Route',
+      route: 'Strecke',
+      schedule: '2. Fügen Sie den Fahrplan und den Verkehrsplan entlang der Route hinzu :trip',
+      scheduleDescription: 'Geben Sie das Datum der ersten und letzten Abfahrt nach Route ein',
+      startDate: 'Startdatum',
+      endDate: 'Enddatum',
+      departureDaysDescription:
+        'Geben Sie die Abfahrtstage für die Route an :route beginnend mit :date',
+      departureTimeDescription:
+        'Geben Sie die Abfahrtszeit vom ursprnglichen Standort und die Ankunftszeit an den folgenden Standorten ein',
+      date: 'Datum',
+      addPrices: '4. Ticketpreise hinzufügen',
+      addSeasonPrice: 'Einen Saisonpreis hinzufügen?',
+      seasonPrice: 'Saisonpreis angeben',
+      seasonPriceDate: 'Enter the start and end date of the season',
+      addDiscounts: '5. Fügen Sie Rabatte hinzu',
+      discounts: 'Die Rabatte',
+      addBaggage: '6. Freigepäck hinzufgen',
+      baggage: 'Freigepäck',
+      chooseCarrier: '7. Wählen Sie den Spediteur und das Transportmittel für diesen Flug aus',
+      carrierAndTransport: 'Firmen und Transport',
+      chooseSeats: '8. Tickets mit Sitzplatzwahl im Bus?'
+    },
+    updateTrip: {
+      route: 'Route',
+      schedule: 'Zeitplan',
+      seats: 'Sitzplätze im Bus',
+      prices: 'Preise',
+      discounts: 'Rabatte',
+      baggage: 'Gepäck',
+      invoiceAndTicketText: 'Rechnungstext und tickettext',
+      activate: 'Aktivieren',
+      applyChanges: 'Änderungen auf die Rückroute anwenden?',
+      invoiceText: 'Rechnungstext',
+      ticketText: 'Tickettext',
+      activateBusTrip: 'Aktivieren sie die buslinie',
+      activateStop: 'Haltestellen zum Ein- und Aussteigen aktivieren',
+      deactivateDirection: 'Richtungen werden deaktiviert',
+      seasonPriceDate: 'The start and end date of the season',
+      activateSeats: 'Sitzplatzauswahl aktivieren',
+      dateRange: 'Datumsbereich',
+      date: 'Datum',
+      dateFrom: 'Datum von',
+      dateTo: 'Datum bis',
+      free: 'Frei',
+      booked: 'Bucht',
+      disabled: 'Gesperrt',
+      enableRouteSettings: 'Routeneinstellungen nach Wochentagen aktivieren?'
     },
     passenger: {
       username: 'Nachname Vorname',
@@ -155,8 +224,6 @@ export default {
       user: 'Benutzer',
       password: 'Kennwort',
       access: 'Zugang',
-      active: 'Aktiv',
-      notActive: 'Nicht aktiv',
       commissionTab: 'Kommission',
       activeTab: 'Aktiv',
       addAgency: 'Agentur hinzufügen',
@@ -191,6 +258,52 @@ export default {
             'Für die Anmeldung am Konto wird die E-Mail-Adresse verwendet. Das Passwort muss 5-20 Zeichen lang sein, mindestens ein Sonderzeichen und mindestens eine Zahl enthalten.'
         }
       }
+    },
+    users: {
+      id: 'Id',
+      role: 'Rolle',
+      name: 'Name',
+      user: 'Benutzer',
+      password: 'Kennwort',
+      carrierOrAgent: 'Firmen / Agentur',
+      group: 'Gruppe',
+      access: 'Zugang',
+      newPassword: 'Neues kennwort'
+    },
+    routes: {
+      id: 'Id',
+      route: 'Route',
+      reverseRoute: 'Rckroute',
+      addRoute: 'Eine Route hinzufügen',
+      departurePoint: '1. Wählen Sie einen Abfahrtsort',
+      arrivalPoint: '2. Wählen Sie den Ankunftsort',
+      stoppingPlaces: '3. Fügen Sie zusätzliche Stopps hinzu',
+      departure: 'Abfahrtort',
+      arrival: 'Ankunftsort',
+      addStop: 'Einen Stopp hinzufügen',
+      stop: 'Stoppen'
+    },
+    discounts: {
+      id: 'Id',
+      discountName: 'Rabattname',
+      discountType: 'Rabattart',
+      discountSize: 'Rabattgröße',
+      currency: 'Währung',
+      percent: 'Prozent %',
+      fixed: 'Fester Rabatt',
+      addDiscount: 'Rabatt hinzufgen',
+      editDiscount: 'Rabatt bearbeiten'
+    },
+    baggage: {
+      id: 'Id',
+      name: 'Name des Freigepäcks',
+      type: 'Art der Freigepäckmenge',
+      value: 'Der Wert der Norm',
+      units: 'Einheiten',
+      weight: 'Gewicht',
+      price: 'Preis',
+      addBaggage: 'Gepäck hinzufügen',
+      editBaggage: 'Gepäck bearbeiten'
     }
   },
   filterForTable: {
@@ -198,6 +311,8 @@ export default {
     clear: 'Klar',
     departure: 'Abfahrtort',
     arrival: 'Ankunftsort',
+    departureCountry: 'Abflugland',
+    arrivalCountry: 'Ankunftsland',
     createdAt: 'Auftragsdatum',
     departureDate: 'Abfahrtdatum',
     returnDepartureDate: 'Rückfahrtdatum',
@@ -207,7 +322,14 @@ export default {
     locationCountry: 'Land',
     locationCity: 'Stadt',
     agenciesName: 'Agenturen name',
-    agenciesGroup: 'Gruppe'
+    agenciesGroup: 'Gruppe',
+    usersRole: 'Rolle',
+    usersGroup: 'Gruppe',
+    usersAccess: 'Zugang',
+    discountsType: 'Rabattart',
+    baggageType: 'Art der Freigepäckmenge',
+    carrierName: 'Firmenname',
+    active: 'Status'
   },
   days: {
     1: 'Mo',
@@ -217,5 +339,13 @@ export default {
     5: 'Fr',
     6: 'Sa',
     0: 'So'
+  },
+  roles: {
+    user: 'Benutzer',
+    consolidator: 'Konsolidierer',
+    chief: 'Chef',
+    dispatcher: 'Dispatcher',
+    carrier_manager: 'Transporteur',
+    agency_manager: 'Agent'
   }
 }

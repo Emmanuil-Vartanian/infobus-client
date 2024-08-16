@@ -1,6 +1,7 @@
 import i18n from 'i18n/config'
 import IconCell from '../cells/IconCell'
 import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const idColumn = () => ({
   accessorKey: 'location_number_id',
@@ -46,28 +47,32 @@ const nameColumn = () => ({
   cell: ({ getValue }) => getValue()[i18n.language]
 })
 
-export const editColumn = editLocation => ({
+const editColumn = (editLocation, openDelete) => ({
   accessorKey: ' ',
   meta: {
-    widthCell: 80,
+    widthCell: 105,
     showColumn: () => true,
     icons: () => [
       {
         icon: <EditIcon sx={{ color: '#63060a', width: '20px', height: '20px' }} />,
         onClick: editLocation
+      },
+      {
+        icon: <DeleteIcon sx={{ color: '#63060a', width: '20px', height: '20px' }} />,
+        onClick: openDelete
       }
     ]
   },
   cell: IconCell
 })
 
-export const locationsColumns = () => {
+export const locationsColumns = (editLocation, openDelete) => {
   return [
     idColumn(),
     countryColumn(),
     cityColumn(),
     addressColumn(),
-    nameColumn()
-    // editColumn(editLocation)
+    nameColumn(),
+    editColumn(editLocation, openDelete)
   ]
 }

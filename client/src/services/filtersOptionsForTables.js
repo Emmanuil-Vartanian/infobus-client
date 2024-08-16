@@ -1,7 +1,14 @@
 import { FILTER_PROPERTIES_NAMES } from 'constants/filterPropertiesNames'
 import i18n from 'i18n/config'
 import { sortBy, uniq } from 'lodash'
-import { getBookingsStatusesOptions, getOptionsWithoutTranslate } from './formOptions'
+import {
+  getAccessOptions,
+  getBaggageTypeOptions,
+  getBookingsStatusesOptions,
+  getDiscountsTypeOptions,
+  getOptionsWithoutTranslate,
+  getUsersRoleOptions
+} from './formOptions'
 import moment from 'moment'
 import { DATE_FORMAT } from 'constants/dateFormat'
 
@@ -35,6 +42,44 @@ const arrivalOptions = tableData => {
     option: () => {
       const values = tableData
         .map(item => item[FILTER_PROPERTIES_NAMES.ARRIVAL]?.city[i18n.language])
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const departureCountryOptions = tableData => {
+  const maxWidthByLang = { de: 110, ru: 164, ua: 164 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.DEPARTURE_COUNTRY,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item[FILTER_PROPERTIES_NAMES.DEPARTURE]?.country[i18n.language])
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const arrivalCountryOptions = tableData => {
+  const maxWidthByLang = { de: 120, ru: 150, ua: 140 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.ARRIVAL_COUNTRY,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item[FILTER_PROPERTIES_NAMES.ARRIVAL]?.country[i18n.language])
         .flat(Infinity)
         .filter(item => item)
 
@@ -223,7 +268,7 @@ const agenciesNameOptions = tableData => {
 }
 
 const agenciesGroupOptions = tableData => {
-  const maxWidthByLang = { de: 200, ru: 200, ua: 200 }
+  const maxWidthByLang = { de: 150, ru: 150, ua: 150 }
 
   return {
     name: FILTER_PROPERTIES_NAMES.AGENCIES_GROUP,
@@ -241,9 +286,150 @@ const agenciesGroupOptions = tableData => {
   }
 }
 
+const usersRoleOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.USERS_ROLE,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.role)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getUsersRoleOptions(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const usersGroupOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.USERS_GROUP,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.consolidator_name)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const usersAccessOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.USERS_ACCESS,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => (item.active ? 'active' : 'notActive'))
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getAccessOptions(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const discountsTypeOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.DISCOUNTS_TYPE,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.type)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getDiscountsTypeOptions(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const baggageTypeOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.BAGGAGE_TYPE,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.type)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getBaggageTypeOptions(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const carrierNameOptions = tableData => {
+  const maxWidthByLang = { de: 170, ru: 170, ua: 170 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.CARRIER_NAME,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => item.carrier_name)
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getOptionsWithoutTranslate(sortBy(removedDuplicate))
+    }
+  }
+}
+
+const activeOptions = tableData => {
+  const maxWidthByLang = { de: 140, ru: 140, ua: 140 }
+
+  return {
+    name: FILTER_PROPERTIES_NAMES.ACTIVE,
+    maxWidth: maxWidthByLang[i18n.language],
+    option: () => {
+      const values = tableData
+        .map(item => (item.active ? 'active' : 'notActive'))
+        .flat(Infinity)
+        .filter(item => item)
+
+      const removedDuplicate = removeDuplicateValues(values)
+
+      return getAccessOptions(sortBy(removedDuplicate))
+    }
+  }
+}
+
 export const tripsPageFilterOptions = tableData => [
   departureOptions(tableData),
   arrivalOptions(tableData)
+]
+
+export const advancedTripsPageFilterOptions = tableData => [
+  departureOptions(tableData),
+  arrivalOptions(tableData),
+  carrierNameOptions(tableData),
+  agenciesGroupOptions(tableData),
+  activeOptions(tableData)
 ]
 
 export const bookingsPageFilterOptions = tableData => [
@@ -269,3 +455,20 @@ export const agenciesPageFilterOptions = tableData => [
   agenciesNameOptions(tableData),
   agenciesGroupOptions(tableData)
 ]
+
+export const usersPageFilterOptions = tableData => [
+  usersRoleOptions(tableData),
+  usersGroupOptions(tableData),
+  usersAccessOptions(tableData)
+]
+
+export const routesPageFilterOptions = tableData => [
+  departureCountryOptions(tableData),
+  departureOptions(tableData),
+  arrivalOptions(tableData),
+  arrivalCountryOptions(tableData)
+]
+
+export const discountsPageFilterOptions = tableData => [discountsTypeOptions(tableData)]
+
+export const baggagePageFilterOptions = tableData => [baggageTypeOptions(tableData)]

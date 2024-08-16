@@ -6,6 +6,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import CorporateFareIcon from '@mui/icons-material/CorporateFare'
+import MapIcon from '@mui/icons-material/Map'
+import PercentIcon from '@mui/icons-material/Percent'
+import LuggageIcon from '@mui/icons-material/Luggage'
 
 import { ROUTES } from 'constants/routes'
 import { ROLES } from 'constants/roles'
@@ -53,6 +56,24 @@ const useSideBarData = () => {
     icon: <PeopleAltIcon />
   }
 
+  const routesSideBar = {
+    name: ROUTES.ROUTES_PAGE,
+    title: t('sideBar.routes'),
+    icon: <MapIcon />
+  }
+
+  const discountSideBar = {
+    name: ROUTES.DISCOUNTS_PAGE,
+    title: t('sideBar.discounts'),
+    icon: <PercentIcon />
+  }
+
+  const baggageSideBar = {
+    name: ROUTES.BAGGAGE_PAGE,
+    title: t('sideBar.baggage'),
+    icon: <LuggageIcon />
+  }
+
   const userSideBar = [bookingsSideBar, tripSearchSideBar]
 
   const agencySideBar = [bookingsSideBar, tripsSideBar, tripSearchSideBar]
@@ -74,6 +95,9 @@ const useSideBarData = () => {
     agenciesSideBar,
     usersSideBar,
     locationsSideBar,
+    routesSideBar,
+    discountSideBar,
+    baggageSideBar,
     tripSearchSideBar
   ]
 

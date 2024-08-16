@@ -43,7 +43,7 @@ const timeColumn = () => ({
   accessorKey: 'departureTime',
   header: i18n.t('pages.tripSearch.time'),
   meta: {
-    widthCell: 110
+    widthCell: 120
   },
   cell: ({ row }) => {
     return row.original.departure.time + '-' + row.original.arrival.time
@@ -75,7 +75,7 @@ const oneWayTicketColumn = handleGetTicket => ({
   accessorKey: 'oneWayTicket',
   header: i18n.t('pages.tripSearch.oneWayTicket'),
   meta: {
-    widthCell: 220,
+    widthCell: 230,
     buttonTitle: ({ prices }) => ({
       value: prices.ow_price,
       title: `<b>${prices.ow_price}€</b> ${i18n.t('pages.tripSearch.toBook')}`
@@ -89,7 +89,7 @@ const roundTripTicketColumn = handleGetTicket => ({
   accessorKey: 'roundTripTicket',
   header: i18n.t('pages.tripSearch.roundTripTicket'),
   meta: {
-    widthCell: 220,
+    widthCell: 230,
     buttonTitle: ({ prices }) => ({
       value: prices.rt_price,
       title: `<b>${prices.rt_price}€</b> ${i18n.t('pages.tripSearch.toBook')}`

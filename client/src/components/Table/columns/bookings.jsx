@@ -7,8 +7,8 @@ import IconCell from '../cells/IconCell'
 import { Link } from 'react-router-dom'
 import { ROUTES } from 'constants/routes'
 import { STATUSES } from 'constants/bookings'
-import { editColumn } from './locations'
 import { ROLES } from 'constants/roles'
+import EditIcon from '@mui/icons-material/Edit'
 
 const idColumn = () => ({
   accessorKey: 'booking_number_id',
@@ -167,6 +167,21 @@ const carrierColumn = () => ({
   meta: {
     widthCell: 50
   }
+})
+
+const editColumn = editLocation => ({
+  accessorKey: ' ',
+  meta: {
+    widthCell: 60,
+    showColumn: () => true,
+    icons: () => [
+      {
+        icon: <EditIcon sx={{ color: '#63060a', width: '20px', height: '20px' }} />,
+        onClick: editLocation
+      }
+    ]
+  },
+  cell: IconCell
 })
 
 export const bookingsColumns = (role, handleEditBooking) => {

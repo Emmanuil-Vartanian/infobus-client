@@ -3,8 +3,11 @@ import { Form } from 'react-final-form'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
+import moment from 'moment'
 
 import { ColumnsGrid } from 'components/FormFields/style'
+import { ColumnsGridStyled } from 'pages/TripSearch/style'
+
 import SelectField from 'components/FormFields/SelectField'
 import Button from 'components/Button'
 import {
@@ -19,7 +22,8 @@ import { createReservation } from 'pages/TripSearch/store/actions'
 import { EFFECT_LOADING } from 'constants/effectLoading'
 import useLoadingEffect from 'services/hooks/useLoadingEffect'
 import { getCurrentUserTokenSelector } from 'pages/Login/store/reducers/selectors'
-import { ColumnsGridStyled } from 'pages/TripSearch/style'
+import Seats from 'pages/Trips/components/UpdateTrip/components'
+import { SEND_DATE_FORMAT } from 'constants/dateFormat'
 
 const Reservation = ({ ticket, closeModal }) => {
   const { t } = useTranslation()
@@ -54,7 +58,7 @@ const Reservation = ({ ticket, closeModal }) => {
     setPassengers(prev => [...prev, prev[prev.length - 1] + 1])
   }
 
-  const handleDeletePassengers = (number, form) => () => {
+  const handleDeletePassengers = (bookedNumber, number, form, values) => () => {
     const passengerFeilds = [
       'passengerLastName',
       'passengerFirstName',
@@ -67,15 +71,20 @@ const Reservation = ({ ticket, closeModal }) => {
       form.change(item + number, null)
     })
 
+    if (ticket.seats_selection && bookedNumber) {
+      form.change('disabledSeats', [...values.disabledSeats.filter(item => item !== bookedNumber)])
+    }
+
     setPassengers(prev => {
       return prev.filter((item, index) => index + 1 !== number)
     })
   }
-
+  console.log('ticket', ticket)
   return (
     <Form
       onSubmit={handleSubmit}
       render={({ handleSubmit, form, values }) => {
+        console.log('values', values)
         return (
           <form onSubmit={handleSubmit}>
             <ColumnsGridStyled columns={ticket?.reverseData?.trip_info && values.date ? 3 : 2}>
@@ -95,28 +104,40 @@ const Reservation = ({ ticket, closeModal }) => {
                   removeAsterisk
                 />
               )}
-              <Button variant="contained" color="primary" onClick={handleAddPassengers}>
-                {t('pages.tripSearch.addPassenger')}
-              </Button>
+              {!ticket?.seats_selection && (
+                <Button variant="contained" color="primary" onClick={handleAddPassengers}>
+                  {t('pages.tripSearch.addPassenger')}
+                </Button>
+              )}
             </ColumnsGridStyled>
-            <br />
-            <br />
-            <hr />
-            {passengers.map((item, index) => (
+            {values?.date && (
+              <Seats
+                initialSeats={ticket?.seats}
+                changeForm={form.change}
+                startDate={values.date}
+                reservation
+                valueDisabledSeats={values.disabledSeats}
+              />
+            )}
+            {(ticket.seats_selection ? values.disabledSeats : passengers)?.map((item, index) => (
               <div key={index}>
+                <br />
+                <br />
+                <hr />
                 <br />
                 <div
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
                   <div>
-                    {t('pages.tripSearch.passenger')} {index + 1} ({t('pages.tripSearch.price')}:{' '}
-                    {ticket.price} €)
+                    {t('pages.tripSearch.passenger')} {index + 1}{' '}
+                    {ticket.seats_selection && '| ' + t('pages.tripSearch.place') + ' ' + item} (
+                    {t('pages.tripSearch.price')}: {ticket.price} €)
                   </div>
                   {index + 1 !== 1 && (
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleDeletePassengers(index + 1, form)}
+                      onClick={handleDeletePassengers(item, index + 1, form, values)}
                       size={'small'}
                     >
                       {t('pages.tripSearch.deletePassenger')}
@@ -142,6 +163,7 @@ const Reservation = ({ ticket, closeModal }) => {
                     label={t('pages.tripSearch.birthDate')}
                     placeholder={' '}
                     type={'date'}
+                    max={moment().format(SEND_DATE_FORMAT)}
                     required
                     removeAsterisk
                   />
@@ -164,88 +186,92 @@ const Reservation = ({ ticket, closeModal }) => {
                 </ColumnsGrid>
               </div>
             ))}
-            <br />
-            <hr />
-            <br />
-            {token ? (
-              <ColumnsGrid columns={1}>
-                {/* <SelectField
+            {(!ticket.seats_selection || (ticket.seats_selection && values.disabledSeats)) && (
+              <>
+                <br />
+                <hr />
+                <br />
+                {token ? (
+                  <ColumnsGrid columns={1}>
+                    {/* <SelectField
                 name={'payment_place'}
                 label={t('pages.tripSearch.payment')}
                 options={paymentOptions}
                 required
                 removeAsterisk
               /> */}
-                <InputField
-                  name={'mobilePhoneNumber'}
-                  label={t('pages.tripSearch.passengerContactPhoneNumber')}
-                  required
-                  removeAsterisk
-                />
-              </ColumnsGrid>
-            ) : (
-              <>
-                <div>{t('pages.tripSearch.customer')}</div>
-                <br />
+                    <InputField
+                      name={'mobilePhoneNumber'}
+                      label={t('pages.tripSearch.passengerContactPhoneNumber')}
+                      required
+                      removeAsterisk
+                    />
+                  </ColumnsGrid>
+                ) : (
+                  <>
+                    <div>{t('pages.tripSearch.customer')}</div>
+                    <br />
 
-                <ColumnsGrid columns={3}>
-                  <SelectField
-                    name={'greeting'}
-                    label={t('pages.tripSearch.greeting')}
-                    options={greetingOptions}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'lastName'}
-                    label={t('pages.tripSearch.lastName')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'firstName'}
-                    label={t('pages.tripSearch.firstName')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'street'}
-                    label={t('pages.tripSearch.street')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'postalCode'}
-                    label={t('pages.tripSearch.postalCode')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'city'}
-                    label={t('pages.tripSearch.city')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'phoneNumber'}
-                    label={t('pages.tripSearch.phoneNumber')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'mobilePhoneNumber'}
-                    label={t('pages.tripSearch.mobilePhoneNumber')}
-                    required
-                    removeAsterisk
-                  />
-                  <InputField
-                    name={'email'}
-                    label={t('pages.tripSearch.email')}
-                    type={'email'}
-                    required
-                    removeAsterisk
-                  />
-                </ColumnsGrid>
+                    <ColumnsGrid columns={3}>
+                      <SelectField
+                        name={'greeting'}
+                        label={t('pages.tripSearch.greeting')}
+                        options={greetingOptions}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'lastName'}
+                        label={t('pages.tripSearch.lastName')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'firstName'}
+                        label={t('pages.tripSearch.firstName')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'street'}
+                        label={t('pages.tripSearch.street')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'postalCode'}
+                        label={t('pages.tripSearch.postalCode')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'city'}
+                        label={t('pages.tripSearch.city')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'phoneNumber'}
+                        label={t('pages.tripSearch.phoneNumber')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'mobilePhoneNumber'}
+                        label={t('pages.tripSearch.mobilePhoneNumber')}
+                        required
+                        removeAsterisk
+                      />
+                      <InputField
+                        name={'email'}
+                        label={t('pages.tripSearch.email')}
+                        type={'email'}
+                        required
+                        removeAsterisk
+                      />
+                    </ColumnsGrid>
+                  </>
+                )}
               </>
             )}
             <br />

@@ -19,6 +19,9 @@ import Passengers from 'pages/Passengers'
 import Locations from 'pages/Locations'
 import Agencies from 'pages/Agencies'
 import Users from 'pages/Users'
+import Routes from 'pages/Routes'
+import Discounts from 'pages/Discounts'
+import Baggage from 'pages/Baggage'
 
 const Router = () => {
   const token = useSelector(getCurrentUserTokenSelector)
@@ -52,6 +55,12 @@ const Router = () => {
       ]
     : []
 
+  const routes = chief ? [{ path: ROUTES.ROUTES_PAGE, element: <Routes /> }] : []
+
+  const discounts = chief ? [{ path: ROUTES.DISCOUNTS_PAGE, element: <Discounts /> }] : []
+
+  const baggage = chief ? [{ path: ROUTES.BAGGAGE_PAGE, element: <Baggage /> }] : []
+
   const router = useRoutes([
     { path: '*', element: <NotFoundPage /> },
     ...tripSearchForNotAuth,
@@ -70,7 +79,10 @@ const Router = () => {
         ...trips,
         ...passengers,
         ...locations,
-        ...agencies
+        ...agencies,
+        ...routes,
+        ...discounts,
+        ...baggage
       ]
     }
   ])

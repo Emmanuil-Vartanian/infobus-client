@@ -131,7 +131,7 @@ const Agencies = () => {
         content={<AgencyForm agency={agencyData.data} closeModal={handleClearAgencyData} />}
         open={agencyData.show}
         onClose={handleClearAgencyData}
-        title={agencyData.data ? t('pages.agencies.editAgency') : t('pages.agencies.addAgency')}
+        title={agencyData.data ? t('common.edit') : t('common.add')}
         maxWidthStyle={200}
       />
       <DeleteModal

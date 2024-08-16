@@ -1,11 +1,16 @@
 import { createReducer } from 'typesafe-actions'
-import { setTripsToStore } from '../actions'
+import { setDirectionsToStore, setTripsToStore } from '../actions'
+import { combineReducers } from 'redux'
 
-const initialState = {
+const tripsSearchInitialState = {
   data: null
 }
 
-const tripsSearchReducer = createReducer(initialState).handleAction(
+const directionsInitialState = {
+  data: null
+}
+
+const tripsSearchReducer = createReducer(tripsSearchInitialState).handleAction(
   setTripsToStore,
   (state, { payload }) => {
     return {
@@ -15,4 +20,19 @@ const tripsSearchReducer = createReducer(initialState).handleAction(
   }
 )
 
-export default tripsSearchReducer
+const directionsReducer = createReducer(directionsInitialState).handleAction(
+  setDirectionsToStore,
+  (state, { payload }) => {
+    return {
+      ...state,
+      data: [...payload]
+    }
+  }
+)
+
+const directionsCombineReducers = combineReducers({
+  directions: directionsReducer,
+  tripsSearch: tripsSearchReducer
+})
+
+export default directionsCombineReducers

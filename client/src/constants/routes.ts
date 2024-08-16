@@ -8,6 +8,9 @@ const PASSENGERS_PAGE = '/passengers'
 const LOCATIONS_PAGE = '/locations'
 const AGENCIES_PAGE = '/agencies'
 const USERS_PAGE = '/users' 
+const ROUTES_PAGE = '/routes'
+const DISCOUNTS_PAGE = '/discounts'
+const BAGGAGE_PAGE = '/baggage'
 
 export const ROUTES = {
   TRIP_SEARCH_PAGE,
@@ -19,5 +22,8 @@ export const ROUTES = {
   BOOKING_INVOICE,
   LOCATIONS_PAGE,
   AGENCIES_PAGE,
-  USERS_PAGE
+  USERS_PAGE,
+  ROUTES_PAGE,
+  DISCOUNTS_PAGE,
+  BAGGAGE_PAGE
 }

@@ -9,6 +9,10 @@ import LocationsSaga from 'pages/Locations/store/sagas'
 import AgenciesSaga from 'pages/Agencies/store/sagas'
 import UsersSaga from 'pages/Users/store/sagas'
 import CarriersSaga from 'pages/Carriers/store/sagas'
+import RoutesSaga from 'pages/Routes/store/sagas'
+import DiscountsSaga from 'pages/Discounts/store/sagas'
+import BaggageSaga from 'pages/Baggage/store/sagas'
+import TransportSaga from 'pages/Transport/store/sagas'
 
 export default function* rootSaga() {
   yield all([
@@ -20,6 +24,10 @@ export default function* rootSaga() {
     fork(PassengersSaga),
     fork(AgenciesSaga),
     fork(UsersSaga),
-    fork(CarriersSaga)
+    fork(CarriersSaga),
+    fork(RoutesSaga),
+    fork(DiscountsSaga),
+    fork(BaggageSaga),
+    fork(TransportSaga)
   ])
 }

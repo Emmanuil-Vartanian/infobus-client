@@ -173,7 +173,7 @@ const accessColumn = () => ({
   },
   cell: ({ getValue }) => (
     <div style={{ color: getValue() ? 'green' : 'red' }}>
-      {i18n.t(`pages.agencies.${getValue() ? 'active' : 'notActive'}`)}
+      {i18n.t(`common.${getValue() ? 'active' : 'notActive'}`)}
     </div>
   )
 })

@@ -81,7 +81,7 @@ const themeComponents = {
           lineHeight: '12px',
           fontSize: 12,
           letterSpacing: '0.4px',
-          maxWidth: 'calc(88% - 20px)',
+          maxWidth: 'calc(90% - 20px)',
           '&.Mui-focused': {
             color: '#63060a',
             '&.table-select-lable': {

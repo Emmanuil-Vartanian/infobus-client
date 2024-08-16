@@ -62,7 +62,7 @@ export const getDiscountsOptions = discounts => {
     return {
       id: index,
       text: `${item.name[i18n.language]} - ${item.value}%`,
-      value: item
+      value: item._id
     }
   })
 
@@ -114,6 +114,142 @@ export const getConsolidatorsOptions = data => {
     return { id: index, text: item.name, value: item._id }
   })
   options.unshift({ id: data.length, text: 'None', value: '' })
+
+  return options
+}
+
+export const getAccessOptions = data => {
+  const optionsData = data || ['active', 'notActive']
+
+  const options = optionsData.map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`common.${item}`),
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getUsersRoleOptions = data => {
+  const options = data.map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`roles.${item}`),
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getCountriesOptions = data => {
+  const options = data.map((item, index) => {
+    return {
+      id: index,
+      text: item.country[i18n.language],
+      value: item.country[i18n.language]
+    }
+  })
+
+  return options
+}
+
+export const getCitiesOptions = data => {
+  const options = data.map((item, index) => {
+    return {
+      id: index,
+      text: item.city[i18n.language],
+      value: item.city[i18n.language]
+    }
+  })
+
+  return options
+}
+
+export const getDiscountsTypeOptions = data => {
+  const optionsData = data || ['percent', 'fixed']
+
+  const options = optionsData.map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`pages.discounts.${item}`),
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getBaggageTypeOptions = data => {
+  const optionsData = data || ['weight', 'price']
+
+  const options = optionsData.map((item, index) => {
+    return {
+      id: index,
+      text: i18n.t(`pages.baggage.${item}`),
+      value: item
+    }
+  })
+
+  return options
+}
+
+export const getRoutesOptions = data => {
+  const options = data.map((item, index) => {
+    const route = item.points.map(({ city }) => city[i18n.language])
+
+    return { id: index, text: route.join(' - '), value: item._id }
+  })
+
+  return options
+}
+
+export const getTimeSlotsOptions = startTime => {
+  const [startHour, startMinute] = startTime?.split(':')?.map(Number) || [0, 0]
+
+  const times = []
+
+  for (let h = startHour; h < 24; h++) {
+    for (let m = startTime && h === startHour ? startMinute + 5 : 0; m < 60; m += 5) {
+      const hour = h.toString().padStart(2, '0')
+      const minute = m.toString().padStart(2, '0')
+      times.push(`${hour}:${minute}`)
+    }
+  }
+
+  const options = times.map((item, index) => {
+    return { id: index, text: item, value: item }
+  })
+
+  return options
+}
+
+export const getBaggageOptions = data => {
+  const options = data.map((item, index) => {
+    const name = item.name[i18n.language]
+
+    return { id: index, text: name, value: item._id }
+  })
+
+  return options
+}
+
+export const getCarrierAndTransportOptions = data => {
+  const options = data.map((item, index) => {
+    const name = `${item.carrier_name} (${item?.consolidator_name || ''})`
+
+    return { id: index, text: name, value: item._id }
+  })
+
+  return options
+}
+
+export const getLocationsAddressOptions = locations => {
+  const options = locations.map((item, index) => {
+    return { id: index, text: item.address[i18n.language], value: item._id }
+  })
 
   return options
 }

@@ -45,13 +45,17 @@ function setDataToFrontEnd(res) {
     departure: i?.departure,
     arrival: i?.arrival,
     points: i?.points,
-    // directions: i?.directions,
+    directions: i?.directions,
     total_duration: i?.total_duration,
+
+    invoice_text: i?.invoice_text,
+    ticket_text: i?.ticket_text,
 
     prices: i?.prices,
     discounts: i?.discounts,
     baggage: i?.baggage,
     transport: i?.transport,
+    seats: i?.seats,
     seats_selection: i?.seats_selection,
 
     active: i?.active,

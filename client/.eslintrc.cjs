@@ -40,7 +40,6 @@ module.exports = {
     'react/display-name': 'off',
     'react/jsx-curly-spacing': ['off'],
     'promise/no-promise-in-callback': 'off',
-    'react-hooks/exhaustive-deps': false,
     'max-len': [
       'warn',
       {

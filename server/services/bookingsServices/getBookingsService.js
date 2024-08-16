@@ -5,17 +5,45 @@ const getBookingsService = async (req) => {
 
   switch (req?.user?.role) {
     case "superadmin":
-      res = await Booking.aggregate([{ $sort: { createdAt: -1 } }]);
+      res = await Booking.aggregate([
+        { $sort: { createdAt: -1 } },
+        {
+          $lookup: {
+            from: "trips",
+            localField: "reverse_trip_id",
+            foreignField: "_id",
+            as: "trip_info",
+          },
+        },
+      ]);
       return setDataToFrontEnd(res);
 
     case "chief":
-      res = await Booking.aggregate([{ $sort: { createdAt: -1 } }]);
+      res = await Booking.aggregate([
+        { $sort: { createdAt: -1 } },
+        {
+          $lookup: {
+            from: "trips",
+            localField: "reverse_trip_id",
+            foreignField: "_id",
+            as: "trip_info",
+          },
+        },
+      ]);
       return setDataToFrontEnd(res);
 
     case "consolidator":
       res = await Booking.aggregate([
         { $match: { consolidator_id: req.user._id } },
         { $sort: { createdAt: 1 } },
+        {
+          $lookup: {
+            from: "trips",
+            localField: "reverse_trip_id",
+            foreignField: "_id",
+            as: "trip_info",
+          },
+        },
       ]);
       return setDataToFrontEnd(res);
 

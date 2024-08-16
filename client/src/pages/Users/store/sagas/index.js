@@ -2,8 +2,9 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { UsersActionTypes } from '../types'
 import { clearEffectLoading, setEffectLoading } from 'containers/App/store/actions'
 import { EFFECT_LOADING } from 'constants/effectLoading'
-import { setConsolidatorsToStore, setUsersToStore } from '../actions'
-import { getConsolidatorsAPI, getUsersAPI } from '../api'
+import { getUsers, setConsolidatorsToStore, setUsersToStore } from '../actions'
+import { changeUserAPI, deleteUserAPI, getConsolidatorsAPI, getUsersAPI } from '../api'
+import { jwtDecode } from 'jwt-decode'
 
 export function* getUsersSaga() {
   try {
@@ -39,9 +40,70 @@ export function* getConsolidatorsSaga() {
   }
 }
 
+export function* changeUserSaga(action) {
+  const { data, closeModal } = action.payload
+
+  try {
+    yield put(setEffectLoading(EFFECT_LOADING.CHANGE_USER))
+
+    const { pokemonInfo } = jwtDecode(data.user_c)
+
+    const sendData = [
+      {
+        active: data.active === 'active',
+        email: pokemonInfo.login,
+        password: data.password || pokemonInfo.password,
+        user_id: data._id
+      }
+    ]
+
+    const result = yield call(changeUserAPI, sendData)
+
+    if (result.status === 200) {
+      if (typeof closeModal === 'function') {
+        closeModal()
+      }
+      yield put(getUsers())
+      yield put(clearEffectLoading(EFFECT_LOADING.CHANGE_USER))
+    }
+  } catch (error) {
+    const { response } = error
+    console.error(UsersActionTypes.CHANGE_USER, response)
+    yield put(clearEffectLoading(EFFECT_LOADING.CHANGE_USER))
+  }
+}
+
+export function* deleteUserSaga(action) {
+  const { data, closeModal } = action.payload
+
+  try {
+    yield put(setEffectLoading(EFFECT_LOADING.DELETE))
+
+    const sendData = {
+      active: false
+    }
+
+    const result = yield call(deleteUserAPI, data._id, sendData)
+
+    if (result.status === 200) {
+      if (typeof closeModal === 'function') {
+        closeModal()
+      }
+      yield put(getUsers())
+      yield put(clearEffectLoading(EFFECT_LOADING.DELETE))
+    }
+  } catch (error) {
+    const { response } = error
+    console.error(UsersActionTypes.DELETE_USER, response)
+    yield put(clearEffectLoading(EFFECT_LOADING.DELETE))
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(UsersActionTypes.GET_USERS, getUsersSaga),
-    takeLatest(UsersActionTypes.GET_CONSOLIDATORS, getConsolidatorsSaga)
+    takeLatest(UsersActionTypes.GET_CONSOLIDATORS, getConsolidatorsSaga),
+    takeLatest(UsersActionTypes.CHANGE_USER, changeUserSaga),
+    takeLatest(UsersActionTypes.DELETE_USER, deleteUserSaga)
   ])
 }

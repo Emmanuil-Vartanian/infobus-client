@@ -1,6 +1,14 @@
 import { ApiClient } from 'services/apiClient'
 import { URL } from 'api'
 
+export const getDirectionsAPI = () => {
+  return ApiClient.get(URL.GET_DIRECTIONS)
+}
+
+export const changeDirectionsAPI = data => {
+  return ApiClient.post(URL.CHANGE_DIRECTIONS, data)
+}
+
 export const tripSearchAPI = (data, token) => {
   const url = token ? URL.TRIP_SEARCH : URL.TRIP_SEARCH_NOT_AUTH
   return ApiClient.post(url, data)

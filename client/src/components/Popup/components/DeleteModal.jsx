@@ -9,7 +9,7 @@ import LineLoader from 'components/LineLoader'
 import useLoadingEffect from 'services/hooks/useLoadingEffect'
 import { EFFECT_LOADING } from 'constants/effectLoading'
 
-const DeleteModal = ({ open, onClose, handleDelete }) => {
+const DeleteModal = ({ open, onClose, handleDelete, additionalData }) => {
   const { t } = useTranslation()
   const loading = useLoadingEffect(EFFECT_LOADING.DELETE)
 
@@ -19,15 +19,18 @@ const DeleteModal = ({ open, onClose, handleDelete }) => {
         loading ? (
           <LineLoader />
         ) : (
-          <ButtonBlock>
-            <Button onClick={handleDelete}>{t('common.yes')}</Button>
-            <Button onClick={onClose}>{t('common.no')}</Button>
-          </ButtonBlock>
+          <>
+            {additionalData}
+            <ButtonBlock>
+              <Button onClick={handleDelete}>{t('common.yes')}</Button>
+              <Button onClick={onClose}>{t('common.no')}</Button>
+            </ButtonBlock>
+          </>
         )
       }
       open={open}
       onClose={onClose}
-      title={t('common.delete')}
+      title={t('common.delete') + '?'}
       maxWidthStyle={100}
     />
   )
