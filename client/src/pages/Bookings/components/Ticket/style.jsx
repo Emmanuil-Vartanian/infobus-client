@@ -9,6 +9,8 @@ export const DownloadTicket = styled(Button)`
 export const TicketBackground = styled('div')`
   background-color: #eff1f4;
   padding: 20px;
+  overflow: auto;
+  max-height: calc(100% - 44px);
 `
 
 export const TicketData = styled('div')`
@@ -80,23 +82,23 @@ export const CheckTableBlock = styled('div')`
   min-height: 20px;
   padding: 4px 0px;
   border-top: 1px solid #a6acb1;
-  p:nth-of-type(1) {
+  > p:nth-of-type(1) {
     flex: 0 0 105px;
   }
-  p:nth-of-type(2) {
+  > p:nth-of-type(2) {
     flex: 0 0 108px;
   }
-  p:nth-of-type(3) {
+  > p:nth-of-type(3) {
     flex-grow: 1;
   }
-  p:nth-of-type(4) {
+  > p:nth-of-type(4) {
     flex: 0 0 110px;
   }
-  p:nth-of-type(5) {
+  > p:nth-of-type(5) {
     flex: 0 0 92px;
     text-align: end;
   }
-  p:nth-of-type(6) {
+  > p:nth-of-type(6) {
     flex: 0 0 92px;
     text-align: end;
   }
@@ -108,10 +110,11 @@ export const BusInfoBlock = styled('div')`
   gap: 32px;
   min-height: 20px;
   padding: 4px 0px;
-  border-top: 1px solid #a6acb1;
-  margin-bottom: 20px;
   span {
     font-weight: 500;
+  }
+  > p:nth-of-type(1) {
+    flex: 0 0 105px;
   }
 `
 
@@ -166,23 +169,135 @@ export const InvoiceText = styled('div')`
   margin-top: 20px;
 `
 
-export const FooterBlock = styled('div')`
+export const RowContainer = styled('div')`
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: auto;
-  padding: 4px 0px 20px;
-  border-top: 1px solid #a6acb1;
-  break-after: page;
-  > div {
+  align-items: center;
+  padding: 4px 0px;
+  gap: 16px;
+`
+
+export const Row5 = styled(RowContainer)`
+  margin-top: 16px;
+  color: #3b5ae7;
+  gap: 24px;
+
+  p:nth-of-type(1) {
     flex-grow: 1;
-    flex-basis: calc((100% - 20px * (3 - 1)) / 3);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    > p {
-      display: flex;
-      gap: 12px;
-    }
   }
+
+  p:nth-of-type(2) {
+    flex: 0 0 180px;
+  }
+
+  p:nth-of-type(3) {
+    flex: 0 0 150px;
+  }
+
+  p:nth-of-type(4) {
+    flex: 0 0 150px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  p:nth-of-type(5) {
+    flex: 0 0 64px;
+  }
+`
+
+export const Row6 = styled(RowContainer)`
+  gap: 24px;
+  color: red;
+
+  p:nth-last-of-type(2) {
+    flex: 0 0 120px;
+    text-align: end;
+    font-weight: 500;
+    margin-left: auto;
+  }
+  p:nth-last-of-type(1) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+`
+
+export const Row7 = styled(Row5)`
+  margin-top: 0;
+  color: red;
+`
+
+export const Row8 = styled(RowContainer)`
+  border-top: 1px solid #a6acb1;
+
+  p:nth-last-of-type(2) {
+    flex: 0 0 120px;
+    text-align: end;
+    font-weight: 500;
+    margin-left: auto;
+  }
+
+  p:nth-last-of-type(1) {
+    flex: 0 0 80px;
+    text-align: end;
+    font-weight: 500;
+  }
+`
+
+export const Row9 = styled(RowContainer)`
+  p:nth-of-type(1) {
+    flex: 0 0 168px;
+    text-align: end;
+  }
+  p:nth-of-type(2) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+  p:nth-last-of-type(2) {
+    flex: 0 0 120px;
+    text-align: end;
+    font-weight: 500;
+    margin-left: auto;
+  }
+  p:nth-last-of-type(1) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+`
+
+export const Row10 = styled(RowContainer)`
+  p:nth-of-type(1) {
+    flex: 0 0 168px;
+    text-align: end;
+  }
+  p:nth-of-type(2) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+  p:nth-last-of-type(2) {
+    flex: 0 0 120px;
+    text-align: end;
+    font-weight: 500;
+    margin-left: auto;
+  }
+  p:nth-last-of-type(1) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+`
+
+export const Row11 = styled(RowContainer)`
+  margin-top: 12px;
+  font-weight: 600;
+  p:nth-last-of-type(2) {
+    flex: 0 0 120px;
+    text-align: end;
+    margin-left: auto;
+  }
+  p:nth-last-of-type(1) {
+    flex: 0 0 80px;
+    text-align: end;
+  }
+`
+
+export const Row12 = styled(RowContainer)`
+  gap: 8px;
 `

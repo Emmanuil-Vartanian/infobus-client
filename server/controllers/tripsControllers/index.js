@@ -1,4 +1,5 @@
 const createTripController = require("./createTripController");
+const deleteTripByIdController = require("./deleteTripByIdController");
 const getClosestTripsController = require("./getClosestTripsController");
 const getTripByIdController = require("./getTripByIdController");
 const getTripsBySearchQueryController = require("./getTripsBySearchQueryController");
@@ -12,4 +13,5 @@ module.exports = {
   getTripByIdController,
   updateTripController,
   getClosestTripsController,
+  deleteTripByIdController,
 };

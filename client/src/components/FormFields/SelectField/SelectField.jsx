@@ -15,6 +15,7 @@ import {
 } from './style'
 import { FormControlStyled, ErrorMessage } from '../style'
 import { FieldWithIcon } from '../InputField/style'
+import { CheckboxStyled } from '../CheckboxField/style'
 
 const SelectField = props => {
   const {
@@ -34,6 +35,7 @@ const SelectField = props => {
     infoIconTitle,
     handleAfterClose,
     onFocus,
+    multiple = false,
     ...rest
   } = props
   const { t } = useTranslation()
@@ -42,6 +44,12 @@ const SelectField = props => {
 
   const handleChange = onChange => event => {
     let targetValue = event.target.value
+
+    if (targetValue.includes('all') && targetValue.length - 1 !== options.length) {
+      targetValue = options.map(o => o.value)
+    } else if (targetValue.includes('all') && targetValue.length - 1 === options.length) {
+      targetValue = []
+    }
 
     onChange(targetValue)
 
@@ -60,8 +68,13 @@ const SelectField = props => {
     }
   }
 
-  const renderValue = options => selected => {
-    return options.find(opt => opt.value === selected)?.text
+  const renderValue = (multiple, options) => selected => {
+    return multiple
+      ? options
+          .filter(opt => selected.includes(opt.value))
+          .map(filtered => filtered.text)
+          .join(', ')
+      : options.find(opt => opt.value === selected)?.text
   }
 
   const handleDescriptionClick = (id, event) => {
@@ -88,10 +101,15 @@ const SelectField = props => {
     setShrink(false)
   }
 
+  const getMultipleFiledValue = value => {
+    return [...value]
+  }
+
   return (
     <Field name={name} initialValue={initialValue} validate={validation}>
       {({ input, meta }) => {
-        const shrinkValue = !!placeholder || shrink || !!input.value
+        const propsBoolValue = multiple ? !!input.value.length : !!input.value
+        const shrinkValue = !!placeholder || shrink || propsBoolValue
         const fieldError = meta.error && meta.touched
 
         return (
@@ -119,12 +137,18 @@ const SelectField = props => {
                 id={name}
                 className={tableSelect && 'table-select'}
                 name={input.name}
-                value={options.length ? input.value : ''}
+                value={
+                  options.length
+                    ? multiple
+                      ? getMultipleFiledValue(input.value)
+                      : input.value
+                    : ''
+                }
                 onChange={handleChange(input.onChange)}
                 onClose={handleClose(input.onChange, input.value)}
                 onFocus={handleOpenShrink}
                 label={label}
-                multiple={false}
+                multiple={multiple}
                 displayEmpty={!!placeholder}
                 shrinkValue={shrinkValue}
                 onBlur={handleCloseShrink}
@@ -135,7 +159,7 @@ const SelectField = props => {
                     return <Placeholder>{placeholder}</Placeholder>
                   }
 
-                  return renderValue(options)(selected)
+                  return renderValue(multiple, options)(selected)
                 }}
                 required={required}
                 MenuProps={{
@@ -152,12 +176,25 @@ const SelectField = props => {
                 }}
                 {...rest}
               >
+                {multiple && !!options.length && (
+                  <MenuItemStyled key={`item-all`} value={'all'}>
+                    <CheckboxStyled
+                      color="primary"
+                      checked={input.value.length === options.length}
+                    />
+                    <span>{t('common.selectAll')}</span>
+                  </MenuItemStyled>
+                )}
                 {placeholder && (
                   <MenuItemStyled disabled value="">
                     <span>{placeholder}</span>
                   </MenuItemStyled>
                 )}
                 {options.map(option => {
+                  const checkedValue = Array.isArray(input.value)
+                    ? input.value.includes(option.value)
+                    : input.value === option.value
+
                   const expended = expandDescription && expandedDescriptionIds.includes(option.id)
 
                   return (
@@ -167,6 +204,7 @@ const SelectField = props => {
                       selected={false}
                       expanded={expended}
                     >
+                      {multiple && <CheckboxStyled color="primary" checked={checkedValue} />}
                       {option.description ? (
                         <Tooltip
                           placement={'bottom'}

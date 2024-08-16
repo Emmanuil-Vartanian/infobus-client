@@ -80,6 +80,7 @@ const InputField = props => {
                 error={error || fieldError}
                 InputLabelProps={{ ...inputLabelProps, ...inputLabelPropsShrink }}
                 InputProps={{
+                  inputProps: { min: rest.min, max: rest.max },
                   startAdornment: startAdornment,
                   endAdornment:
                     endAdornment ||

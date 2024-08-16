@@ -1,11 +1,29 @@
 export default {
   common: {
     today: 'Сегодня',
-    hi: 'Привет'
+    hi: 'Привет',
+    noRecords: 'Нет записей',
+    add: 'Добавить',
+    edit: 'Редактировать',
+    apply: 'Применить',
+    delete: 'Удалить',
+    yes: 'Да',
+    no: 'Нет',
+    active: 'Активный',
+    notActive: 'Не активный',
+    selectAll: 'Выбрать все'
   },
   sideBar: {
     booking: 'Бронирование',
     searchFlights: 'Поиск рейсов',
+    trips: 'Рейсы',
+    passengers: 'Список пассажиров',
+    locations: 'Локации',
+    agencies: 'Агентства',
+    users: 'Пользователи',
+    routes: 'Маршруты',
+    discounts: 'Скидки',
+    baggage: 'Багаж',
     logOut: 'Выход'
   },
   pages: {
@@ -61,7 +79,9 @@ export default {
       reservationAdded: 'Бронирование успешно добавлено',
       payment: 'Оплата',
       office: 'В бюро',
-      bus: 'В автобусе'
+      bus: 'В автобусе',
+      freeDate: 'Открытая дата',
+      place: 'Место'
     },
     booking: {
       createdAt: 'Дата заказа',
@@ -73,14 +93,240 @@ export default {
       id: 'Id',
       buch: 'Buch',
       status: 'Статус',
+      check: 'Счет',
       ticket: 'Билет',
       carrier: 'Перевозчик',
       statuses: {
-        new: 'Новый'
+        new: 'Новый',
+        paid: 'Оплачено',
+        confirmed: 'Подтверждено',
+        canceled: 'Отменено'
       },
       active: 'Активные',
-      archive: 'Архив'
+      archive: 'Архив',
+      all: 'Все',
+      payment: 'Оплата',
+      customer: 'Заказчик',
+      free: 'Открытая'
+    },
+    trip: {
+      licensePlate: 'Номерной знак',
+      color: 'Цвет',
+      phone: 'Телефон',
+      all: 'Все',
+      directions: 'Направления',
+      departure: 'Город отправления',
+      arrival: 'Город прибытия',
+      departureDays: 'Дни выезда',
+      time: 'Время',
+      arrivalDays: 'Дни прибытия',
+      trip: 'Рейс',
+      group: 'Группа',
+      status: 'Статус',
+      addTrip: 'Добавление рейса',
+      editTrip: 'Редактирование рейса',
+      addNewTrip:
+        'Создайте новый рейс выбрав маршрут, добавив расписание, информацию о ценах, скидках, правилах перевозки багажа и другую информацию.',
+      chooseRoute: '1. Выберите маршрут',
+      route: 'Маршрут',
+      schedule: '2. Добавьте расписание и график движения по маршруту :route',
+      scheduleDescription: 'Укажите дату первой и последней отправки по маршруту',
+      startDate: 'Дата начала отправки',
+      endDate: 'Дата окончания отправки',
+      departureDaysDescription: 'Укажите дни отправления по маршруту :route начиная с :date',
+      departureTimeDescription:
+        'Укажите время отправления из исходного места и прибытие в следующие места',
+      date: 'Дата',
+      addPrices: '4. Добавить цены на билеты',
+      addSeasonPrice: 'Добавить сезонную цену?',
+      seasonPrice: 'Укажите сезонную цену',
+      seasonPriceDate: 'Укажите дату начала и окончания сезона',
+      addDiscounts: '5. Добавьте скидки',
+      discounts: 'Скидки',
+      addBaggage: '6. Добавьте нормы багажа',
+      baggage: 'Нормы багажа',
+      chooseCarrier: '7. Выберите перевозчика и транспорт для этого рейса',
+      carrierAndTransport: 'Перевозчик и транспорт',
+      chooseSeats: '8. Билеты с выбором мест в автобусе?'
+    },
+    updateTrip: {
+      route: 'Маршрут',
+      schedule: 'Расписание',
+      seats: 'Места в автобусе',
+      prices: 'Цены',
+      discounts: 'Скидки',
+      baggage: 'Багаж',
+      invoiceAndTicketText: 'Текст счета и билета',
+      activate: 'Активировать',
+      applyChanges: 'Применить изменения для обратного рейса?',
+      invoiceText: 'Текст счета-фактуры',
+      ticketText: 'Текст билета',
+      activateBusTrip: 'Активировать автобусный рейс',
+      activateStop: 'Активировать остановки для высадки и посадки',
+      deactivateDirection: 'Направления, которые будут деактивированы',
+      seasonPriceDate: 'Даты начала и окончания сезона',
+      activateSeats: 'Активировать выбора мест',
+      dateRange: 'Диапазон дат',
+      date: 'Дата',
+      dateFrom: 'Дата от',
+      dateTo: 'Дата до',
+      free: 'Свободно',
+      booked: 'Забронировано',
+      disabled: 'Заблокировано',
+      enableRouteSettings: 'Включить настройки маршрута по дням недели?'
+    },
+    passenger: {
+      username: 'Фамилия Имя',
+      birthDay: 'Дата Рождения',
+      typ: 'Typ',
+      em: 'Em',
+      price: 'Цена',
+      bureau: 'В Бюро',
+      bus: 'В Автобусе',
+      place: 'Место',
+      passID: 'Pass ID',
+      departure: 'Город отправления',
+      arrival: 'Город прибытия',
+      returnDepartureDate: 'Дата выезда обратно',
+      buch: 'Buch',
+      sum: 'Сумма',
+      phone: 'Телефон',
+      firstName: 'Имя',
+      lastName: 'Фамилия',
+      trip: 'Рейс'
+    },
+    locations: {
+      id: 'Id',
+      country: 'Страна',
+      city: 'Город',
+      address: 'Адрес',
+      name: 'Название локации',
+      addLocation: 'Добавление локации',
+      editLocation: 'Редактирование локации'
+    },
+    agencies: {
+      id: 'Id',
+      name: 'Название агентства',
+      shortName: 'Короткое название',
+      taxNumber: 'Налоговый номер',
+      status: 'Статус',
+      owner: 'Владелец',
+      group: 'Группа',
+      pe: 'Турагентство',
+      ltd: 'Фирма',
+      postalCode: 'Почтовый индекс',
+      street: 'Улица',
+      city: 'Город',
+      tel: 'Телефон',
+      fax: 'Факс',
+      email: 'Email',
+      user: 'Пользователь',
+      password: 'Пароль',
+      access: 'Доступ',
+      commissionTab: 'Комиссия',
+      activeTab: 'Активные',
+      addAgency: 'Добавить агентство',
+      editAgency: 'Редактировать агентство',
+      form: {
+        1: {
+          title: '1. Укажите название агентства',
+          description: 'Краткое название агентства будет отображаться при поступлении заказа',
+          fullName: 'Полное название агентства',
+          shortName: 'Краткое название агентства'
+        },
+        2: {
+          title: '2. Укажите адрес агентства',
+          description: 'Эти данные будут отображаться в выставленных счетах и билетах'
+        },
+        3: {
+          title: '3. Укажите контактные данные агентства',
+          description: 'Эти данные будут отображаться в выставленных счетах и билетах'
+        },
+        4: {
+          title: '4. Укажите налоговый номер и владельца предприятия, агентства'
+        },
+        5: {
+          title: '5. Укажите форму предприятия',
+          enterpriseForm: 'Форма предприятия'
+        },
+        6: {
+          title: '6. Укажите email и пароль для входа в аккаунт',
+          description:
+            'Email будет использоваться для входа в аккаунт. Пароль должен состоять из 5-20 символов, содержать хотя бы один специальный символ и хотя бы одну цифру.'
+        }
+      }
+    },
+    users: {
+      id: 'Id',
+      role: 'Роль',
+      name: 'Имя',
+      user: 'Пользователь',
+      password: 'Пароль',
+      carrierOrAgent: 'Перевозчик / Агентство',
+      group: 'Группа',
+      access: 'Доступ',
+      newPassword: 'Новый пароль'
+    },
+    routes: {
+      id: 'Id',
+      route: 'Маршрут',
+      reverseRoute: 'Обратный маршрут',
+      addRoute: 'Добавление маршрута',
+      departurePoint: '1. Выберите место отправления',
+      arrivalPoint: '2. Выберите место прибытия',
+      stoppingPlaces: '3. Добавьте дополнительные места остановок',
+      departure: 'Город отправления',
+      arrival: 'Город прибытия',
+      addStop: 'Добавить остановку',
+      stop: 'Остановка'
+    },
+    discounts: {
+      id: 'Id',
+      discountName: 'Название скидки',
+      discountType: 'Тип скидки',
+      discountSize: 'Размер скидки',
+      currency: 'Валюта',
+      percent: 'Процент %',
+      fixed: 'Фиксированная скидка',
+      addDiscount: 'Добавление скидки',
+      editDiscount: 'Редактирование скидки'
+    },
+    baggage: {
+      id: 'Id',
+      name: 'Название нормы багажа',
+      type: 'Вид нормы багажа',
+      value: 'Значение нормы',
+      units: 'Единицы измерения',
+      weight: 'Вес',
+      price: 'Цена',
+      addBaggage: 'Добавление багажа',
+      editBaggage: 'Редактирование багажа'
     }
+  },
+  filterForTable: {
+    button: 'Применить фильтр',
+    clear: 'Очистить',
+    departure: 'Город отправления',
+    arrival: 'Город прибытия',
+    departureCountry: 'Страна отправления',
+    arrivalCountry: 'Страна прибытия',
+    createdAt: 'Дата заказа',
+    departureDate: 'Дата выезда',
+    returnDepartureDate: 'Дата выезда обратно',
+    status: 'Статус',
+    passengerTrip: 'Рейс',
+    passengerDepartureDate: 'Дата выезда',
+    locationCountry: 'Страна',
+    locationCity: 'Город',
+    agenciesName: 'Название агентства',
+    agenciesGroup: 'Группа',
+    usersRole: 'Роль',
+    usersGroup: 'Группа',
+    usersAccess: 'Доступ',
+    discountsType: 'Тип скидки',
+    baggageType: 'Вид нормы багажа',
+    carrierName: 'Название компании',
+    active: 'Статус'
   },
   days: {
     1: 'Пн',
@@ -90,5 +336,13 @@ export default {
     5: 'Пт',
     6: 'Сб',
     0: 'Вс'
+  },
+  roles: {
+    user: 'Пользователь',
+    consolidator: 'Консолидатор',
+    chief: 'Шеф',
+    dispatcher: 'Диспетчер',
+    carrier_manager: 'Перевозчик',
+    agency_manager: 'Агент'
   }
 }

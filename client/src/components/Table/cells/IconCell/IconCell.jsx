@@ -24,7 +24,7 @@ const IconCell = props => {
           <IconButton onClick={handleClick(onClick)}>{icon}</IconButton>
         </Tooltip>
       ))
-    : null
+    : '-'
 }
 
 export default IconCell

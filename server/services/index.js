@@ -50,6 +50,7 @@ const {
   getTripByIdService,
   updateTripService,
   getClosestTripsService,
+  deleteTripByIdService,
 } = require("./tripsServices");
 const {
   createBaggageService,
@@ -136,6 +137,7 @@ module.exports = {
   getTripByIdService,
   getClosestTripsService,
   updateTripService,
+  deleteTripByIdService,
   // transportsService
   createTransportService,
   getTransportsService,

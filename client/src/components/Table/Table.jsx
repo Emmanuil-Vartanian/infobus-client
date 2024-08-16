@@ -3,7 +3,8 @@ import {
   getCoreRowModel,
   useReactTable,
   getFilteredRowModel as filteredRowModel,
-  getExpandedRowModel
+  getExpandedRowModel,
+  getSortedRowModel
 } from '@tanstack/react-table'
 
 import TableHeader from './components/TableHeader'
@@ -17,6 +18,7 @@ const Table = ({
   emptyMessage,
   canExpand,
   renderSubComponent,
+  needRowTable = false,
   sortColumn = true
 }) => {
   const { getHeaderGroups, getRowModel } = useReactTable({
@@ -25,7 +27,8 @@ const Table = ({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: filteredRowModel(),
     getRowCanExpand: canExpand,
-    getExpandedRowModel: getExpandedRowModel()
+    getExpandedRowModel: getExpandedRowModel(),
+    getSortedRowModel: getSortedRowModel()
   })
 
   const handleOnClickRow = data => () => {
@@ -44,6 +47,7 @@ const Table = ({
             getRowModel={getRowModel}
             handleRowClick={handleOnClickRow}
             renderSubComponent={renderSubComponent}
+            needRowTable={needRowTable}
           />
         </MaUTableStyle>
       </div>

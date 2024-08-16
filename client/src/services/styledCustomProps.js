@@ -7,7 +7,8 @@ const styledCustomPropsNames = [
   'shrinkValue',
   'hoverRow',
   'onClickCell',
-  'textAlign'
+  'textAlign',
+  'flexDirection'
 ]
 
 export const styledCustomProps = {
